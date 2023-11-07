@@ -10,7 +10,7 @@ const DBCONFIG: DbConfig = {
     password: DATA.password,
     port: 3306
 }
-const openConnectionDB = async() => {
+export const openConnectionDB = async() => {
     
     try {
         let connection = await mysql.createConnection(DBCONFIG);
@@ -20,7 +20,7 @@ const openConnectionDB = async() => {
     }
 } 
 
- const closeConnectionDb= async(connection: mysql.Connection) => {
+export const closeConnectionDb= async(connection: mysql.Connection) => {
     
     try {      
         await connection.end();
@@ -28,4 +28,3 @@ const openConnectionDB = async() => {
         console.log(`Error closing the database connection: ${{message:(error as Error).message}}`)
     }
  }
-export {openConnectionDB,closeConnectionDb}
