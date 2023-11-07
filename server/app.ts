@@ -13,7 +13,7 @@ app.get('/', (_req: Request, res: Response) => {
   res.status(200).send('Bienvenido al servidor del Ropero Solidario!!!');
   res.end()
 })
-const server = app.listen(port, () => console.log(`Running on port http://localhost:${port}`));
+const server = app.listen(port, () => console.log(`Ejecutándose en el puerto http://localhost:${port}`));
 
 
 export {server, app};
