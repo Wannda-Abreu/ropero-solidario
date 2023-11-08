@@ -14,6 +14,10 @@ export const openConnectionDB = async() => {
     
     try {
         let connection = await mysql.createConnection(DBCONFIG);
+        if (typeof connection === 'object' && connection !== null && connection.constructor.name === 'Connection'){
+            throw new Error ('Failed to connect to the DataBase')
+        }
+        
         return connection;
     } catch (error:unknown) {
         console.log(`Error openning the database connection: ${{message:(error as Error).message}}`)
