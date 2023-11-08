@@ -15,5 +15,4 @@ app.get('/', (_req: Request, res: Response) => {
 })
 const server = app.listen(port, () => console.log(`Ejecutándose en el puerto http://localhost:${port}`));
 
-
-export {server, app};
+export { server, app };
