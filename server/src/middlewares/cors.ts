@@ -5,12 +5,12 @@ const ACCEPTED_ORIGINS = [
   'http://localhost:3000/',
   'http://localhost:5056/'
 ]
-const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) => cors({
-  origin: (origin: string, callback: (err: Error | null, origin?: null | Boolean | undefined) => void) => {
+export const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) => cors({
+  origin: (origin: string | undefined, callback: (err: Error | null, origin?: boolean |  undefined) => void) => {
 
-    if (!acceptedOrigins.includes(origin)) { return callback(null, true) }
+    if (!acceptedOrigins.includes(origin as string)) { return callback(null, true) }
     if (!origin) { return callback(null, true) }
 
-      return callback(new Error('No allowed by CORDS'))
+      return callback(new Error('Not allowed by CORS'))
   }
 })

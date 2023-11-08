@@ -7,7 +7,7 @@
     "build": "tsc",
     "test": "jest",
     "start": "tsc & node .",
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only ./app.ts"
   },
   "author": "",
   "license": "ISC",
