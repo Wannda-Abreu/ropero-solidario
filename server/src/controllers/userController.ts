@@ -17,8 +17,7 @@ const getUsers = async (_req:Request, res : Response): Promise<Response> =>{
 const getUser = async (req: Request, res: Response): Promise<Response> => {
     try {
         const userId = req.params.id;
-        const user: User = await UserModel.findById(userId);
-
+        const user = await UserModel.findById(userId);
         if(!user){return res.status(404).json({message:'User not found'})}
         return res.status(200).json(user)
     } catch (error : unknown) {
@@ -40,36 +39,36 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
 
 }
 
-const updateUser = async (req: Request, res: Response): Promise<Response> => {
-    try {
-        const userId = req.params.id;
-        const updatedUser = await UserModel.update(req.body, userId);
+// const updateUser = async (req: Request, res: Response): Promise<Response> => {
+//     try {
+//         const userId = req.params.id;
+//         const updatedUser = await UserModel.update(req.body, userId);
 
-        if(!updatedUser){return res.status(400).json({message:'Required User Data'})}
-        return res.status(200).json({messge:'The user has been updated cuccesfully!'})
+//         if(!updatedUser){return res.status(400).json({message:'Required User Data'})}
+//         return res.status(200).json({messge:'The user has been updated cuccesfully!'})
 
-    } catch (error : unknown) {
-        return res.json({message:(error as Error).message})
-    }
-}
+//     } catch (error : unknown) {
+//         return res.json({message:(error as Error).message})
+//     }
+// }
 
-const deleteUserById = async (req: Request, res: Response): Promise<Response> => {
-    try {
-        const userId = req.params.id;
-        const eliminatedUser = await UserModel.eliminateByID(userId); 
+// const deleteUserById = async (req: Request, res: Response): Promise<Response> => {
+//     try {
+//         const userId = req.params.id;
+//         const eliminatedUser = await UserModel.eliminateByID(userId); 
 
-        if(!eliminatedUser){return res.status(404).json({message:'User Not Found'})}
-        return res.json({message:'The User has been Eliminated!'})
+//         if(!eliminatedUser){return res.status(404).json({message:'User Not Found'})}
+//         return res.json({message:'The User has been Eliminated!'})
 
-    } catch (error: unknown) {
-        return res.status(500).json({message:(error as Error).message})       
-    }
-}
-
-
+//     } catch (error: unknown) {
+//         return res.status(500).json({message:(error as Error).message})       
+//     }
+// }
 
 
 
 
-// , getUser, createUser, updateUser, deleteUserById
-export {getUsers}
+
+// createUser, updateUser, deleteUserById
+
+export {getUsers, getUser, }
