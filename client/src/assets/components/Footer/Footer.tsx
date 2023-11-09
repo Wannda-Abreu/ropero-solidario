@@ -1,4 +1,4 @@
-import logotype from "../Logos/white-logo.png";
+import logotype from "../../Logos/white-logo.png";
 import "./Footer.css";
 
 function Footer() {
@@ -6,8 +6,8 @@ function Footer() {
     <main>
       <section aria-label="Footer" className="banner">
         <div className="footer-content">
-        <h7> Ropero Solidario </h7>
-        <h7>Fundación Instituto San José Hermanos de San Juan de Dios </h7>
+        <h6> Ropero Solidario </h6>
+        <h6>Fundación Instituto San José Hermanos de San Juan de Dios </h6>
           <img
             aria-label="logotype"
             className="footer-logo"
