@@ -1,0 +1,92 @@
+
+.calendar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly; 
+   
+  }
+.rbc-calendar {
+    width: 60%; 
+  }
+  
+  .rbc-row.rbc-month-header{
+    background-color: #DC291E;
+    text-align: center;
+    color: white;
+    border-left: none ;
+    border-right: none ;
+  }
+
+  .rbc-month-view {
+    margin: auto;
+    background-color: #f8f9fa;
+    display: grid;
+    grid-template-rows: 5vh auto; 
+    gap: 3px; 
+  }
+
+  .rbc-row-bg{
+    display: none;
+  }
+  
+ 
+  .custom-date-header {
+    color: #000;
+    font-size: clamp(2vh, 1rem, 3vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh; 
+    border-left: 1px solid grey;
+    border-right: 1px solid grey ;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+  }
+  
+
+  .rbc-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 3px;
+  }
+
+.custom-toolbar{
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 2.5vh;
+    margin-bottom: 10px;
+}
+
+.selected-slot-hours {
+    width: 20%; 
+    color: #000;
+    margin-top: 10px;
+  }
+
+.slot-hours-button{
+    border: none;
+    width: 20vw;
+    margin-bottom: 5px;
+}
+
+.custom-toolbar button{
+    border: none;
+    background-color: #DC291E;
+}
+
+.actionImg{
+    height: 5vh;
+}
+hidden-day{
+    background-color: green;
+}
+
+
+@media (min-width: 1500px){
+    .custom-date-header{
+        height: 13vh;
+    }
+    .rbc-month-view{
+        width: 40vw;
+    }
+  }

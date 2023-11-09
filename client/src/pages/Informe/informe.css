@@ -1,0 +1,40 @@
+/* Informe.css */
+.informe-form {
+    display: flex;
+    margin-top: 5vh;
+    justify-content: center;
+    background-color: #f3f3f3;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inputField input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #FBEAE8; 
+    box-shadow: 0 2px 2px #EB8983; 
+  }
+  
+  .reserve-button {
+    background-color: #DC291E; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.adminButton{
+    background-color: #DC291E;
+    border: none;
+    padding: 1%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+
+
