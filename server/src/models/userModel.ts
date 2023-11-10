@@ -2,6 +2,7 @@ import { openConnectionDB, closeConnectionDB } from "../config/dbRoperoSolidario
 import User from "../types/userTypes";
 import { DBCONFIG } from "../config/dbConfig";
 import MOCKDBCONFIG from '../../tests/mocks/dbConfig.mock';
+import db from "../config/dbConfig.sequelize";
 
 
 class UserModel  {

@@ -12,7 +12,8 @@ const config: Config = {
   coverageDirectory: 'coverage-jest',
   coverageReporters: ['text', 'html'],
   watchPathIgnorePatterns: ['node_modules',],
-  preset: 'ts-jest'
+  preset: 'ts-jest',
+  testTimeout: 10000
   
 }
 

@@ -34,11 +34,11 @@ describe("CRUD Users Test",() =>{
             expect(response.body).toBeInstanceOf(Object);
                  
         })
-        afterAll(async()=> {
-            const realConnection = await connection; 
-            closeConnectionDB(realConnection);
+        // afterAll(async()=> {
+        //     const realConnection = await connection; 
+        //     closeConnectionDB(realConnection);
                
-        })
+        // })
     })
     describe("GET /Users by ID", () =>{
        
@@ -63,13 +63,32 @@ describe("CRUD Users Test",() =>{
         
         
     })
-    afterAll(async()=> {
+    // afterAll(async()=> {
           
-        server.close();
-        const realConnection = await connection; 
-        closeConnectionDB(realConnection);
+    //     server.close();
+    //     const realConnection = await connection; 
+    //     closeConnectionDB(realConnection);
            
-    })
+    // })
+    afterAll(async () => {
+        try {
+            if (connection) {
+                const realConnection = await connection;
+                await closeConnectionDB(realConnection);
+            }
+            
+        } catch (error: unknown) {
+            console.error(`Error in afterAll: ${(error as Error).message}`);
+        }
+        server.close();
+    });
+    
+    
+    
+    
+    
+    
+    
           
                
     // })
