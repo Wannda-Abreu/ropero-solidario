@@ -1,5 +1,5 @@
-import DbConfig from '../src/types/dbConfig';
-import DATA from '../src/config/dbData';
+import DbConfig from '../../src/types/dbConfig';
+import DATA from '../../src/config/dbData';
 
 
 const MOCKDBCONFIG: DbConfig = {

@@ -14,3 +14,5 @@ const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) => cors({
     }
   }
 });
+
+export default corsMiddleware;

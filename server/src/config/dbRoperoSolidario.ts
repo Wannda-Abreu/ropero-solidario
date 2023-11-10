@@ -1,28 +1,18 @@
 import mysql,{Connection} from 'mysql2/promise';
-import DATA from './db-data';
 import DbConfig from '../types/dbConfig';
 
 
-const DBCONFIG: DbConfig = {
-    host:'localhost',
-    database: DATA.database,
-    user: 'root',
-    password: DATA.password,
-    port: 3306
-}
-export const openConnectionDB = async() => {
-    
+
+export const openConnectionDB = async (config: DbConfig): Promise<Connection> => {
     try {
-        let connection = await mysql.createConnection(DBCONFIG);
-        if (typeof connection === 'object' && connection !== null && connection.constructor.name === 'Connection'){
-            throw new Error ('Failed to connect to the DataBase')
-        }
-        
-        return connection;
-    } catch (error:unknown) {
-        console.log(`Error openning the database connection: ${{message:(error as Error).message}}`)
+      const connection = await mysql.createConnection(config);
+      return connection; 
+    } catch (error: unknown) {
+      console.log(`Error opening the database connection: ${{ message: (error as Error).message }}`);
+      throw error;
     }
-} 
+  }
+
 
 export const closeConnectionDb= async(connection: mysql.Connection) => {
     

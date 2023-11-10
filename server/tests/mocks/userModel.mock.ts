@@ -1,11 +1,10 @@
-import { openConnectionDB, closeConnectionDb } from "../config/dbRoperoSolidario";
-import User from "../types/userTypes";
-import { DBCONFIG } from "../config/dbConfig";
-import MOCKDBCONFIG from '../../tests/mocks/dbConfig.mock';
+import { openConnectionDB, closeConnectionDb } from "../../src/config/dbRoperoSolidario";
+import User from "../../src/types/userTypes";
+import MOCKDBCONFIG from "./dbConfig.mock";
 
-const openConnection =  openConnectionDB(DBCONFIG);
+const openConnection = openConnectionDB(MOCKDBCONFIG);
 
-class UserModel  {
+class UserModelMock  {
     static async findAll(): Promise<User[] | null>{
         let connection = await openConnection;
         if(!connection){throw new Error ('Failed to connect to the DataBase')}
@@ -22,6 +21,7 @@ class UserModel  {
         return (user as User[]).at(0) || null;
     }
  
+ 
 
 }
-export default UserModel;
+export default UserModelMock;
