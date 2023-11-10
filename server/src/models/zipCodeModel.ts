@@ -1,6 +1,5 @@
 // import { openConnectionDB, closeConnectionDB } from "../config/dbRoperoSolidario";
 import ZipCode from "../types/zipCodeTypes";
-import { DBCONFIG } from "../config/dbConfig";
 import db from "../config/dbConfig.sequelize";
 
 

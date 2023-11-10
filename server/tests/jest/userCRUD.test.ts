@@ -1,7 +1,6 @@
 import request from 'supertest';
 import { server, app} from '../../app';
 import User from '../../src/types/userTypes';
-import { DBCONFIG } from '../../src/config/dbConfig';
 import db from '../../src/config/dbConfig.sequelize';
 
 describe("CRUD Users Test",() =>{
