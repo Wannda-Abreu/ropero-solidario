@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { server, app} from '../../app';
 import MOCKDBCONFIG from '../mocks/dbConfig.mock'; 
-import { openConnectionDB, closeConnectionDb } from '../../src/config/dbRoperoSolidario';
+import { openConnectionDB, closeConnectionDB } from '../../src/config/dbRoperoSolidario';
 import UserModelMock from '../mocks/userModel.mock';
 import mysql,{Connection} from 'mysql2/promise';
 import User from '../../src/types/userTypes';
@@ -11,6 +11,7 @@ describe("CRUD Users Test",() =>{
             
     let connection: Promise<Connection>;
     let response: request.Response;
+    connection=  openConnectionDB(DBCONFIG);
 
     describe("GET /Users", () =>{
        
@@ -18,8 +19,8 @@ describe("CRUD Users Test",() =>{
            
         beforeEach(async() =>{
            
-            connection=  openConnectionDB(DBCONFIG);
-            response = await request(app).get('/user').send();
+            
+            response = await request(app).get('/users').send();
                 
         })
         test('Should return a response with status 200 and type json, when I send a Get request', async() => {
@@ -33,15 +34,20 @@ describe("CRUD Users Test",() =>{
             expect(response.body).toBeInstanceOf(Object);
                  
         })
+        afterAll(async()=> {
+            const realConnection = await connection; 
+            closeConnectionDB(realConnection);
+               
+        })
     })
     describe("GET /Users by ID", () =>{
        
-        
+        connection=  openConnectionDB(DBCONFIG);
            
         beforeEach(async() =>{
            
-            connection=  openConnectionDB(DBCONFIG);
-            response = await request(app).get('/user/5d0d9dd7-7e8b-11ee-9707-a85e45c11908').send();
+            
+            response = await request(app).get('/users/88191578-7e8b-11ee-9707-a85e45c11908').send();
                 
         })
         test('Should return a response with status 200 and type json, when I send a Get by ID request', async() => {
@@ -54,6 +60,15 @@ describe("CRUD Users Test",() =>{
             expect(response.body).toBeInstanceOf(Object);
                  
         })
+        
+        
+    })
+    afterAll(async()=> {
+          
+        server.close();
+        const realConnection = await connection; 
+        closeConnectionDB(realConnection);
+           
     })
           
                
@@ -95,11 +110,6 @@ describe("CRUD Users Test",() =>{
     //        }) 
    
        
-        afterAll(async()=> {
-        server.close();
-        const realConnection = await connection; 
-        closeConnectionDb(realConnection);
-           
-    })
+      
    
    })

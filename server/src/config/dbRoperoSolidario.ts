@@ -14,7 +14,7 @@ export const openConnectionDB = async (config: DbConfig): Promise<Connection> =>
   }
 
 
-export const closeConnectionDb= async(connection: mysql.Connection) => {
+export const closeConnectionDB= async(connection: mysql.Connection) => {
     
     try {      
         await connection.end();
