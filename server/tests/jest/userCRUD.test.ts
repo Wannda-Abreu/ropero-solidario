@@ -1,17 +1,12 @@
 import request from 'supertest';
 import { server, app} from '../../app';
-import MOCKDBCONFIG from '../mocks/dbConfig.mock'; 
-import { openConnectionDB, closeConnectionDB } from '../../src/config/dbRoperoSolidario';
-import UserModelMock from '../mocks/userModel.mock';
-import mysql,{Connection} from 'mysql2/promise';
 import User from '../../src/types/userTypes';
 import { DBCONFIG } from '../../src/config/dbConfig';
+import db from '../../src/config/dbConfig.sequelize';
 
 describe("CRUD Users Test",() =>{
             
-    let connection: Promise<Connection>;
     let response: request.Response;
-    connection=  openConnectionDB(DBCONFIG);
 
     describe("GET /Users", () =>{
        
@@ -42,7 +37,6 @@ describe("CRUD Users Test",() =>{
     })
     describe("GET /Users by ID", () =>{
        
-        connection=  openConnectionDB(DBCONFIG);
            
         beforeEach(async() =>{
            
@@ -71,16 +65,8 @@ describe("CRUD Users Test",() =>{
            
     // })
     afterAll(async () => {
-        try {
-            if (connection) {
-                const realConnection = await connection;
-                await closeConnectionDB(realConnection);
-            }
-            
-        } catch (error: unknown) {
-            console.error(`Error in afterAll: ${(error as Error).message}`);
-        }
         server.close();
+        db.close();
     });
     
     
