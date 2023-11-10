@@ -3,6 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly; 
+    margin-top: 25vh;
+    margin-bottom: 25vh;
    
   }
 .rbc-calendar {

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import logotype from "../../Logos/white-logo.png";
-import loginIcon from "../../Icons/login-icon.png";
+import logotype from "../../assets/Logos/white-logo.png";
+import loginIcon from "../../assets/Icons/login-icon.png";
 import "./Navbar.css";
 
 function Header() {

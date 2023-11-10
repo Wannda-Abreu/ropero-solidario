@@ -1,4 +1,4 @@
-import logotype from "../../Logos/white-logo.png";
+import logotype from "../../assets/Logos/white-logo.png";
 import "./Footer.css";
 
 function Footer() {

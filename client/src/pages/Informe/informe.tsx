@@ -18,7 +18,7 @@ const Informe: React.FC = () => {
         }
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className='report-container'>
             <Container   >
                 <Form.Group>
                     <InputField
