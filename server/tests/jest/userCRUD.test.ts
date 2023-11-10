@@ -47,7 +47,7 @@ describe("CRUD Users Test",() =>{
         beforeEach(async() =>{
            
             
-            response = await request(app).get('/users/88191578-7e8b-11ee-9707-a85e45c11908').send();
+            response = await request(app).get('/users/62cdf82e-7fd2-11ee-aca4-a85e45c11908').send();
                 
         })
         test('Should return a response with status 200 and type json, when I send a Get by ID request', async() => {
