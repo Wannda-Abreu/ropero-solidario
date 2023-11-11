@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { server, app} from '../../app';
+import UserModel from '../../src/models/userModel';
 import User from '../../src/types/userTypes';
 import db from '../../src/config/dbConfig.sequelize';
 
@@ -28,11 +29,6 @@ describe("CRUD Users Test",() =>{
             expect(response.body).toBeInstanceOf(Object);
                  
         })
-        // afterAll(async()=> {
-        //     const realConnection = await connection; 
-        //     closeConnectionDB(realConnection);
-               
-        // })
     })
     describe("GET /Users by ID", () =>{
        
@@ -56,64 +52,47 @@ describe("CRUD Users Test",() =>{
         
         
     })
-    // afterAll(async()=> {
-          
-    //     server.close();
-    //     const realConnection = await connection; 
-    //     closeConnectionDB(realConnection);
-           
-    // })
     afterAll(async () => {
         server.close();
         db.close();
+    });           
+    })
+    describe('POST /users', () => {
+    
+        const newUser = {  
+            user_name: "test",
+            surname: "test",
+            user_password: "test",
+            nationality: "test",
+            family_members_id: null,
+            zip_code_id: null,
+            reference_center_id: null
+            
+        }
+    
+        const wrongUser = {
+            wrong_field: 2.75,
+            wrong_field2: "pesa"
+        }
+    
+        test('Should return a response with status 200 and type json when a correct user is added', async () => {
+            const response = await request(app).post('/users').send(newUser);
+            expect(response.status).toBe(201);
+            expect(response.headers['content-type']).toContain('json');
+        });
+    
+        test('Should return a message user created successfully', async () => {
+            const response = await request(app).post('/users').send(newUser);
+            expect(response.body.message).toContain("The User has been created successfully!");
+        });
+    
+        test('Should return a message insertion error if post wrong user', async () => {
+            const response = await request(app).post('/users').send(wrongUser);
+            expect(response.status).toBe(400);
+            expect(response.body.message).toContain("Invalid data. All fields are required.");
+        });
+    
+        // afterAll(async () => {
+        //     await UserModel.eliminateByName('test');
+        // });
     });
-    
-    
-    
-    
-    
-    
-    
-          
-               
-    // })
-       
-    //     describe('POST /products',() =>{ 
-    
-    //        const newProduct = {
-    //            product_name: "test",
-    //            product_description: "test",
-    //            price: 2,
-    //            stock: 1
-    //        }
-   
-    //        const wrongProduct = {
-    //            wrong_field: 2.75,
-    //            wrong_field2: "pesa"
-    //        }
-   
-    //        test('Should return a response with status 200 and type json when a correct product is Added', async () =>{
-    //            const response = await request(app).post('/products').send(newProduct)
-    //            expect(response.status).toBe(201)
-    //            expect(response.headers['content-type']).toContain('json')
-    //        });
-   
-    //        test('Should return a message product created successfully', async () =>{
-    //            const response = await request(app).post('/products').send(newProduct)
-    //            expect(response.body.message).toContain("The Product has been created successfully")
-    //        })
-   
-    //        test('Should return a message insertion error If post wrong product ', async () =>{
-    //            const response = await request(app).post('/products').send(wrongProduct)
-    //            expect(response.status).toBe(400);
-    //            expect(response.body.message).toContain("Invalid data. All fields are required.")
-    //        })
-   
-    //        afterAll(async () => {
-    //            await UserModelMock.eliminateByName('test');
-    //        }) 
-   
-       
-      
-   
-   })

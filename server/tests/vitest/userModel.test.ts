@@ -8,7 +8,7 @@ describe('Testing the user Model', () => {
       expect(UserModel.findAll()).instanceOf(Promise<Array<User>>)
     }),
     test('UserModel.findById should return a  Users Object', () => {
-      expect(UserModel.findById('eed6df98-7e85-11ee-9707-a85e45c11908')).instanceOf(Promise<User>)
+      expect(UserModel.findById('62cdf82e-7fd2-11ee-aca4-a85e45c11908')).instanceOf(Promise<User>)
     })
 })
 
