@@ -1,17 +1,24 @@
 import Alert from 'react-bootstrap/Alert';
-import "./alert.css"
+import "./alert.css";
 
-function AlertComponent() {
+interface AlertComponentProps {
+  heading: string;
+  message: string;
+  additionalMessage?: string;
+}
+
+function AlertComponent(props: AlertComponentProps) {
+  const { heading, message, additionalMessage } = props;
+
   return (
-    <Alert variant="success" className='alert'>
-      <Alert.Heading><h5>¡Cita Confirmada!</h5> </Alert.Heading>
+    <Alert className='alert'>
+      <Alert.Heading><h5>{heading}</h5> </Alert.Heading>
       <p>
-      ¡Tu cita está confirmada! En caso de que no puedas asistir, por favor 
-      contáctanos para reprogramar o cancelar. 
+        {message}
       </p>
       <hr />
-      <p className="mb-0">
-       Lorem ipsum dolor sit amet, consectetur adipiscing ipsu
+      <p className="mb-5">
+        {additionalMessage}
       </p>
     </Alert>
   );

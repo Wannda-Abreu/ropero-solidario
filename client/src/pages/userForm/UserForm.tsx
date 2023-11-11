@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import InputField from '../../components/atoms/inputFieldProps';
 import { Container, Form, Button} from 'react-bootstrap';
 import ClickCounter from '../../components/Counter/counter';
-import "./informe.css"
-const Informe: React.FC = () => {
+import "./UserForm.css"
+const UserForm: React.FC = () => {
     
     const [user_name, setUserName] = useState('');
   const [user_lastname, setUserlastname] = useState('');
@@ -65,4 +65,4 @@ const Informe: React.FC = () => {
 
 };
 
-export default Informe
+export default UserForm;

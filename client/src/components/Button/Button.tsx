@@ -1,4 +1,4 @@
-import './Button.css';
+import "./Button.css";
 
 interface ButtonProps {
   text: string;
@@ -13,4 +13,3 @@ function Button({ text }: ButtonProps) {
 }
 
 export default Button;
-
