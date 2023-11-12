@@ -12,14 +12,13 @@ function CarouselComponent() {
   return (
     <Carousel interval={3000} className="carousel">
       {carouselImages.map((image, index) => (
-        <Carousel.Item key={index} style={{ color: "black" }}>
+        <Carousel.Item key={index} >
           <img
             src={image}
             className="img-fluid"
             alt="Carousel image"
             width="100%"
           />
-          <Carousel.Caption className="d-flex justify-content-end"></Carousel.Caption>
         </Carousel.Item>
       ))}
     </Carousel>
