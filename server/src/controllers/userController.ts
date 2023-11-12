@@ -44,11 +44,14 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
 
 const updateUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const userId = req.params.id;
-        const updatedUser = await UserModel.update(req.body, userId);
+        const {user_name, surname, user_password, nationality}= req.body;
+        if(!user_name||!surname||!user_password||!nationality){
+            return res.status(400).json({ message: 'Invalid data. All fields are required.'});
+        }
 
-        if(!updatedUser){return res.status(400).json({message:'Required User Data'})}
-        return res.status(200).json({messge:'The user has been updated successfully!'})
+        const userId = req.params.id;
+        await UserModel.update(req.body, userId);
+        return res.status(200).json({message:'The user has been updated successfully!'})
 
     } catch (error : unknown) {
         return res.json({message:(error as Error).message})
@@ -69,9 +72,5 @@ const deleteUserById = async (req: Request, res: Response): Promise<Response> =>
 }
 
 
-
-
-
-//  
 
 export {getUsers, getUser, createUser, updateUser, deleteUserById}

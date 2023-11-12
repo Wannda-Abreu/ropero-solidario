@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {getUsers, getUser, createUser, updateUser,deleteUserById} from '../controllers/userController'
 
 
