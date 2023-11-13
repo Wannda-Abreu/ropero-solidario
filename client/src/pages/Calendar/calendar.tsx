@@ -44,10 +44,6 @@ const MyCalendar: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>('');
 
-  const calendarData= {
-    events: [{ Date: selectedDate.format('D') , Month: selectedDate.format('MMMM'), }],
-  }
-
   const handleSelectEvent = (event: { start: Date; end: Date }) => {
     setSelectedEvent(event.start);
     const selectedDate = moment(event.start);
