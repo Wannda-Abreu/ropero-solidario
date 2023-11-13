@@ -3,6 +3,7 @@ import Button from "../../components/Button/Button.tsx";
 import Image from "react-bootstrap/Image";
 import new_user_image from "../../assets/Images/new-user-image.png";
 import "./newUser.css"
+import { Link } from "react-router-dom";
 
 function NewUser() {
   return (
@@ -20,7 +21,9 @@ function NewUser() {
                 Tras completar el formulario, contáctanos por WhatsApp para más detalles. Agradecemos tu colaboración y estamos comprometidos a brindarte el mejor apoyo. ¡Esperamos tu visita!
               </p>
               <div className="card-button d-flex justify-content-center">
+              <Link to="/">
                 <Button text="Volver a la página principal" />
+              </Link>
               </div>
             </Card.Text>
           </div>

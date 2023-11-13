@@ -39,9 +39,7 @@ function Header() {
         <ul className={`mobile-dropdown ${showDropdown ? "show" : ""}`}>
           <li>
           <Link
-            to="https://fundacioninstitutosanjose.com/ropero-solidario/"
-            target="_blank"
-            rel="noopener noreferrer"
+            to="/"
             className="navbar-li"
             aria-label="home"
           >
@@ -73,9 +71,7 @@ function Header() {
       <main className="links-container">
         <ul className="ul-container">
           <Link
-            to="https://fundacioninstitutosanjose.com/ropero-solidario/"
-            target="_blank"
-            rel="noopener noreferrer"
+            to="/"
             className="navbar-li"
             aria-label="home"
           >

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputField from '../../components/atoms/inputFieldProps';
 import { Container, Row, Form, Button, Col, Image } from 'react-bootstrap';
 import logotype from "../../assets/Logos/logotype.png";
-import './LoginForm.css'; // Importa tu archivo de estilos CSS
+import './LoginForm.css'; 
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');

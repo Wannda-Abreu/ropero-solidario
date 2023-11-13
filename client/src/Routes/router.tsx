@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./root";
 import LoginForm from "../pages/register/Login";
-import MyCalendar from "../pages/Calendar/calendar";
+import MyCalendar from "../pages/calendar/calendar";
 import Form from "../pages/userForm/UserForm";
 import NewUser from "../pages/newUser/newUser";
-import AppoinmentConfirmation from "../pages/AppoinmentConfirmation/ApponinmentConfirmation"
+import AppoinmentConfirmation from "../pages/appoinmentConfirmation/apponinmentConfirmation";
+import Home from "../pages/home/home";
 
 
 
@@ -15,6 +16,10 @@ const router =  createBrowserRouter ([
         children: [
             {
                 path: "/",
+                element: <Home/>
+            }, 
+            {
+                path: "/form",
                 element: <Form />
             }, 
             {
