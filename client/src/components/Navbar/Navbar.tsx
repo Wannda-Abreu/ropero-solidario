@@ -2,6 +2,7 @@ import { useState } from "react";
 import logotype from "../../assets/Logos/white-logo.png";
 import loginIcon from "../../assets/Icons/login-icon.png";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -12,14 +13,14 @@ function Header() {
 
   return (
     <nav aria-label="Navbar" className="navbar-container">
-      <a href="/">
+      <Link to="/">
         <img
           src={logotype}
           aria-label="logotype"
           className="logotype-img"
           alt="Image of logotype"
         />
-      </a>
+      </Link>
       <div className="mobile-menu">
         <button
           onClick={toggleDropdown}
@@ -37,44 +38,57 @@ function Header() {
         </button>
         <ul className={`mobile-dropdown ${showDropdown ? "show" : ""}`}>
           <li>
-            <a href="/" aria-label="home">
-              Ropero solidario
-            </a>
+          <Link
+            to="https://fundacioninstitutosanjose.com/ropero-solidario/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar-li"
+            aria-label="home"
+          >
+            Ropero solidario
+          </Link>
           </li>
           <li>
-            <a href="/aboutus" aria-label="aboutus">
+            <Link to="/newuser" aria-label="info">
               Información adicional
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/contact" aria-label="contact">
+            <Link to="/newuser" aria-label="contact">{/*pendiente verificar si hay que crear la pag*/}
               Contacto
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/login">
+            <Link to="/login">
               <img
                 className="login-icon"
                 aria-label="login"
                 src={loginIcon}
                 alt="Login icon"
               />
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
       <main className="links-container">
         <ul className="ul-container">
-          <a href="/" className="navbar-li" aria-label="home">
+          <Link
+            to="https://fundacioninstitutosanjose.com/ropero-solidario/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar-li"
+            aria-label="home"
+          >
             Ropero solidario
-          </a>
-          <a href="/aboutus" className="navbar-li" aria-label="aboutus">
+          </Link>
+
+          <Link to="/newuser" className="navbar-li" aria-label="aboutus">
             Información adicional
-          </a>
-          <a href="/contact" className="navbar-li" aria-label="contact">
+          </Link>
+          <Link to="/newuser" className="navbar-li" aria-label="contact"> {/*pendiente verificar si hay que crear la pag*/}
             Contacto
-          </a>
-          <a href="/login">
+          </Link>
+          <Link to="/login">
             <img
               className="login-icon"
               aria-label="login"
@@ -82,7 +96,7 @@ function Header() {
               src={loginIcon}
               alt="Login icon"
             />
-          </a>
+          </Link>
         </ul>
       </main>
     </nav>
