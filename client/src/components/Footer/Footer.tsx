@@ -1,4 +1,3 @@
-import React from "react";
 import logotype from "../../assets/Logos/white-logo.png";
 import "./Footer.css";
 
@@ -7,16 +6,21 @@ function Footer() {
     <main>
       <section aria-label="Footer" className="banner">
         <div className="footer-content">
-          <h6>Ropero Solidario</h6>
-          <h6>Fundación Instituto San José Hermanos de San Juan de Dios</h6>
+          <div className="footer-text">
+            <h5>Ropero Solidario</h5>
+            <h6>Fundación Instituto San José</h6>
+            <h6>Hermanos de San Juan de Dios</h6>
+          </div> 
           <img
             aria-label="logotype"
             className="footer-logo"
             src={logotype}
             alt="Image of logotype"
           />
-          <div aria-label="copyright" className="copyright-text">
-            © 2023 Copyright:
+          <div className="footer-text column">
+            <div aria-label="copyright" className="copyright-text">
+              © 2023 Copyright:
+            </div>
           </div>
         </div>
       </section>
@@ -25,3 +29,4 @@ function Footer() {
 }
 
 export default Footer;
+
