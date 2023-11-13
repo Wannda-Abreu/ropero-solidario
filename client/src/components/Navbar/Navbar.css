@@ -40,6 +40,10 @@
   color: white;
   font-size: 0.9rem;
 }
+.navbar-li:hover {
+ font-weight: 600;
+ cursor: pointer; 
+}
 
 .right-container {
   display: flex;
@@ -82,7 +86,6 @@ a {
   height: 1.7rem;
 }
 
-/* Estilos para pantallas pequeñas */
 @media only screen and (max-width: 768px) {
   .logotype-img {
     height: 3rem;
@@ -92,11 +95,12 @@ a {
     align-items: center;
     margin: 0%;
   }
-
   .links-container {
     display: none;
   }
-
+  .navbar-li:hover {
+    font-weight: 600;
+   }
   .mobile-menu {
     display: block;
   }
@@ -108,7 +112,10 @@ a {
     border-bottom: 0.5px solid white;
     color: white;
   }
-
+  .mobile-dropdown li:hover {
+    font-weight: 600;
+    cursor: pointer; 
+  }
   .mobile-dropdown {
     display: none;
     margin: 0;
