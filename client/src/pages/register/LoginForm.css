@@ -4,9 +4,7 @@
 .login-form {
     display: flex;
     justify-content: center;
-    background-color: #f3f3f3; 
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     margin-top: 20vh;
     margin-bottom: 20vh;
 }

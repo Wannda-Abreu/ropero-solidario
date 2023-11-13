@@ -16,6 +16,8 @@ interface CustomToolbarProps {
   className?: string;
 }
 
+
+
 const CustomToolbar: React.FC<CustomToolbarProps> = ({ onNavigate, label }) => {
   const goToPrevious = () => {
     onNavigate('PREV');
@@ -28,11 +30,11 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({ onNavigate, label }) => {
   return (
     <div className={`custom-toolbar`}>
       <button onClick={goToPrevious}>
-        <img className='actionImg' src={prevIcon} />
+        <img className='actionImg' src={prevIcon} alt="Previous" />
       </button>
       <div className="current-month">{label}</div>
       <button onClick={goToNext}>
-        <img className='actionImg' src={nextIcon} />
+        <img className='actionImg' src={nextIcon} alt="Next" />
       </button>
     </div>
   );
@@ -40,12 +42,31 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({ onNavigate, label }) => {
 
 const MyCalendar: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string>('');
+
+  const calendarData= {
+    events: [{ Date: selectedDate.format('D') , Month: selectedDate.format('MMMM'), }],
+  }
 
   const handleSelectEvent = (event: { start: Date; end: Date }) => {
     setSelectedEvent(event.start);
+    const selectedDate = moment(event.start);
+    const selectedTimeString = selectedDate.format('LT');
+    setSelectedTime(selectedTimeString);
+
+    console.log('Día seleccionado:', selectedDate.format('D'));
+    console.log('Mes seleccionado:', selectedDate.format('MMMM'));
+    console.log('Hora seleccionada:', selectedTime);
   };
 
-  
+  const handleHourButtonClick = (hour: number) => {
+    
+    if (selectedEvent) {
+      const selectedDate = moment(selectedEvent).clone().set({ hours: hour, minutes: 0, seconds: 0 });
+      const selectedTimeString = selectedDate.format('LT');
+      setSelectedTime(selectedTimeString);
+    }
+  };
 
   const renderSelectedSlotHours = () => {
     if (selectedEvent) {
@@ -53,13 +74,19 @@ const MyCalendar: React.FC = () => {
       return (
         <div className="selected-slot-hours">
           <p>Horas Disponibles:</p>
-          <button className='slot-hours-button'>{selectedDate.format('LT')}</button>
-          <button className='slot-hours-button'>{selectedDate.clone().add(1, 'hours').format('LT')}</button>
-          <button className='slot-hours-button'>{selectedDate.clone().add(2, 'hours').format('LT')}</button>
+          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.hour())}>
+            {selectedDate.format('LT')}
+          </button>
+          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(1, 'hours').hour())}>
+            {selectedDate.clone().add(1, 'hours').format('LT')}
+          </button>
+          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
+            {selectedDate.clone().add(2, 'hours').format('LT')}
+          </button>
         </div>
       );
     }
-    return null; // Return null if no date is selected
+    return null;
   };
 
   return (
@@ -72,9 +99,8 @@ const MyCalendar: React.FC = () => {
           ),
           month: {
             dateHeader: ({ date }: { date: Date }) => (
-        
               <div className="custom-date-header" onClick={() => handleSelectEvent({ start: date, end: date })}>
-                {moment(date).format('D')  }
+                {moment(date).format('D')}
               </div>
             ),
           },
@@ -88,7 +114,7 @@ const MyCalendar: React.FC = () => {
           return isDifferentMonth ? { className: 'hidden-day' } : {};
         }}
       />
-      {renderSelectedSlotHours()} {/* Render selected hours */}
+      {renderSelectedSlotHours()} 
     </div>
   );
 };

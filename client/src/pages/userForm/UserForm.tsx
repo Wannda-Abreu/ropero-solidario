@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import InputField from '../../components/atoms/inputFieldProps';
 import { Container, Form, Button} from 'react-bootstrap';
 import ClickCounter from '../../components/Counter/counter';
-import "./UserForm.css"
+import "./userForm.css"
 const UserForm: React.FC = () => {
     
     const [user_name, setUserName] = useState('');

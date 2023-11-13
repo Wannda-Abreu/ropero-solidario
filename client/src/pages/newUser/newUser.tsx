@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card";
 import Button from "../../components/Button/Button.tsx";
 import Image from "react-bootstrap/Image";
 import new_user_image from "../../assets/Images/new-user-image.png";
-import "./NewUser.css";
+import "./newUser.css"
 
 function NewUser() {
   return (
