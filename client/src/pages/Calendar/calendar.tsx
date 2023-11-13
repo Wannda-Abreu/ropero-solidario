@@ -19,6 +19,8 @@ interface CustomToolbarProps {
 
 
 const CustomToolbar: React.FC<CustomToolbarProps> = ({ onNavigate, label }) => {
+
+
   const goToPrevious = () => {
     onNavigate('PREV');
   };
@@ -43,17 +45,31 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({ onNavigate, label }) => {
 const MyCalendar: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>('');
+  const [selectedDay, setSelectedDay] = useState<string>('');
+  const [selectedMonth, setSelectedMonth] = useState<string>('');
 
+    const formData= {
+      selectedTime,
+      selectedDay,
+      selectedMonth
+    }
   const handleSelectEvent = (event: { start: Date; end: Date }) => {
+
     setSelectedEvent(event.start);
     const selectedDate = moment(event.start);
-    const selectedTimeString = selectedDate.format('LT');
-    setSelectedTime(selectedTimeString);
 
-    console.log('Día seleccionado:', selectedDate.format('D'));
-    console.log('Mes seleccionado:', selectedDate.format('MMMM'));
-    console.log('Hora seleccionada:', selectedTime);
+    const selectedTimeString = selectedDate.format('LT');
+    const selectDayString = selectedDate.format('D');
+    const selectMonthString = selectedDate.format('MMMM');
+
+
+    setSelectedTime(selectedTimeString);
+    setSelectedMonth(selectMonthString);
+    setSelectedDay(selectDayString);
+
   };
+
+  console.log(formData)
 
   const handleHourButtonClick = (hour: number) => {
     
@@ -74,10 +90,10 @@ const MyCalendar: React.FC = () => {
             {selectedDate.format('LT')}
           </button>
           <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(1, 'hours').hour())}>
-            {selectedDate.clone().add(1, 'hours').format('LT')}
+            {selectedDate.clone().add(2, 'hours').format('LT')}
           </button>
           <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
-            {selectedDate.clone().add(2, 'hours').format('LT')}
+            {selectedDate.clone().add(3, 'hours').format('LT')}
           </button>
         </div>
       );
