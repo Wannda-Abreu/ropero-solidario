@@ -1,1 +1,1 @@
-export type Sizes = 'XXS'|'XS'| 'S'| 'M'| 'L'|'XL'|'XXL';
+export type Sizes = 'XXS'|'XS'| 'S'| 'M'| 'L'|'XL'|'XXL'|'test';

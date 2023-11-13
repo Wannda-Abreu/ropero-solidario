@@ -6,7 +6,28 @@ import db from '../../src/config/dbConfig.sequelize';
 describe("CRUD Users Test",() =>{
             
     let response: request.Response;
-   
+
+    const newUser = {  
+        user_name: "test",
+        surname: "test",
+        user_password: "test",
+        nationality: "test",
+        family_members_id: null,
+        zip_code_id: null,
+        reference_center_id: null
+        
+    }
+    
+    const postUserAndGetId = async () => {
+        await request(app).post('/users').send(newUser);
+        const user = await UserModel.findByName('test');
+
+        if (user != null) {
+           
+            let {user_id,user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id} = user[0];
+            return  user_id;
+        }
+    }
 
     describe("GET /Users", () =>{
        
@@ -32,11 +53,10 @@ describe("CRUD Users Test",() =>{
     })
     describe("GET /Users by ID", () =>{
        
-           
         beforeEach(async() =>{
            
-            
-            response = await request(app).get('/users/6ec8c720-802f-11ee-aca4-a85e45c11908').send();
+            const user_id =   await postUserAndGetId();
+            response = await request(app).get(`/users/${user_id}`).send();
                 
         });
         test('Should return a response with status 200 and type json, when I send a Get by ID request', async() => {
@@ -113,14 +133,17 @@ describe("CRUD Users Test",() =>{
         }
     
         test('Should return a response with status 200, type json and a user created successfully! message when a correct user is updated', async () => {
-            const response = await request(app).put('/users/6ec8c720-802f-11ee-aca4-a85e45c11908').send(updatedUser);
+            
+            const user_id =   await postUserAndGetId();
+            const response = await request(app).put(`/users/${user_id}`).send(updatedUser);
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toContain('json');
             expect(response.body.message).toContain('The user has been updated successfully!');
         });
     
         test('Should return a message insertion error if updated wrong user', async () => {
-            const response = await request(app).put('/users/6ec8c720-802f-11ee-aca4-a85e45c11908').send(wrongUser);
+            const user_id =   await postUserAndGetId();
+            const response = await request(app).put(`/users/${user_id}`).send(wrongUser);
             expect(response.status).toBe(400);
             expect(response.body.message).toContain("Invalid data. All fields are required.");
         });
@@ -144,17 +167,16 @@ describe("CRUD Users Test",() =>{
         
         test('Should return a response with status 200, type json and a user created successfully! message when a correct user is updated', async () => {
 
-            await request(app).post('/users').send(newUser);
-            const user = await UserModel.findByName('test');
-
-            if(user!= null){
-                let {user_id,user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id} = user[0];
-                const response = await request(app).delete(`/users/${user_id}`).send();
-                expect(response.status).toBe(200);
-                expect(response.headers['content-type']).toContain('json');
-                expect(response.body.message).toContain('The User has been Eliminated!');
-            }
+            let user_id =await  postUserAndGetId();
+            const response = await request(app).delete(`/users/${user_id}`).send();
+            expect(response.status).toBe(200);
+            expect(response.headers['content-type']).toContain('json');
+            expect(response.body.message).toContain('The User has been Eliminated!');
+            
            
+        });
+        afterAll(async () => {
+            await UserModel.eliminateByName('test');
         });
 
         

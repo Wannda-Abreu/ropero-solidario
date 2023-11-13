@@ -13,20 +13,9 @@ const config: Config = {
   coverageReporters: ['text', 'html'],
   watchPathIgnorePatterns: ['node_modules',],
   preset: 'ts-jest',
-  testTimeout: 10000
+  
   
 }
 
 export default config;
-// module.exports = {
-//     roots: ['<rootDir>/tests/jest'],
-//     moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
-//     testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?|jsx?)$',
-//     modulePathIgnorePatterns: ['<rootDir>/node_modules','./tests/vitest/',],
-//     collectCoverage: true,
-//     collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/index.js'],
-//     coverageDirectory: 'coverage-jest',
-//     coverageReporters: ['text', 'html'],
-//     watchPathIgnorePatterns: ['node_modules',],
-//   };
 

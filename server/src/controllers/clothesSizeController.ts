@@ -32,15 +32,15 @@ const getClothesSize = async (req: Request, res: Response): Promise<Response> =>
 
 const createClothesSize = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { size, category} = req.body;
+        const { clothes_id,size, quantity} = req.body;
 
-        if (!size || !category) {
+        if (!size || !quantity) {
             return res.status(400).json({ message: 'Invalid data. All fields are required.' });
         }
 
         await ClothesSizeModel.create(req.body);
 
-        return res.status(201).json({ message: 'The clothes size has been created successfully!' });
+        return res.status(201).json({ message: 'The Clothes Size has been created successfully!' });
     } catch (error: unknown) {
         return res.json({ message: (error as Error).message });
     }
@@ -49,11 +49,11 @@ const createClothesSize = async (req: Request, res: Response): Promise<Response>
 const updateClothesSize = async (req: Request, res: Response): Promise<Response> => {
     try {
 
-    const {clothes_size,cuantity}= req.body;
-    if (!clothes_size|| !cuantity) {
+    const {size,quantity}= req.body;
+    if (!size || !quantity) {
         return res.status(400).json({ message: 'Required clothes size data' });
     };
-    
+
     const clothesSizeId = req.params.id;
     await ClothesSizeModel.update(req.body, clothesSizeId);
     return res.status(200).json({ message: 'The clothes size has been updated successfully!' });
@@ -72,7 +72,7 @@ const deleteClothesSizeById = async (req: Request, res: Response): Promise<Respo
             return res.status(404).json({ message: 'Clothes size not found' });
         }
 
-        return res.json({ message: 'The clothes size has been eliminated!' });
+        return res.json({ message: 'The Clothes Size has been deleted!' });
     } catch (error: unknown) {
         return res.status(501).json({ message: (error as Error).message });
     }

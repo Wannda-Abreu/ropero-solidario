@@ -59,9 +59,7 @@ class UserModel  {
     static async findByName(name:string):Promise< User[] | null>{
         const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, user_password, nationality, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Users WHERE user_name = "${name}"`);
         return user as User[];
-        // const userAsUser = user as unknown as User;
-        // if (typeof userAsUser !== 'object') {return null;}
-        // return userAsUser;
+
     }
 
     

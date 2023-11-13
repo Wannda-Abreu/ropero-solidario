@@ -2,22 +2,23 @@ import { ClothesSize } from "../types/clothesSize";
 import db from "../config/dbConfig.sequelize";
 
 class ClothesSizeModel {
+
     static async findAll(): Promise<ClothesSize[] | null> {
-      const [sizes, metadata] = await db.query('SELECT BIN_TO_UUID(clothes_sizes_id) AS clothes_sizes_id, size, cuantity FROM Clothes_Sizes;');
+      const [sizes, metadata] = await db.query('SELECT BIN_TO_UUID(clothes_sizes_id) AS clothes_sizes_id, size, quantity FROM Clothes_Sizes;');
       return sizes as ClothesSize[];
     }
   
     static async findById(id: string): Promise<ClothesSize | null> {
-      const [size, metadata] = await db.query(`SELECT BIN_TO_UUID(clothes_sizes_id) AS clothes_sizes_id, size, cuantity FROM Clothes_Sizes WHERE clothes_sizes_id = UUID_TO_BIN("${id}")`);
+      const [size, metadata] = await db.query(`SELECT BIN_TO_UUID(clothes_sizes_id) AS clothes_sizes_id, size, quantity FROM Clothes_Sizes WHERE clothes_sizes_id = UUID_TO_BIN("${id}")`);
       return (size as ClothesSize[]).at(0) || null;
     }
   
-    static async create(size: ClothesSize): Promise<ClothesSize | null> {
-      const { size: sizeName, cuantity } = size;
+    static async create(clotheSize: ClothesSize): Promise<ClothesSize | null> {
+      const {clothes_sizes_id, size, quantity } = clotheSize;
       const [newSize, metadata] = await db.query(
-        'INSERT INTO Clothes_Sizes (size, cuantity) VALUES (?, ?)',
+        'INSERT INTO Clothes_Sizes (size, quantity) VALUES (?, ?)',
         {
-          replacements: [sizeName, cuantity],
+          replacements: [size, quantity],
         }
       );
   
@@ -26,11 +27,11 @@ class ClothesSizeModel {
       return newSizeAsClothesSize;
     }
   
-    static async update(size: ClothesSize, id: string): Promise<ClothesSize | null> {
-      const { size: sizeName, cuantity } = size;
-      await db.query('UPDATE Clothes_Sizes SET size = ?, cuantity = ? WHERE clothes_sizes_id = UUID_TO_BIN(?)',
+    static async update(clothesSize: ClothesSize, id: string): Promise<ClothesSize | null> {
+      const {clothes_sizes_id, size, quantity } = clothesSize;
+      await db.query('UPDATE Clothes_Sizes SET size = ?, quantity = ? WHERE clothes_sizes_id = UUID_TO_BIN(?)',
         {
-          replacements: [sizeName, cuantity, id],
+          replacements: [size, quantity, id],
         });
       const updatedSize = await ClothesSizeModel.findById(id);
       const updatedSizeAsClothesSize = updatedSize as unknown as ClothesSize;
@@ -48,7 +49,39 @@ class ClothesSizeModel {
       if (typeof eliminatedSizeAsClothesSize !== 'object') { return null; }
       return eliminatedSizeAsClothesSize;
     }
+    
+    static async findBySize(size: string): Promise<ClothesSize[] | null> {
+      const [clothesSizes, metadata] = await db.query(
+          `SELECT BIN_TO_UUID(clothes_sizes_id) AS clothes_sizes_id, size, quantity FROM Clothes_Sizes WHERE size = ?`,
+          {
+              replacements: [size],
+          }
+      );
+      return clothesSizes as ClothesSize[];
   }
+
+  static async deleteBySize(size: string): Promise<ClothesSize | null> {
+      const eliminatedClothesSize = await ClothesSizeModel.findBySize(size);
+
+      if (eliminatedClothesSize != null) {
+          await db.query('DELETE FROM Clothes_Sizes WHERE size = ?',
+              {
+                  replacements: [size],
+              }
+          );
+
+          const eliminatedClothesSizeAsClothesSize = eliminatedClothesSize[0] as unknown as ClothesSize;
+          if (typeof eliminatedClothesSizeAsClothesSize !== 'object') {
+              return null;
+          }
+
+          return eliminatedClothesSizeAsClothesSize;
+      }
+
+      return null;
+  }
+}
+ 
 
   export default ClothesSizeModel;
   
