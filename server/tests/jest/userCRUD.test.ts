@@ -8,13 +8,15 @@ describe("CRUD Users Test",() =>{
     let response: request.Response;
 
     const newUser = {  
-        user_name: "test",
+
+        user_name: 'test',
         surname: "test",
-        user_password: "test",
         nationality: "test",
+        date_of_last_report_id: null,
         family_members_id: null,
         zip_code_id: null,
-        reference_center_id: null
+        reference_center_id: null,
+        apointment_id: null
         
     }
     
@@ -23,8 +25,8 @@ describe("CRUD Users Test",() =>{
         const user = await UserModel.findByName('test');
 
         if (user != null) {
-           
-            let {user_id,user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id} = user[0];
+            console.log(user);
+            let {user_id,user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, apointment_id} = user[0];
             return  user_id;
         }
     }
@@ -76,17 +78,7 @@ describe("CRUD Users Test",() =>{
    
     describe('POST /users', () => {
     
-        const newUser = {  
-            user_name: "test",
-            surname: "test",
-            user_password: "test",
-            nationality: "test",
-            family_members_id: null,
-            zip_code_id: null,
-            reference_center_id: null
-            
-        }
-    
+      
         const wrongUser = {
             wrong_field: 2.75,
             wrong_field2: "pesa"
@@ -117,13 +109,14 @@ describe("CRUD Users Test",() =>{
     describe('UPDATE /users', () => {
     
         const updatedUser = {  
-            user_name: "test-dontEliminate",
+            user_name: "test",
             surname: "test",
-            user_password: "test",
             nationality: "test",
+            date_of_last_report_id: null,
             family_members_id: null,
             zip_code_id: null,
-            reference_center_id: null
+            reference_center_id: null,
+            apointment_id: null
             
         }
     
@@ -154,16 +147,7 @@ describe("CRUD Users Test",() =>{
     });
 
     describe('DELETE/ User', () => {
-        const newUser = {  
-            user_name: "test",
-            surname: "test",
-            user_password: "test",
-            nationality: "test",
-            family_members_id: null,
-            zip_code_id: null,
-            reference_center_id: null
-            
-        }
+       
         
         test('Should return a response with status 200, type json and a user created successfully! message when a correct user is updated', async () => {
 

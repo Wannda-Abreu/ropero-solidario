@@ -2,26 +2,26 @@ import User from "../types/userTypes";
 import db from "../config/dbConfig.sequelize";
 
 
-type DbResult = { user_id: string };
+
 class UserModel  {
     static async findAll(): Promise<User[] | null>{
 
-        const [users, metadata] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, user_password, nationality, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Users;');
+        const [users, metadata] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id, BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(apointment_id) AS apointment_id FROM Users;');
         return users as User[];
     }
 
     static async findById (id:string): Promise< User | null> {
-        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, user_password, nationality, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Users WHERE user_id = UUID_TO_BIN("${id}")`);
+        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(apointment_id) AS apointment_id FROM Users WHERE user_id = UUID_TO_BIN("${id}")`);
         return (user as User[]).at(0) || null;
     }
 
     static async create(user: User): Promise<User | null> {
-        const { user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id } = user;
+        const { user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, apointment_id} = user;
         const [newUser, metadata] = await db.query(
-            'INSERT INTO Users (user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id) VALUES (?, ?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?))',
+            'INSERT INTO Users (user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, apointment_id) VALUES (?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
             {
                 replacements:
-                [user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id],
+                [user_name, surname, nationality ,date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, apointment_id],
             }
         );
     
@@ -32,11 +32,11 @@ class UserModel  {
     }
    
     static async update(user:User, id: string): Promise<User| null>{
-        const { user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id } = user;
-        await db.query('UPDATE Users SET user_name = ?, surname = ?, user_password = ?, nationality = ?, family_members_id = UUID_TO_BIN(?), zip_code_id = UUID_TO_BIN(?), reference_center_id = UUID_TO_BIN(?) WHERE user_id = UUID_TO_BIN(?)',
+        const { user_name, surname, nationality ,date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, apointment_id } = user;
+        await db.query('UPDATE Users SET user_name = ?, surname = ?, nationality = ?, date_of_last_report_id = UUID_TO_BIN(?), family_members_id = UUID_TO_BIN(?), zip_code_id = UUID_TO_BIN(?), reference_center_id = UUID_TO_BIN(?), apointment_id = UUID_TO_BIN(?) WHERE user_id = UUID_TO_BIN(?)',
         {
             replacements:
-            [user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id, id],
+            [user_name, surname, nationality ,date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, apointment_id, id],
         });
         const  updatedUser = await UserModel.findById(id);
         const updatedUserAsUser = updatedUser as unknown as User;
@@ -57,7 +57,7 @@ class UserModel  {
         
     }
     static async findByName(name:string):Promise< User[] | null>{
-        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, user_password, nationality, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Users WHERE user_name = "${name}"`);
+        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(apointment_id) AS apointment_id FROM Users WHERE user_name = "${name}"`);
         return user as User[];
 
     }

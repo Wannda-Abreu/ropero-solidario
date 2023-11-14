@@ -27,9 +27,9 @@ const getUser = async (req: Request, res: Response): Promise<Response> => {
 
 const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const {user_name, surname, user_password, nationality}= req.body;
+        const {user_name, surname, nationality}= req.body;
         
-        if(!user_name||!surname||!user_password||!nationality){
+        if(!user_name||!surname||!nationality){
             return res.status(400).json({ message: 'Invalid data. All fields are required.'});
         }
         await UserModel.create(req.body)
@@ -44,8 +44,8 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
 
 const updateUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const {user_name, surname, user_password, nationality}= req.body;
-        if(!user_name||!surname||!user_password||!nationality){
+        const {user_name, surname, nationality}= req.body;
+        if(!user_name||!surname||!nationality){
             return res.status(400).json({ message: 'Invalid data. All fields are required.'});
         }
 

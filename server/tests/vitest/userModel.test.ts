@@ -18,10 +18,9 @@ describe('Testing the user Model', () => {
 
        if(user!= null){
          let {user_id,user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id} = user[0];
-         console.log(user)
-         console.log(user_id)
          expect(user_id).toBe('b26edb44-802d-11ee-aca4-a85e45c11908')
        }
+       
       
 
       
