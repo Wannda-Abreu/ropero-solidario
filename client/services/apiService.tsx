@@ -1,3 +1,4 @@
+
 const BASE_URL = 'URLLLL'; 
 
 interface RequestOptions {
@@ -13,7 +14,7 @@ interface RequestOptions {
 
     export const request = async (url: string, options: RequestOptions) => {
     try {
-        const response = await fetch(`${BASE_URL}${url}`, options);;
+        const response = await fetch(`${BASE_URL}${url}`, options);
         if (!response.ok) {
             throw new Error(`Respuesta no exitosa: ${response.status}`);
     }
