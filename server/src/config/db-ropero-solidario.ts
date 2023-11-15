@@ -13,7 +13,7 @@ const DBCONFIG: DbConfig = {
 export const openConnectionDB = async() => {
     
     try {
-        let connection = await mysql.createConnection(DBCONFIG);
+        const connection = await mysql.createConnection(DBCONFIG);
         return connection;
     } catch (error:unknown) {
         console.log(`Error openning the database connection: ${{message:(error as Error).message}}`)
