@@ -16,11 +16,11 @@ function Root() {
         <Outlet/>
         <Footer/>
     </div>
-      );
+    );
     }
-  }
-  
-  export default Root;
+}
+
+export default Root;
 
 
 

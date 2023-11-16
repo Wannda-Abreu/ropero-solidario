@@ -47,26 +47,29 @@ const MyCalendar: React.FC = () => {
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [selectedDay, setSelectedDay] = useState<string>('');
   const [selectedMonth, setSelectedMonth] = useState<string>('');
+  const [selectedYear, setSelectedYear] = useState<string>('');
 
     const formData= {
       selectedTime,
       selectedDay,
-      selectedMonth
+      selectedMonth,
+      selectedYear
+
     }
   const handleSelectEvent = (event: { start: Date; end: Date }) => {
 
     setSelectedEvent(event.start);
     const selectedDate = moment(event.start);
 
-    const selectedTimeString = selectedDate.format('LT');
+
     const selectDayString = selectedDate.format('D');
     const selectMonthString = selectedDate.format('MMMM');
+    const selectYearString = selectedDate.format('YYYY');
 
 
-    setSelectedTime(selectedTimeString);
     setSelectedMonth(selectMonthString);
     setSelectedDay(selectDayString);
-
+    setSelectedYear(selectYearString)
   };
 
   console.log(formData)
@@ -74,8 +77,11 @@ const MyCalendar: React.FC = () => {
   const handleHourButtonClick = (hour: number) => {
     
     if (selectedEvent) {
+
       const selectedDate = moment(selectedEvent).clone().set({ hours: hour, minutes: 0, seconds: 0 });
+
       const selectedTimeString = selectedDate.format('LT');
+
       setSelectedTime(selectedTimeString);
     }
   };
@@ -89,7 +95,7 @@ const MyCalendar: React.FC = () => {
           <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.hour())}>
             {selectedDate.format('LT')}
           </button>
-          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(1, 'hours').hour())}>
+          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
             {selectedDate.clone().add(2, 'hours').format('LT')}
           </button>
           <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
