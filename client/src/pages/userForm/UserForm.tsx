@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import InputField from "../../components/atoms/inputFieldProps";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import ClickCounter from "../../components/Counter/counter";
+import Button from "../../components/Button/Button";
 import "./userForm.css";
 import { Link } from "react-router-dom";
 
@@ -15,7 +16,7 @@ const UserForm: React.FC = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="report-container">
+    <Form onSubmit={handleSubmit} className="report-container mt-5">
       <Container>
         <Form.Group>
           <InputField
@@ -41,32 +42,32 @@ const UserForm: React.FC = () => {
             onChange={(e) => setpostalCode(e.target.value)}
           />
         </Form.Group>
-        <div>Nº de familiares</div>
+        <div className="mt-3">Nº de familiares</div>
         <ClickCounter
           initialCount={0}
           onUpdate={function (newCount: number): void {
             throw new Error("Function not implemented.");
           }}
         />
-        <div>Personas de 0 a 18 años</div>
+        <div className="mt-3">Personas de 0 a 18 años</div>
         <ClickCounter
           initialCount={0}
           onUpdate={function (newCount: number): void {
             throw new Error("Function not implemented.");
           }}
         />
-        <div>Personas de 0 a 18 años</div>
+        <div className="mt-3">Personas de 0 a 18 años</div>
         <ClickCounter
           initialCount={0}
           onUpdate={function (newCount: number): void {
             throw new Error("Function not implemented.");
           }}
         />
-        <Link to="/calendar">
-          <Button type="submit" className="reserve-button">
-            Reservar Cita
-          </Button>
+      <div className="form-button mt-5">
+        <Link to="/datealert">
+          <Button text="Reservar cita" />
         </Link>
+      </div>
       </Container>
     </Form>
   );

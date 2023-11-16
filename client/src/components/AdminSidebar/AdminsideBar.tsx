@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Nav} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faSignOutAlt, faChevronDown, faCog, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faSignOutAlt, faChevronDown, faCog} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import "./AdminSidebar.css";
 
