@@ -6,6 +6,7 @@ import Form from "../pages/userForm/UserForm";
 import NewUser from "../pages/newUser/newUser";
 import AppoinmentConfirmation from "../pages/AppoinmentConfirmation/ApponinmentConfirmation";
 import Home from "../pages/home/home";
+import Dashboard from "../pages/dashboard/dashboard.tsx";
 
 
 
@@ -37,6 +38,10 @@ const router =  createBrowserRouter ([
             {
                 path: "/datealert",
                 element: < AppoinmentConfirmation/>
+            },
+            {
+                path: "/dashboard",
+                element: <Dashboard/>
             }
         ]
             }
