@@ -6,7 +6,7 @@ import CarouselComponent from '../components/carousel/Carousel'
 function Root() {
     const location = useLocation();
   
-    if (location.pathname === "/login" || location.pathname === "/register") {
+    if (location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/dashboard") {
       return <Outlet />;
     } else {
       return (
@@ -33,15 +33,3 @@ function Root() {
 
 
 
-/*function Root()  {
-    return (
-        <div>
-            <Header/>
-            <CarouselComponent/>
-            <Outlet/>
-            <Footer/>
-        </div>
-    )
-}
-
-export default Root*/
