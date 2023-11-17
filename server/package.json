@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "vitest --ui --coverage",
     "start": "tsc & node .",
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only app.ts"
   },
   "author": "",
   "license": "ISC",
@@ -20,8 +20,11 @@
   "devDependencies": {
     "@types/cors": "^2.8.16",
     "@types/express": "^4.17.20",
+    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/ui": "^0.34.6",
     "nodemon": "^3.0.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }
