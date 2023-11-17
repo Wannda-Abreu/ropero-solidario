@@ -5,6 +5,8 @@ import React from 'react';
 import prevIcon from '../../assets/Icons/prevIcon.png';
 import nextIcon from '../../assets/Icons/nextIcon.png';
 import './calendar.css';
+import { Link } from 'react-router-dom';
+import Button from '../../components/Button/Button';
 
 const localizer: DateLocalizer = momentLocalizer(moment);
 
@@ -100,6 +102,10 @@ const MyCalendar: React.FC = () => {
           </button>
           <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
             {selectedDate.clone().add(3, 'hours').format('LT')}
+
+          <Link to="/datealert">
+          <Button text="Reservar cita" />
+        </Link>
           </button>
         </div>
       );
