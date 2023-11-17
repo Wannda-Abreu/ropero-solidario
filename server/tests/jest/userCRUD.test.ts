@@ -58,7 +58,7 @@ describe("CRUD Users Test",() =>{
        
         beforeEach(async() =>{
            
-            const user_id =   await postUserAndGetId();
+            const user_id =  await postUserAndGetId();
             response = await request(app).get(`/users/${user_id}`).send();
                 
         });
@@ -99,7 +99,7 @@ describe("CRUD Users Test",() =>{
         test('Should return a message insertion error if post wrong user', async () => {
             const response = await request(app).post('/users').send(wrongUser);
             expect(response.status).toBe(400);
-            expect(response.body.message).toContain("Invalid data. All fields are required.");
+            expect(response.body.message).toContain("Invalid Request data. All fields are required.");
         });
     
         afterAll(async () => {
@@ -152,7 +152,7 @@ describe("CRUD Users Test",() =>{
         
         test('Should return a response with status 200, type json and a user created successfully! message when a correct user is updated', async () => {
 
-            let user_id =await  postUserAndGetId();
+            let user_id = await  postUserAndGetId();
             const response = await request(app).delete(`/users/${user_id}`).send();
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toContain('json');
