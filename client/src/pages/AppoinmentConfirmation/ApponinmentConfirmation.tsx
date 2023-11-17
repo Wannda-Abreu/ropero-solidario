@@ -1,6 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Button from "../../components/Button/Button.tsx";
 import AlertComponent from "../../components/Alert/alert.tsx";
+import { Link } from "react-router-dom";
 
 interface AlertProps {
   variant: string;
@@ -27,7 +28,9 @@ function AppoinmentConfirmation() {
             <AlertComponent {...alertProps} />
           </div>
           <div className="mb-5">
-            <Button text="Volver a la página principal" />
+            <Link to="/">
+              <Button text="Volver a la página principal" />
+            </Link>
           </div>
         </Card.Body>
       </Card>

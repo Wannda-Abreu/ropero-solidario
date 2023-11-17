@@ -64,7 +64,7 @@ const UserForm: React.FC = () => {
           }}
         />
       <div className="form-button mt-5">
-        <Link to="/datealert">
+        <Link to="/calendar">
           <Button text="Reservar cita" />
         </Link>
       </div>
