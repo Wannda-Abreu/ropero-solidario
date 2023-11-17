@@ -27,11 +27,14 @@ const getUser = async (req: Request, res: Response): Promise<Response> => {
 
 const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const {user_name, surname, user_password, family_members, underage, nationality}= req.body;
-        if(!user_name||!surname||!user_password||!family_members||!underage||!nationality){
+        const {user_name, surname, user_password, nationality}= req.body;
+        
+        if(!user_name||!surname||!user_password||!nationality){
             return res.status(400).json({ message: 'Invalid data. All fields are required.'});
         }
-        return res.status(201).json({message:'The User has been created succesfully!'});
+        await UserModel.create(req.body)
+        
+        return res.status(201).json({message:'The User has been created successfully!'});
         
     } catch (error: unknown) {
         return res.json({message:(error as Error).message})
@@ -39,36 +42,35 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
 
 }
 
-// const updateUser = async (req: Request, res: Response): Promise<Response> => {
-//     try {
-//         const userId = req.params.id;
-//         const updatedUser = await UserModel.update(req.body, userId);
+const updateUser = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const {user_name, surname, user_password, nationality}= req.body;
+        if(!user_name||!surname||!user_password||!nationality){
+            return res.status(400).json({ message: 'Invalid data. All fields are required.'});
+        }
 
-//         if(!updatedUser){return res.status(400).json({message:'Required User Data'})}
-//         return res.status(200).json({messge:'The user has been updated cuccesfully!'})
+        const userId = req.params.id;
+        await UserModel.update(req.body, userId);
+        return res.status(200).json({message:'The user has been updated successfully!'})
 
-//     } catch (error : unknown) {
-//         return res.json({message:(error as Error).message})
-//     }
-// }
+    } catch (error : unknown) {
+        return res.json({message:(error as Error).message})
+    }
+}
 
-// const deleteUserById = async (req: Request, res: Response): Promise<Response> => {
-//     try {
-//         const userId = req.params.id;
-//         const eliminatedUser = await UserModel.eliminateByID(userId); 
+const deleteUserById = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const userId = req.params.id;
+        const eliminatedUser = await UserModel.eliminateById(userId); 
 
-//         if(!eliminatedUser){return res.status(404).json({message:'User Not Found'})}
-//         return res.json({message:'The User has been Eliminated!'})
+        if(!eliminatedUser){return res.status(404).json({message:'User Not Found'})}
+        return res.json({message:'The User has been Eliminated!'})
 
-//     } catch (error: unknown) {
-//         return res.status(500).json({message:(error as Error).message})       
-//     }
-// }
-
-
-
+    } catch (error: unknown) {
+        return res.status(501).json({message:(error as Error).message})       
+    }
+}
 
 
-// createUser, updateUser, deleteUserById
 
-export {getUsers, getUser, }
+export {getUsers, getUser, createUser, updateUser, deleteUserById}
