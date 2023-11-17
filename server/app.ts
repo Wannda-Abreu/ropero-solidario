@@ -6,6 +6,7 @@ import clothesSizeRouter from './src/routes/clotheSizeRouter';
 
 const app = express();
 app.use(corsMiddleware());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use('/users', userRouter);
@@ -24,4 +25,8 @@ const server = app.listen(port, () => console.log(`Ejecutándose en el puerto ht
 
 
 export {server, app};
+
+  function cookieParser(): any {
+    throw new Error('Function not implemented.');
+  }
 
