@@ -1,12 +1,13 @@
 import DATA from './dbData';
 import DbConfig from '../types/dbConfig';
+import { createPool, Pool } from 'mysql2/promise';
 
-const DBCONFIG: DbConfig = {
-    host:'localhost',
-    database: DATA.database,
-    user: 'root',
-    password: DATA.password,
-    port: 3306
-}
+const DbConfig: Pool = createPool({
+  host: 'localhost',
+  user: 'root',
+  password: DATA.password,
+  database: DATA.database,
 
-export default DBCONFIG
+});
+
+export default DbConfig;
