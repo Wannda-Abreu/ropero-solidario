@@ -1,5 +1,5 @@
-import { Calendar, momentLocalizer, DateLocalizer, View, NavigateAction } from 'react-big-calendar';
-import { useState } from 'react';
+import { Calendar, momentLocalizer, DateLocalizer, View, NavigateAction, DateHeaderProps } from 'react-big-calendar';
+import { useState, useEffect } from 'react';
 import moment from 'moment';
 import React from 'react';
 import prevIcon from '../../assets/Icons/prevIcon.png';
@@ -18,11 +18,7 @@ interface CustomToolbarProps {
   className?: string;
 }
 
-
-
 const CustomToolbar: React.FC<CustomToolbarProps> = ({ onNavigate, label }) => {
-
-
   const goToPrevious = () => {
     onNavigate('PREV');
   };
@@ -50,40 +46,44 @@ const MyCalendar: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<string>('');
   const [selectedMonth, setSelectedMonth] = useState<string>('');
   const [selectedYear, setSelectedYear] = useState<string>('');
+  const [currentMonth, setCurrentMonth] = useState<moment.Moment>(moment());
 
-    const formData= {
-      selectedTime,
-      selectedDay,
-      selectedMonth,
-      selectedYear
+  const formData = {
+    selectedTime,
+    selectedDay,
+    selectedMonth,
+    selectedYear,
+  };
+  console.log(formData)
 
-    }
+    console.log(currentMonth)
   const handleSelectEvent = (event: { start: Date; end: Date }) => {
-
     setSelectedEvent(event.start);
     const selectedDate = moment(event.start);
-
 
     const selectDayString = selectedDate.format('D');
     const selectMonthString = selectedDate.format('MMMM');
     const selectYearString = selectedDate.format('YYYY');
 
-
     setSelectedMonth(selectMonthString);
     setSelectedDay(selectDayString);
-    setSelectedYear(selectYearString)
+    setSelectedYear(selectYearString);
   };
 
-  console.log(formData)
+  const handleMonthChange = (action: NavigateAction) => {
+    if (action === 'PREV') {
+      setCurrentMonth(currentMonth.clone().subtract(1, 'month'));
+    } else if (action === 'NEXT') {
+      setCurrentMonth(currentMonth.clone().add(1, 'month'));
+    }
+  };
+
+  const isCurrentMonth = (date: Date) => moment(date).isSame(currentMonth, 'month');
 
   const handleHourButtonClick = (hour: number) => {
-    
     if (selectedEvent) {
-
       const selectedDate = moment(selectedEvent).clone().set({ hours: hour, minutes: 0, seconds: 0 });
-
       const selectedTimeString = selectedDate.format('LT');
-
       setSelectedTime(selectedTimeString);
     }
   };
@@ -100,13 +100,12 @@ const MyCalendar: React.FC = () => {
           <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
             {selectedDate.clone().add(2, 'hours').format('LT')}
           </button>
-          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
+          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(3, 'hours').hour())}>
             {selectedDate.clone().add(3, 'hours').format('LT')}
-
-          <Link to="/datealert">
-          <Button text="Reservar cita" />
-        </Link>
           </button>
+          <Link to="/datealert">
+            <Button text="Reservar cita" />
+          </Link>
         </div>
       );
     }
@@ -119,28 +118,45 @@ const MyCalendar: React.FC = () => {
         localizer={localizer}
         components={{
           toolbar: (props) => (
-            <CustomToolbar {...props} />
+            <CustomToolbar
+              {...props}
+              onNavigate={(action, date) => {
+                handleMonthChange(action)
+                props.onNavigate(action, date);
+              }}
+            />
           ),
           month: {
-            dateHeader: ({ date }: { date: Date }) => (
-              <div className="custom-date-header" onClick={() => handleSelectEvent({ start: date, end: date })}>
-                {moment(date).format('D')}
-              </div>
-            ),
+            dateHeader: ({ date }: DateHeaderProps) => {
+              const dayOfMonth = moment(date).format('D');
+              const isInCurrentMonth = isCurrentMonth(date);
+
+              const dayClasses = `custom-date-header ${isInCurrentMonth ? 'current-month-day' : 'other-month-day'}`;  
+              
+              return (
+                <div className={dayClasses} onClick={() => handleSelectEvent({ start: date, end: date })}>
+                  {dayOfMonth}
+                </div>
+              );
+            },
           },
         }}
         views={['month', 'week', 'day']}
         defaultView={'month'}
         defaultDate={new Date()}
         onSelectEvent={handleSelectEvent}
-        dayPropGetter={(date: Date) => {
-          const isDifferentMonth = moment(date).format('M') !== moment().format('M');
-          return isDifferentMonth ? { className: 'hidden-day' } : {};
-        }}
+        showMultiDayTimes={false}
       />
-      {renderSelectedSlotHours()} 
+      {renderSelectedSlotHours()}
     </div>
   );
 };
 
 export default MyCalendar;
+
+{/*
+  <AdminSelectedSlotHours
+    selectedDate={selectedDate}
+    handleHourButtonClick={handleHourButtonClick}
+  />
+*/}
