@@ -1,16 +1,15 @@
 import User from "../types/userTypes";
 import db from "../config/dbConfig.sequelize";
 
-
-
 class UserModel  {
+
     static async findAll(): Promise<User[] | null>{
 
         const [users, metadata] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id, BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(apointment_id) AS apointment_id FROM Users;');
         return users as User[];
     }
 
-    static async findById (id:string): Promise< User | null> {
+    static async findById(id:string): Promise< User | null> {
         const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(apointment_id) AS apointment_id FROM Users WHERE user_id = UUID_TO_BIN("${id}")`);
         return (user as User[]).at(0) || null;
     }
@@ -52,7 +51,6 @@ class UserModel  {
         })
         const eliminatedUserAsUser = eliminatedUser as unknown as User;
         if (typeof eliminatedUserAsUser !== 'object') {return null;}
-        console.log(eliminatedUser);
         return eliminatedUserAsUser;
         
     }
@@ -64,7 +62,7 @@ class UserModel  {
 
     
 
-    static async eliminateByName(name: string): Promise< User | null>{
+    static async eliminateByName(name: string): Promise< User | null>{//Debería devolver una array?
         let eliminatedUser = UserModel.findByName(name);
         await db.query('DELETE FROM Users WHERE user_name = ?',
         {
@@ -83,10 +81,5 @@ class UserModel  {
     
 }
 
- // static async findIdByName(name:string):Promise< Object | null>{
-    //      const[userId, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id  FROM Users WHERE user_name = '${name}'`);
-    //      return (userId as Object[]).at(0) || null;
-         
-    // }
 
 export default UserModel; 
