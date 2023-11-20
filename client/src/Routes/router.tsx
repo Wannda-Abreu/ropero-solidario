@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./root";
 import LoginForm from "../pages/register/Login";
-import MyCalendar from "../pages/calendar/calendar";
+import MyCalendar from "../pages/Calendar/calendar";
 import Form from "../pages/userForm/UserForm";
 import NewUser from "../pages/newUser/newUser";
-import AppoinmentConfirmation from "../pages/appoinmentConfirmation/apponinmentConfirmation";
+import AppoinmentConfirmation from "../pages/AppoinmentConfirmation/ApponinmentConfirmation";
 import Home from "../pages/home/home";
 import Dashboard from "../pages/dashboard/dashboard.tsx";
 
