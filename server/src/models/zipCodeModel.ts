@@ -19,7 +19,7 @@ class ZIPCodeModel {
 
       
     static async create(zipCodeData: ZIPCode): Promise<ZIPCode | null> {
-        const { zip_code_id, zip_code } = zipCodeData;
+        const { zip_code } = zipCodeData;
         const [newZipCode, metadata] = await db.query(
           'INSERT INTO ZIPCode (zip_code_id, zip_code) VALUES (UUID_TO_BIN(UUID()), ?)',
           {
