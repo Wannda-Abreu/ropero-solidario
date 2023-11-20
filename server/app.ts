@@ -7,6 +7,7 @@ import zipCodeRouter from './src/routes/zipCodeRoutes';
 
 const app = express();
 app.use(corsMiddleware());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use('/users', userRouter);
@@ -23,4 +24,8 @@ app.get('/', (_req: Request, res: Response) => {
 
 
 export default app;
+
+  function cookieParser(): any {
+    throw new Error('Function not implemented.');
+  }
 
