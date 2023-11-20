@@ -1,12 +1,12 @@
 import express,{Request,Response} from 'express';
 import corsMiddleware from './src/middlewares/cors';
-import telephoneRouter from './src/routes/telephones';
+import referenceCenterRouter from './src/routes/reference-center';
 
 const app = express();
 app.use(corsMiddleware());
 app.use(express.json());
 
-app.use('/telephones', telephoneRouter);
+app.use('/reference-center', referenceCenterRouter )
 
 app.get('/', (_req: Request, res: Response) => {
   res.status(200).send('Bienvenido al servidor del Ropero Solidario!!!');
