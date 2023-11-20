@@ -1,6 +1,5 @@
 import { useState } from "react";
 import logotype from "../../assets/Logos/white-logo.png";
-import loginIcon from "../../assets/Icons/login-icon.png";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
@@ -52,18 +51,8 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/newuser" aria-label="contact">{/*pendiente verificar si hay que crear la pag*/}
+            <Link to="/newuser" aria-label="contact">
               Contacto
-            </Link>
-          </li>
-          <li>
-            <Link to="/login">
-              <img
-                className="login-icon"
-                aria-label="login"
-                src={loginIcon}
-                alt="Login icon"
-              />
             </Link>
           </li>
         </ul>
@@ -83,15 +72,6 @@ function Header() {
           </Link>
           <Link to="/newuser" className="navbar-li" aria-label="contact"> {/*pendiente verificar si hay que crear la pag*/}
             Contacto
-          </Link>
-          <Link to="/login">
-            <img
-              className="login-icon"
-              aria-label="login"
-              height="70rem"
-              src={loginIcon}
-              alt="Login icon"
-            />
           </Link>
         </ul>
       </main>

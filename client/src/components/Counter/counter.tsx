@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import plusIcon from "../../assets/Icons/iconPlus.png"
-import minusIcon from "../../assets/Icons/iconMinus.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 
 const ClickCounter: React.FC<{
@@ -24,17 +24,17 @@ const ClickCounter: React.FC<{
     return (
         <div className="Counters">
         <button
-            className="adminButton"
+            className="counterButton"
             onClick={() => handleButtonClick("decrement")}
         >
-            <img src={minusIcon}  />
+            <FontAwesomeIcon icon={faMinus}  />
         </button>
-        <span>{count}</span>
+        <span>{count}</span> 
         <button
-            className="adminButton"
+            className="counterButton"
             onClick={() => handleButtonClick("increment")}
         >
-            <img src={plusIcon} />
+         <FontAwesomeIcon icon={faPlus} />
         </button>
         </div>
 );

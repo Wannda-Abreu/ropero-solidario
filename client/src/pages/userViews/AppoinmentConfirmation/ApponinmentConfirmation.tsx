@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card";
-import Button from "../../components/Button/Button.tsx";
-import AlertComponent from "../../components/Alert/alert.tsx";
+import Button from "../../../components/Button/Button.tsx";
+import AlertComponent from "../../../components/Alert/alert.tsx";
 
 interface AlertProps {
   variant: string;

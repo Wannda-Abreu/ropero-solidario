@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import InputField from '../../components/atoms/inputFieldProps';
+import InputField from '../../../components/atoms/inputFieldProps';
 import { Container, Row, Form, Button, Col, Image } from 'react-bootstrap';
-import logotype from "../../assets/Logos/logotype.png";
+import logotype from "../../../../src/assets/Logos/logotype.png";
 import './LoginForm.css'; 
 
 const LoginForm: React.FC = () => {

@@ -1,51 +1,53 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./root";
-import LoginForm from "../pages/register/Login";
-import MyCalendar from "../pages/calendar/calendar";
-import Form from "../pages/userForm/UserForm";
-import NewUser from "../pages/newUser/newUser";
-import AppoinmentConfirmation from "../pages/appoinmentConfirmation/apponinmentConfirmation";
-import Home from "../pages/home/home";
-import Dashboard from "../pages/dashboard/dashboard.tsx";
+import LoginForm from "../../../client/src/pages/adminViews/register/Login.tsx";
+import MyCalendar from "../../../../ropero-solidario/client/src/pages/Calendar/calendar.tsx";
+import UserFormPage from "../pages/userViews/userForm/userForm.tsx";
+import NewUser from "../../../../ropero-solidario/client/src/pages/userViews/newUser/newUser";
+import AppoinmentConfirmation from "../../../../ropero-solidario/client/src/pages/userViews/AppoinmentConfirmation/ApponinmentConfirmation.tsx";
+import Home from "../../../../ropero-solidario/client/src/pages/userViews/home/home.tsx";
+import Dashboard from "../../../../ropero-solidario/client/src/pages/adminViews/Dashboard/dashboard.tsx";
+import AdminUserForm from "../../../../ropero-solidario/client/src/pages/adminViews/adminUserForm/adminUserForm.tsx";
 
-
-
-const router =  createBrowserRouter ([
-    {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      {
         path: "/",
-        element: <Root/>,
-        children: [
-            {
-                path: "/",
-                element: <Home/>
-            }, 
-            {
-                path: "/form",
-                element: <Form />
-            }, 
-            {
-                path: "/calendar",
-                element: <MyCalendar/>
-            },
-            {
-                path: "/login",
-                element: <LoginForm/>
-            },
-            {
-                path: "/newuser",
-                element: <NewUser/>
-            },
-            {
-                path: "/datealert",
-                element: < AppoinmentConfirmation/>
-            },
-            {
-                path: "/dashboard",
-                element: <Dashboard/>
-            }
-        ]
-            }
-        ]
-        )
-       
-export default router
+        element: <Home />,
+      },
+      {
+        path: "/userform",
+        element: <UserFormPage  buttonLink="/calendar" />,
+      },
+      {
+        path: "/calendar",
+        element: <MyCalendar />,
+      },
+      {
+        path: "/newuser",
+        element: <NewUser />,
+      },
+      {
+        path: "/datealert",
+        element: <AppoinmentConfirmation />,
+      },
+      {
+        path: "/login",
+        element: <LoginForm />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/adminuserform",
+        element: <AdminUserForm buttonLink="/admincalendar" />,
+      },
+    ],
+  },
+]);
+
+export default router;

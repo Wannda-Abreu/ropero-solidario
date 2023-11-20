@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/pages/userForm/userForm.tsx"],
+  "include": ["src", "src/components/UserForm/UserForm.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
