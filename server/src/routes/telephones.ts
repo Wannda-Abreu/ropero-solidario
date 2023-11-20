@@ -1,18 +1,12 @@
-import { Router } from 'express';
-import {
-  createTelephone,
-  deleteTelephone,
-  getTelephoneById,
-  getTelephones,
-  updateTelephone,
-} from '../controllers/telephones';
+import express from 'express';
+import * as telephoneController from '../controllers/telephones';
 
-const telephoneRouter = Router();
+const router = express.Router();
 
-telephoneRouter.post('/telephones', createTelephone);
-telephoneRouter.get('/telephones', getTelephones);
-telephoneRouter.get('/telephones/:id', getTelephoneById);
-telephoneRouter.put('/telephones/:id', updateTelephone);
-telephoneRouter.delete('/telephones/:id', deleteTelephone);
+router.get('/', telephoneController.getAllTelephones);
+router.get('/:id', telephoneController.getTelephoneById);
+router.post('/', telephoneController.createTelephone);
+router.put('/:id', telephoneController.updateTelephone);
+router.delete('/:id', telephoneController.deleteTelephone);
 
-export default telephoneRouter;
+export default router;
