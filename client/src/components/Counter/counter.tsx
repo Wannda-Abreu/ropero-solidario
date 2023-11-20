@@ -11,15 +11,15 @@ const ClickCounter: React.FC<{
 
   const handleButtonClick = (operation: "increment" | "decrement") => {
     if (operation === "increment") {
-        const newCount = count + 1;
-        setCount(newCount);
-        onUpdate(newCount);
+      const newCount = count + 1;
+      setCount(newCount);
+      onUpdate(newCount);
     } else if (operation === "decrement" && count > 0) {
-        const newCount = count - 1;
-        setCount(newCount);
-        onUpdate(newCount);
+      const newCount = count - 1;
+      setCount(newCount);
+      onUpdate(newCount);
     }
-};
+  };
 
     return (
         <div className="Counters">
@@ -41,3 +41,4 @@ const ClickCounter: React.FC<{
 };
 
 export default ClickCounter;
+

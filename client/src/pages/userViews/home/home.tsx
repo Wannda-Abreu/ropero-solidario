@@ -38,7 +38,7 @@ function Home() {
               </Link>
               </div>
               <div className="card-button d-flex flex-column align-items-center">
-                <Link to="/form">
+                <Link to="/userform">
                   <Button text="Ya soy usuario" />
                 </Link>
               </div>
