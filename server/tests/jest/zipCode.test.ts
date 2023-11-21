@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { app, server } from '../../app'; 
 import ZIPCodeModel from '../../src/models/zipCodeModel'; 
+import db from '../../src/config/dbConfig.sequelize';
 
 describe("CRUD ZIPCodes Test", () => {
   let response: request.Response;
@@ -97,6 +98,7 @@ describe("CRUD ZIPCodes Test", () => {
 
   afterAll(async () => {
     server.close();
+    db.close();
     
   });
 });
