@@ -24,17 +24,17 @@ const Sidebar = () => {
       </button>
       <Nav defaultActiveKey="/home" className={`sidebar-menu mt-1 ${menuOpen ? 'show' : 'hide'}`}>
         <Nav.Link as={Link} to="/dashboard" className='text-white mt-2'>Panel</Nav.Link>
-        <Nav.Link as={Link} to="/users" className='text-white mt-2'>Usuarios</Nav.Link>
+        <Nav.Link as={Link} to="/adminsettings" className='text-white mt-2'>Administradores</Nav.Link>
         <Nav.Link as={Link} to="/settings" className='text-white mt-2'>
           <FontAwesomeIcon icon={faCog} /> Ajustes
         </Nav.Link>
         {isLoggedIn ? (
           <Nav.Link className='logout-icon text-white ' onClick={handleToggleLogin}>
-            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+            <FontAwesomeIcon icon={faSignOutAlt} /> Salir
           </Nav.Link>
         ) : (
           <Nav.Link className='text-white login-icon' onClick={handleToggleLogin}>
-            <FontAwesomeIcon icon={faSignInAlt} /> Login
+            <FontAwesomeIcon icon={faSignInAlt} /> Entrar
           </Nav.Link>
         )}
       </Nav>

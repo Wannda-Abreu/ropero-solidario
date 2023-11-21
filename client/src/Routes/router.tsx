@@ -1,13 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./root";
-import LoginForm from "../../../client/src/pages/adminViews/register/Login.tsx";
-import MyCalendar from "../../../../ropero-solidario/client/src/pages/Calendar/calendar.tsx";
+import LoginForm from "../pages/adminViews/login/Login.tsx";
+import MyCalendar from "../pages/userViews/Calendar/calendar.tsx";
 import UserFormPage from "../pages/userViews/userForm/userForm.tsx";
 import NewUser from "../../../../ropero-solidario/client/src/pages/userViews/newUser/newUser";
 import AppoinmentConfirmation from "../../../../ropero-solidario/client/src/pages/userViews/AppoinmentConfirmation/ApponinmentConfirmation.tsx";
 import Home from "../../../../ropero-solidario/client/src/pages/userViews/home/home.tsx";
 import Dashboard from "../../../../ropero-solidario/client/src/pages/adminViews/Dashboard/dashboard.tsx";
 import AdminUserForm from "../../../../ropero-solidario/client/src/pages/adminViews/adminUserForm/adminUserForm.tsx";
+import AppointmentsPage from "../../../../ropero-solidario/client/src/pages/adminViews/appointments/appointments.tsx";
+import RegisterForm from "../pages/adminViews/register/register.tsx";
+import AdminSettings from "../pages/adminViews/adminSettings/adminSettings.tsx";
+import SettingsPage from "../pages/adminViews/settings/settings.tsx";
+
 
 const router = createBrowserRouter([
   {
@@ -39,6 +44,10 @@ const router = createBrowserRouter([
         element: <LoginForm />,
       },
       {
+        path: "/register",
+        element: <RegisterForm />,
+      },
+      {
         path: "/dashboard",
         element: <Dashboard />,
       },
@@ -46,8 +55,23 @@ const router = createBrowserRouter([
         path: "/adminuserform",
         element: <AdminUserForm buttonLink="/admincalendar" />,
       },
+      {
+        path: "/appointments",
+        element: <AppointmentsPage/>,
+      },
+      {
+        path: "/adminsettings",
+        element: <AdminSettings/>,
+      },
+    
+      {
+        path: "/settings",
+        element: <SettingsPage/>,
+      },
+      
     ],
   },
 ]);
+
 
 export default router;

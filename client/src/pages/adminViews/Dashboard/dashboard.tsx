@@ -7,10 +7,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./dashboard.css";
+import FontSizeToggle from "../../../components/ThemeSettings/fontsizeSettings";
 
 const Dashboard = () => {
+
   return (
-    <Container fluid className="dashboard-container">
+    <Container fluid className="dashboard-container" style={{ fontSize: `${FontSizeToggle}px` }}>
       <Row>
         <Col md={12} lg={9} className="dashboard-content">
           <h5 className="dashboard-title">
@@ -31,7 +33,7 @@ const Dashboard = () => {
               </button>
             </Link>
             <div className="mt-5">
-              <Link to="/calendarList">
+              <Link to="/appointments">
                 <button
                   className="panel-btn mt-5"
                   onClick={() => console.log("Ver listado de citas")}
@@ -52,3 +54,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import InputField from '../../../components/atoms/inputFieldProps';
-import { Container, Row, Form, Button, Col, Image } from 'react-bootstrap';
-import logotype from "../../../../src/assets/Logos/logotype.png";
+import { Container, Row, Form, Col, Image } from 'react-bootstrap';
+import logotype from "../../../assets/Logos/logotype.png";
+import Button from "../../../components/Button/Button";
 import './LoginForm.css'; 
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail,] = useState("");
+  const [admin_password, setPassword] = useState("");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -18,7 +19,7 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, password);
+    console.log(email, admin_password);
   };
 
   return (
@@ -41,13 +42,13 @@ const LoginForm: React.FC = () => {
           <InputField
             label="Password"
             type="password"
-            value={password}
+            value={admin_password}
             onChange={handlePasswordChange} 
           />
         </Form.Group>
-        <Button type='submit' className="login-button">
-          Iniciar Sesión
-        </Button>
+        <div className="d-flex justify-content-center mt-5 mb-5">
+        <Button type="submit" text="Iniciar Sesión" />
+        </div>
       </Container>
     </Form>
   );

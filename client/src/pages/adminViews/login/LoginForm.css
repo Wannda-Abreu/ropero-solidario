@@ -13,16 +13,6 @@
     display: grid;
     justify-content: center;
 }
-
-.login-button {
-    background-color: #DC291E; 
-    color: white; 
-    border: none;
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
-
 .img-container{
     display: flex;
     justify-content: center;
