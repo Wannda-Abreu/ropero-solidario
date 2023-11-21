@@ -3,16 +3,17 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Navbar/Navbar";
 import Sidebar from "../components/AdminSidebar/AdminsideBar";
 import CarouselComponent from "../components/carousel/Carousel";
-import { useTheme } from "../components/ThemeSettings/ThemeSettings";
 
 function Root() {
   const location = useLocation();
 
   if (
-    location.pathname === "/dashboard fontSize={fontSize} " ||
+    location.pathname === "/dashboard" ||
     location.pathname === "/adminuserform" ||
     location.pathname === "/appointments" ||
-    location.pathname === "/adminsettings" 
+    location.pathname === "/adminsettings" ||
+    location.pathname === "/settings" 
+  
   ) {
     return (
       <>

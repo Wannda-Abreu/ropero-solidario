@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Nav} from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faSignOutAlt, faChevronDown, faCog} from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faChevronDown, faCog } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import "./AdminSidebar.css";
 
@@ -29,17 +29,14 @@ const Sidebar = () => {
           <FontAwesomeIcon icon={faCog} /> Ajustes
         </Nav.Link>
         {isLoggedIn ? (
-          <Nav.Link className='logout-icon text-white ' onClick={handleToggleLogin}>
+          <Nav.Link as={Link} to="/login" className='logout-icon text-white' onClick={handleToggleLogin}>
             <FontAwesomeIcon icon={faSignOutAlt} /> Salir
           </Nav.Link>
-        ) : (
-          <Nav.Link className='text-white login-icon' onClick={handleToggleLogin}>
-            <FontAwesomeIcon icon={faSignInAlt} /> Entrar
-          </Nav.Link>
-        )}
+        ) : null}
       </Nav>
     </div>
   );
 };
 
 export default Sidebar;
+
