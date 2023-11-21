@@ -1,51 +1,77 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./root";
-import LoginForm from "../pages/register/Login";
-import MyCalendar from "../pages/Calendar/calendar";
-import Form from "../pages/userForm/UserForm";
-import NewUser from "../pages/newUser/newUser";
-import AppoinmentConfirmation from "../pages/AppoinmentConfirmation/ApponinmentConfirmation";
-import Home from "../pages/home/home";
-import Dashboard from "../pages/dashboard/dashboard.tsx";
+import LoginForm from "../pages/adminViews/login/Login.tsx";
+import MyCalendar from "../pages/userViews/Calendar/calendar.tsx";
+import UserFormPage from "../pages/userViews/userForm/userForm.tsx";
+import NewUser from "../../../../ropero-solidario/client/src/pages/userViews/newUser/newUser";
+import AppoinmentConfirmation from "../../../../ropero-solidario/client/src/pages/userViews/AppoinmentConfirmation/ApponinmentConfirmation.tsx";
+import Home from "../../../../ropero-solidario/client/src/pages/userViews/home/home.tsx";
+import Dashboard from "../../../../ropero-solidario/client/src/pages/adminViews/Dashboard/dashboard.tsx";
+import AdminUserForm from "../../../../ropero-solidario/client/src/pages/adminViews/adminUserForm/adminUserForm.tsx";
+import AppointmentsPage from "../../../../ropero-solidario/client/src/pages/adminViews/appointments/appointments.tsx";
+import RegisterForm from "../pages/adminViews/register/register.tsx";
+import AdminSettings from "../pages/adminViews/adminSettings/adminSettings.tsx";
+import SettingsPage from "../pages/adminViews/settings/settings.tsx";
 
 
-
-const router =  createBrowserRouter ([
-    {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      {
         path: "/",
-        element: <Root/>,
-        children: [
-            {
-                path: "/",
-                element: <Home/>
-            }, 
-            {
-                path: "/form",
-                element: <Form />
-            }, 
-            {
-                path: "/calendar",
-                element: <MyCalendar/>
-            },
-            {
-                path: "/login",
-                element: <LoginForm/>
-            },
-            {
-                path: "/newuser",
-                element: <NewUser/>
-            },
-            {
-                path: "/datealert",
-                element: < AppoinmentConfirmation/>
-            },
-            {
-                path: "/dashboard",
-                element: <Dashboard/>
-            }
-        ]
-            }
-        ]
-        )
-       
-export default router
+        element: <Home />,
+      },
+      {
+        path: "/userform",
+        element: <UserFormPage  buttonLink="/calendar" />,
+      },
+      {
+        path: "/calendar",
+        element: <MyCalendar />,
+      },
+      {
+        path: "/newuser",
+        element: <NewUser />,
+      },
+      {
+        path: "/datealert",
+        element: <AppoinmentConfirmation />,
+      },
+      {
+        path: "/login",
+        element: <LoginForm />,
+      },
+      {
+        path: "/register",
+        element: <RegisterForm />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/adminuserform",
+        element: <AdminUserForm buttonLink="/admincalendar" />,
+      },
+      {
+        path: "/appointments",
+        element: <AppointmentsPage/>,
+      },
+      {
+        path: "/adminsettings",
+        element: <AdminSettings/>,
+      },
+    
+      {
+        path: "/settings",
+        element: <SettingsPage/>,
+      },
+      
+    ],
+  },
+]);
+
+
+export default router;

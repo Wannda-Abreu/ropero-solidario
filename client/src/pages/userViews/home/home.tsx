@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
-import Button from "../../components/Button/Button.tsx";
+import Button from "../../../components/Button/Button.tsx";
 import { Link } from "react-router-dom";
 import "./home.css"
 
@@ -38,7 +38,7 @@ function Home() {
               </Link>
               </div>
               <div className="card-button d-flex flex-column align-items-center">
-                <Link to="/form">
+                <Link to="/userform">
                   <Button text="Ya soy usuario" />
                 </Link>
               </div>

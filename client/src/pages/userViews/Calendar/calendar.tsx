@@ -2,11 +2,11 @@ import { Calendar, momentLocalizer, DateLocalizer, View, NavigateAction, DateHea
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 import React from 'react';
-import prevIcon from '../../assets/Icons/prevIcon.png';
-import nextIcon from '../../assets/Icons/nextIcon.png';
+import prevIcon from '../../../assets/Icons/prevIcon.png';
+import nextIcon from '../../../assets/Icons/nextIcon.png';
 import './calendar.css';
 import { Link } from 'react-router-dom';
-import Button from '../../components/Button/Button';
+import Button from '../../../components/Button/Button';
 
 const localizer: DateLocalizer = momentLocalizer(moment);
 

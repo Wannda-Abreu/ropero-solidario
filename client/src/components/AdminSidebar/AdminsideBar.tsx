@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Nav} from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faSignOutAlt, faChevronDown, faCog} from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faChevronDown, faCog } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import "./AdminSidebar.css";
 
@@ -23,23 +23,20 @@ const Sidebar = () => {
         <FontAwesomeIcon icon={faChevronDown} />
       </button>
       <Nav defaultActiveKey="/home" className={`sidebar-menu mt-1 ${menuOpen ? 'show' : 'hide'}`}>
-        <Nav.Link as={Link} to="/home" className='text-white mt-2'>Panel</Nav.Link>
-        <Nav.Link as={Link} to="/users" className='text-white mt-2'>Usuarios</Nav.Link>
+        <Nav.Link as={Link} to="/dashboard" className='text-white mt-2'>Panel</Nav.Link>
+        <Nav.Link as={Link} to="/adminsettings" className='text-white mt-2'>Administradores</Nav.Link>
         <Nav.Link as={Link} to="/settings" className='text-white mt-2'>
           <FontAwesomeIcon icon={faCog} /> Ajustes
         </Nav.Link>
         {isLoggedIn ? (
-          <Nav.Link className='logout-icon text-white ' onClick={handleToggleLogin}>
-            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+          <Nav.Link as={Link} to="/login" className='logout-icon text-white' onClick={handleToggleLogin}>
+            <FontAwesomeIcon icon={faSignOutAlt} /> Salir
           </Nav.Link>
-        ) : (
-          <Nav.Link className='text-white login-icon' onClick={handleToggleLogin}>
-            <FontAwesomeIcon icon={faSignInAlt} /> Login
-          </Nav.Link>
-        )}
+        ) : null}
       </Nav>
     </div>
   );
 };
 
 export default Sidebar;
+

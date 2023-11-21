@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+
 
 const ClickCounter: React.FC<{
   initialCount: number;
@@ -20,17 +21,23 @@ const ClickCounter: React.FC<{
     }
   };
 
-  return (
-    <div className="Counters">
-      <button className="adminButton" onClick={() => handleButtonClick("decrement")}>
-        <FontAwesomeIcon icon={faMinus} />
-      </button>
-      <span>{count}</span>
-      <button className="adminButton" onClick={() => handleButtonClick("increment")}>
-        <FontAwesomeIcon icon={faPlus} />
-      </button>
-    </div>
-  );
+    return (
+        <div className="Counters">
+        <button
+            className="counterButton"
+            onClick={() => handleButtonClick("decrement")}
+        >
+            <FontAwesomeIcon icon={faMinus}  />
+        </button>
+        <span>{count}</span> 
+        <button
+            className="counterButton"
+            onClick={() => handleButtonClick("increment")}
+        >
+         <FontAwesomeIcon icon={faPlus} />
+        </button>
+        </div>
+);
 };
 
 export default ClickCounter;

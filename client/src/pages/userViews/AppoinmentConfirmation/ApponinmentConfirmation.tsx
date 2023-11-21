@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
-import Button from "../../components/Button/Button.tsx";
-import AlertComponent from "../../components/Alert/alert.tsx";
-import { Link } from "react-router-dom";
+import Button from "../../../components/Button/Button.tsx";
+import AlertComponent from "../../../components/Alert/alert.tsx";
+import { Link } from 'react-router-dom';
 
 interface AlertProps {
   variant: string;
@@ -27,11 +27,11 @@ function AppoinmentConfirmation() {
           <div className="confirmation-container mb-5 d-flex flex-column align-items-center justify-content-center text-center">
             <AlertComponent {...alertProps} />
           </div>
+          <Link to="/">
           <div className="mb-5">
-            <Link to="/">
-              <Button text="Volver a la página principal" />
-            </Link>
+            <Button text="Volver a la página principal" />
           </div>
+          </Link>
         </Card.Body>
       </Card>
     </div>
