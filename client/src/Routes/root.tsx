@@ -12,7 +12,9 @@ function Root() {
     location.pathname === "/adminuserform" ||
     location.pathname === "/appointments" ||
     location.pathname === "/adminsettings" ||
-    location.pathname === "/settings" 
+    location.pathname === "/settings" ||
+    location.pathname === "/admincalendar"
+    
   
   ) {
     return (

@@ -12,6 +12,7 @@ import AppointmentsPage from "../../../../ropero-solidario/client/src/pages/admi
 import RegisterForm from "../pages/adminViews/register/register.tsx";
 import AdminSettings from "../pages/adminViews/adminSettings/adminSettings.tsx";
 import SettingsPage from "../pages/adminViews/settings/settings.tsx";
+import AdminCalendar from "../pages/adminViews/adminCalendar/adminCalendar.tsx"
 
 
 const router = createBrowserRouter([
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/adminuserform",
         element: <AdminUserForm buttonLink="/admincalendar" />,
+      },
+      {
+        path: "/admincalendar",
+        element: <AdminCalendar />,
       },
       {
         path: "/appointments",
