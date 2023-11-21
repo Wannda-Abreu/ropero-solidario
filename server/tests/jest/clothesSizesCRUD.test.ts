@@ -2,6 +2,9 @@ import request from 'supertest';
 import { server, app } from '../../app';
 import ClothesSizeModel from '../../src/models/clothesSizeModel';
 import db from '../../src/config/dbConfig.sequelize';
+import supertest = require('supertest');
+
+
 
 describe("CRUD Clothes Sizes Test", () => {
 
