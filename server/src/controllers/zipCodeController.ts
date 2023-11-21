@@ -10,7 +10,8 @@ const getZipCodes = async (_req: Request, res: Response): Promise<Response> => {
         return res.status(200).json(zipCodes);
     } catch (error: unknown) {
         return res.status(500).json({message:(error as Error).message})
-    };
+    }
+};
 
 const getZipCodesById = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
@@ -82,8 +83,8 @@ const deleteZipCode = async (req: Request, res: Response): Promise<Response> => 
         }
       };
       
-}
-export {getZipCodes,
+
+export {getZipCodes, 
         getZipCodesById,
         createZipCode,
         updateZipCode,
