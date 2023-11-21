@@ -4,7 +4,7 @@ import cors from 'cors'
 const ACCEPTED_ORIGINS = [
   'http://localhost:1234/',
   'http://localhost:3000/',
-  'http://localhost:5a056/'
+  'http://localhost:5056/'
 ]
 const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) => cors({
   origin: (origin: string | undefined, callback: (err: Error | null, origin?: boolean |  undefined) => void) => {

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for middlewares/cors.ts</title>
+    <title>Code coverage report for routes/appointmentsRoutes.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">middlewares</a> cors.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">routes</a> appointmentsRoutes.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -75,55 +75,31 @@
 <a name='L10'></a><a href='#L10'>10</a>
 <a name='L11'></a><a href='#L11'>11</a>
 <a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a>
-<a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L13'></a><a href='#L13'>13</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
-import cors from 'cors'
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import { Router } from 'express';
+import {getAppointments, getAppointment, createAppointment, updateAppointment, deleteAppointmentById } from '../controllers/appointmentsController';
 &nbsp;
-const ACCEPTED_ORIGINS = [
-  'http://localhost:1234/',
-  'http://localhost:3000/',
-  'http://localhost:5056/'
-]
-const corsMiddleware = ({ acceptedOrigins = ACCEPTED_ORIGINS } = {}) =&gt; cors({
-  origin: (origin: string | undefined, callback: (err: Error | null, origin?: boolean |  undefined) =&gt; void) =&gt; {
+const appointmentRouter = Router(); 
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (acceptedOrigins.includes(origin as string)) { <span class="cstat-no" title="statement not covered" >return callback(null, true) }</span>
-    if (!origin) { return callback(null, true) }
+appointmentRouter.get('/', getAppointments);
+appointmentRouter.get('/:id', getAppointment);
+appointmentRouter.post('/', createAppointment);
+appointmentRouter.put('/:id', updateAppointment);
+appointmentRouter.patch('/:id', updateAppointment);
+appointmentRouter.delete('/:id', deleteAppointmentById);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      return callback(new Error('Not allowed by CORS'))</span>
-  }
-})
-&nbsp;
-export default corsMiddleware;
-&nbsp;
-&nbsp;</pre></td></tr></table></pre>
+export default appointmentRouter;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

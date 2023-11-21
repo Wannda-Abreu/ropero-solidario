@@ -7,6 +7,6 @@ type User = {
     family_members_id: string,
     zip_code_id: string,
     reference_center_id: string,
-    apointment_id: string
+    appointment_id: string
 }
 export default User;
