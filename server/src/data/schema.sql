@@ -1,4 +1,4 @@
-create database ropero_solidario;
+e ropero_solidario;
 use ropero_solidario;
 
 CREATE TABLE Users (
@@ -10,13 +10,13 @@ CREATE TABLE Users (
   family_members_id BINARY(16),
   zip_code_id BINARY(16),
   reference_center_id BINARY(16),
-  apointment_id BINARY(16)
+  appointment_id BINARY(16)
 );
-CREATE TABLE Family_info (
+CREATE TABLE Families_info (
 family_info_id BINARY(16) PRIMARY KEY NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
-number_family_members INT NOT NULL,
-underaged_members INT,
-overaged_members INT
+number_of_family_members INT NOT NULL,
+underaged_family_members INT,
+overaged_family_members INT
 );
 
 
@@ -26,23 +26,30 @@ CREATE TABLE Telephones (
   user_id BINARY(16)
 );
 
-CREATE TABLE ZIPCode (
+CREATE TABLE ZIPCodes (
   zip_code_id BINARY(16) PRIMARY KEY NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
   zip_code INT
 );
 
-CREATE TABLE Reference_center (
+CREATE TABLE Reference_centers (
   reference_center_id BINARY(16) PRIMARY KEY NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
   reference_center varchar(120)
 );
-CREATE TABLE Ampointments(
-  apointment_id BINARY(16) PRIMARY KEY NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
-  apointment_day VARCHAR(40) NOT NULL,
-  apointment_month VARCHAR(40) NOT NULL,
-  apointment_year VARCHAR(40) NOT NULL,
-  apointment_time VARCHAR(40) NOT NULL
+CREATE TABLE Appointments(
+  appointment_id BINARY(16) PRIMARY KEY NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+  appointment_day VARCHAR(40) NOT NULL,
+  appointment_month VARCHAR(40) NOT NULL,
+  appointment_year VARCHAR(40) NOT NULL,
+  appointment_time_id BINARY(16)
 );
-  CREATE TABLE Date_of_last_report(
+
+CREATE TABLE appoitment_times(
+   appointment_time_id BINARY(16) PRIMARY KEY NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
+   available_times  CHAR(5) NOT NULL,
+   is_active BOOL NOT NULL
+);
+
+  CREATE TABLE Dates_of_last_report(
   date_of_last_report_id  BINARY(16) PRIMARY KEY NOT NULL DEFAULT (UUID_TO_BIN(UUID())),
   day_of_last_report DATE NOT NULL
 );
@@ -63,27 +70,25 @@ CREATE TABLE Roles(
     roles VARCHAR(60)
 );
 
-CREATE TABLE Admin_user_Roles(
+CREATE TABLE Admin_users_Roles(
 admin_user_id BINARY(16) NOT NULL,
 roles_id BINARY(16) NOT NULL
-
 );
 
 
-ALTER TABLE Users ADD FOREIGN KEY (zip_code_id) REFERENCES ZIPCode (zip_code_id);
+ALTER TABLE Users ADD FOREIGN KEY (zip_code_id) REFERENCES ZIPCodes (zip_code_id);
 
-ALTER TABLE Users ADD FOREIGN KEY (reference_center_id) REFERENCES Reference_center (reference_center_id);
+ALTER TABLE Users ADD FOREIGN KEY (reference_center_id) REFERENCES Reference_centers (reference_center_id);
 
 ALTER TABLE Telephones ADD FOREIGN KEY (user_id) REFERENCES Users (user_id);
 
-ALTER TABLE Users ADD FOREIGN KEY (family_members_id) REFERENCES Family_info (family_info_id);
+ALTER TABLE Users ADD FOREIGN KEY (family_members_id) REFERENCES Families_info (family_info_id);
 
 
-ALTER TABLE Users ADD FOREIGN KEY (date_of_last_report_id) REFERENCES  Date_of_last_report (date_of_last_report_id);
+ALTER TABLE Users ADD FOREIGN KEY (date_of_last_report_id) REFERENCES  Dates_of_last_report (date_of_last_report_id);
 
-ALTER TABLE Users ADD FOREIGN KEY (apointment_id) REFERENCES  Ampointments (apointment_id);
+ALTER TABLE Users ADD FOREIGN KEY (appointment_id) REFERENCES  Appointments (appointment_id);
  
-ALTER TABLE  Admin_user_Roles ADD FOREIGN KEY (admin_user_id) REFERENCES  Admin_Users (admin_user_id);
+ALTER TABLE  Admin_users_Roles ADD FOREIGN KEY (admin_user_id) REFERENCES  Admin_Users (admin_user_id);
 
-ALTER TABLE  Admin_user_Roles ADD FOREIGN KEY (roles_id) REFERENCES  Roles (roles_id);
-
+ALTER TABLE  Admin_users_Roles ADD FOREIGN KEY (roles_id) REFERENCES  Roles (roles_id);
