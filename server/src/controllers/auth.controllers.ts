@@ -12,7 +12,7 @@ export class AdminUserController {
 
       const result = await adminUser.save();
 
-      const token = createToken(result.admin_user_id);
+      const token = createToken({admin_user_id: result.admin_user_id});
 
       res.status(201).json({ token });
     } catch (error) {
@@ -37,7 +37,7 @@ export class AdminUserController {
         return res.status(401).send('Credenciales inválidas');
       }
 
-      const token = createToken(adminUser.admin_user_id);
+      const token = createToken({admin_user_id: adminUser.admin_user_id});
 
       res.cookie('jwtToken', token, {httpOnly: true})
       res.status(200).json({ token });

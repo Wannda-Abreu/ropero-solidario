@@ -22,7 +22,7 @@ ReferenceCenter.init(
   },
   {
     sequelize: db,
-    tableName: 'Reference_center',
+    tableName: 'Reference_centers',
     modelName: 'Reference_center',
     timestamps: false,
   }

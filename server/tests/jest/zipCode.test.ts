@@ -35,6 +35,7 @@ describe("CRUD ZIPCodes Test", () => {
     beforeEach(async () => {
       const createdZIPCode = await ZIPCodeModel.create(newZipCode);
       createdZIPCodeId = createdZIPCode?.zip_code_id || '';
+      console.log(createdZIPCodeId)
       response = await request(app).get(`/ZIPCodes/${createdZIPCodeId}`).send();
     });
 

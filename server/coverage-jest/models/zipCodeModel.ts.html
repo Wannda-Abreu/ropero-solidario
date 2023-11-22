@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28% </span>
+                <span class="strong">44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/25</span>
+                <span class='fraction'>11/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>1/5</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.43% </span>
+                <span class="strong">47.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/23</span>
+                <span class='fraction'>11/23</span>
             </div>
         
             
@@ -140,8 +140,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,9 +160,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,13 +208,13 @@ class ZIPCodeModel {
    static async  findAll(): Promise&lt;ZIPCode[] | null&gt;{
       
     
-       const [zipCodes, metadata] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM  ZIPCode')
-<span class="cstat-no" title="statement not covered" >       return zipCodes as ZIPCode[];</span>
+       const [zipCodes, metadata] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM  ZIPCodes')
+       return zipCodes as ZIPCode[];
     }
 &nbsp;
 &nbsp;
     static async findById(id: string): Promise&lt;ZIPCode | null&gt; {
-        const [zipCode, metadata] = await db.query(`SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM ZIPCode WHERE zip_code_id = UUID_TO_BIN("${id}")`);
+        const [zipCode, metadata] = await db.query(`SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM ZIPCodes WHERE zip_code_id = UUID_TO_BIN("${id}")`);
 <span class="cstat-no" title="statement not covered" >        return (zipCode as ZIPCode[]).at(0) || null;</span>
       }
 &nbsp;
@@ -222,15 +222,15 @@ class ZIPCodeModel {
     static async create(zipCodeData: ZIPCode): Promise&lt;ZIPCode | null&gt; {
         const { zip_code_id, zip_code } = zipCodeData;
         const [newZipCode, metadata] = await db.query(
-          'INSERT INTO ZIPCode (zip_code_id, zip_code) VALUES (UUID_TO_BIN(UUID()), ?)',
+          'INSERT INTO ZIPCodes (zip_code_id, zip_code) VALUES (UUID_TO_BIN(UUID()), ?)',
           {
             replacements: [zip_code],
           }
         );
       
-        const newZipCodeAsZIPCode = <span class="cstat-no" title="statement not covered" >newZipCode as unknown as ZIPCode;</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (</span>
-            typeof newZipCodeAsZIPCode !== 'object') { <span class="cstat-no" title="statement not covered" >return null; </span>}
+        const newZipCodeAsZIPCode = newZipCode as unknown as ZIPCode;
+        if (
+            typeof newZipCodeAsZIPCode !== 'object') { return null; }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return newZipCodeAsZIPCode;</span>
       }
@@ -238,7 +238,7 @@ class ZIPCodeModel {
 &nbsp;
 <span class="fstat-no" title="function not covered" >    static </span>async update(zipCodeData: ZIPCode, id: string): Promise&lt;ZIPCode | null&gt; {
         const { zip_code_id, zip_code } = <span class="cstat-no" title="statement not covered" >zipCodeData;</span>
-<span class="cstat-no" title="statement not covered" >        await db.query('UPDATE ZIPCode SET zip_code = ? WHERE zip_code_id = UUID_TO_BIN(?)',</span>
+<span class="cstat-no" title="statement not covered" >        await db.query('UPDATE ZIPCodes SET zip_code = ? WHERE zip_code_id = UUID_TO_BIN(?)',</span>
           {
             replacements: [zip_code, id],
           });
@@ -253,7 +253,7 @@ class ZIPCodeModel {
 &nbsp;
     static async deleteById(id: string): Promise&lt;ZIPCode | null&gt; {
         let deleteZipCode = await ZIPCodeModel.findById(id);
-<span class="cstat-no" title="statement not covered" >        await db.query('DELETE FROM ZIPCode WHERE zip_code_id = UUID_TO_BIN(?)',</span>
+<span class="cstat-no" title="statement not covered" >        await db.query('DELETE FROM ZIPCodes WHERE zip_code_id = UUID_TO_BIN(?)',</span>
           {
             replacements: [id]
           });
@@ -274,7 +274,7 @@ export default ZIPCodeModel;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-22T00:35:55.004Z
+                at 2023-11-22T09:54:42.139Z
             </div>
         <script src="../prettify.js"></script>
         <script>

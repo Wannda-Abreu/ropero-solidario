@@ -7,6 +7,7 @@ import { adminRouter } from './src/routes/auth.routes';
 import DateOfLastReportRouter from './src/routes/dateOfLastReportRouter';
 import familyInfoRouter from './src/routes/familyInfoRoutes';
 import referenceCenterRouter from './src/routes/reference-center';
+import telephoneRouter from './src/routes/telephones';
 // import familyInfoRouter from './src/routes/familyInfoRouter';
 
 
@@ -19,11 +20,12 @@ app.use('/users', userRouter);
 app.use('/zipcode', zipCodeRouter);
 app.use('/appointments',appointmentRouter);
 app.use('/appoinmentsTime', appointmentRouter);
-// app.use('/adminUser', adminRouter);
+app.use('/adminUser', adminRouter);
 app.use('/ZIPCodes', zipCodeRouter);
 app.use('/dayOfLastReport', DateOfLastReportRouter);
-app.use('/familyInfo', familyInfoRouter);
+app.use('/familyInfos', familyInfoRouter);
 app.use('/referenceCenter', referenceCenterRouter);
+app.use('/telephones', telephoneRouter);
 
 
 app.get('/', (_req: Request, res: Response) => {

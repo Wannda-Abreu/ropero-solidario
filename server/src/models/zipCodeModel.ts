@@ -7,13 +7,13 @@ class ZIPCodeModel {
    static async  findAll(): Promise<ZIPCode[] | null>{
       
     
-       const [zipCodes, metadata] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM  ZIPCode')
+       const [zipCodes, metadata] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM  ZIPCodes')
        return zipCodes as ZIPCode[];
     }
 
 
     static async findById(id: string): Promise<ZIPCode | null> {
-        const [zipCode, metadata] = await db.query(`SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM ZIPCode WHERE zip_code_id = UUID_TO_BIN("${id}")`);
+        const [zipCode, metadata] = await db.query(`SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM ZIPCodes WHERE zip_code_id = UUID_TO_BIN("${id}")`);
         return (zipCode as ZIPCode[]).at(0) || null;
       }
 
@@ -21,7 +21,7 @@ class ZIPCodeModel {
     static async create(zipCodeData: ZIPCode): Promise<ZIPCode | null> {
         const { zip_code_id, zip_code } = zipCodeData;
         const [newZipCode, metadata] = await db.query(
-          'INSERT INTO ZIPCode (zip_code_id, zip_code) VALUES (UUID_TO_BIN(UUID()), ?)',
+          'INSERT INTO ZIPCodes (zip_code_id, zip_code) VALUES (UUID_TO_BIN(UUID()), ?)',
           {
             replacements: [zip_code],
           }
@@ -37,7 +37,7 @@ class ZIPCodeModel {
 
     static async update(zipCodeData: ZIPCode, id: string): Promise<ZIPCode | null> {
         const { zip_code_id, zip_code } = zipCodeData;
-        await db.query('UPDATE ZIPCode SET zip_code = ? WHERE zip_code_id = UUID_TO_BIN(?)',
+        await db.query('UPDATE ZIPCodes SET zip_code = ? WHERE zip_code_id = UUID_TO_BIN(?)',
           {
             replacements: [zip_code, id],
           });
@@ -52,7 +52,7 @@ class ZIPCodeModel {
 
     static async deleteById(id: string): Promise<ZIPCode | null> {
         let deleteZipCode = await ZIPCodeModel.findById(id);
-        await db.query('DELETE FROM ZIPCode WHERE zip_code_id = UUID_TO_BIN(?)',
+        await db.query('DELETE FROM ZIPCodes WHERE zip_code_id = UUID_TO_BIN(?)',
           {
             replacements: [id]
           });

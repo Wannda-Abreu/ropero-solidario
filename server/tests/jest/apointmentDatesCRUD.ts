@@ -20,6 +20,7 @@ const postAppointmentAndGetId = async () => {
 
     if (appointment != null) {
         const {appointment_id, appointment_day, appointment_month, appointment_year,appointment_time_id} = appointment[0];
+        console.log(appointment_id);
         return appointment_id;
     }
 }
