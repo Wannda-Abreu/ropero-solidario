@@ -6,9 +6,9 @@
   "scripts": {
     "build": "tsc",
     "unit-test": "vitest --ui --coverage",
-    "test": "jest --watch",
+    "test": "jest --watch --detectOpenHandles",
     "start": "tsc & node .",
-    "dev": "ts-node-dev --respawn --transpile-only ./app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only ./index.ts"
   },
   "author": "",
   "license": "ISC",

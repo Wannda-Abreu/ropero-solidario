@@ -17,7 +17,7 @@ describe("CRUD Users Test",() =>{
         family_members_id: null,
         zip_code_id: null,
         reference_center_id: null,
-        apointment_id: null
+        appointment_id: null
         
     }
     
@@ -27,7 +27,7 @@ describe("CRUD Users Test",() =>{
 
         if (user != null) {
             console.log(user);
-            let {user_id,user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, apointment_id} = user[0];
+            let {user_id,user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user[0];
             return  user_id;
         }
     }
@@ -117,7 +117,7 @@ describe("CRUD Users Test",() =>{
             family_members_id: null,
             zip_code_id: null,
             reference_center_id: null,
-            apointment_id: null
+            appointment_id: null
             
         }
     
