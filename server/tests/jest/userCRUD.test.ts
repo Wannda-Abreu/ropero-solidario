@@ -1,5 +1,6 @@
 import request from 'supertest';
-import { server, app} from '../../app';
+import app from '../../app';
+import server from '../../index';
 import UserModel from '../../src/models/userModel';
 import db from '../../src/config/dbConfig.sequelize';
 
@@ -8,13 +9,15 @@ describe("CRUD Users Test",() =>{
     let response: request.Response;
 
     const newUser = {  
-        user_name: "test",
+
+        user_name: 'test',
         surname: "test",
-        user_password: "test",
         nationality: "test",
+        date_of_last_report_id: null,
         family_members_id: null,
         zip_code_id: null,
-        reference_center_id: null
+        reference_center_id: null,
+        appointment_id: null
         
     }
     
@@ -23,8 +26,8 @@ describe("CRUD Users Test",() =>{
         const user = await UserModel.findByName('test');
 
         if (user != null) {
-           
-            let {user_id,user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id} = user[0];
+            console.log(user);
+            let {user_id,user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user[0];
             return  user_id;
         }
     }
@@ -55,7 +58,7 @@ describe("CRUD Users Test",() =>{
        
         beforeEach(async() =>{
            
-            const user_id =   await postUserAndGetId();
+            const user_id =  await postUserAndGetId();
             response = await request(app).get(`/users/${user_id}`).send();
                 
         });
@@ -76,17 +79,7 @@ describe("CRUD Users Test",() =>{
    
     describe('POST /users', () => {
     
-        const newUser = {  
-            user_name: "test",
-            surname: "test",
-            user_password: "test",
-            nationality: "test",
-            family_members_id: null,
-            zip_code_id: null,
-            reference_center_id: null
-            
-        }
-    
+      
         const wrongUser = {
             wrong_field: 2.75,
             wrong_field2: "pesa"
@@ -106,7 +99,7 @@ describe("CRUD Users Test",() =>{
         test('Should return a message insertion error if post wrong user', async () => {
             const response = await request(app).post('/users').send(wrongUser);
             expect(response.status).toBe(400);
-            expect(response.body.message).toContain("Invalid data. All fields are required.");
+            expect(response.body.message).toContain("Invalid Request data. All fields are required.");
         });
     
         afterAll(async () => {
@@ -117,13 +110,14 @@ describe("CRUD Users Test",() =>{
     describe('UPDATE /users', () => {
     
         const updatedUser = {  
-            user_name: "test-dontEliminate",
+            user_name: "test",
             surname: "test",
-            user_password: "test",
             nationality: "test",
+            date_of_last_report_id: null,
             family_members_id: null,
             zip_code_id: null,
-            reference_center_id: null
+            reference_center_id: null,
+            appointment_id: null
             
         }
     
@@ -154,20 +148,11 @@ describe("CRUD Users Test",() =>{
     });
 
     describe('DELETE/ User', () => {
-        const newUser = {  
-            user_name: "test",
-            surname: "test",
-            user_password: "test",
-            nationality: "test",
-            family_members_id: null,
-            zip_code_id: null,
-            reference_center_id: null
-            
-        }
+       
         
         test('Should return a response with status 200, type json and a user created successfully! message when a correct user is updated', async () => {
 
-            let user_id =await  postUserAndGetId();
+            let user_id = await  postUserAndGetId();
             const response = await request(app).delete(`/users/${user_id}`).send();
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toContain('json');

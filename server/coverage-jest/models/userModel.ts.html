@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.23% </span>
+                <span class="strong">87.87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/34</span>
+                <span class='fraction'>29/33</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.66% </span>
+                <span class="strong">96.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/30</span>
+                <span class='fraction'>28/29</span>
             </div>
         
             
@@ -153,9 +153,8 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,7 +208,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,30 +243,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import User from "../types/userTypes";
+<span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">import User from "../types/userTypes";
 import db from "../config/dbConfig.sequelize";
 &nbsp;
 &nbsp;
-type DbResult = { user_id: string };
 class UserModel  {
+&nbsp;
     static async findAll(): Promise&lt;User[] | null&gt;{
 &nbsp;
-        const [users, metadata] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, user_password, nationality, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Users;');
+        const [users, metadata] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id, BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(appointment_id) AS appointment_id FROM Users;');
         return users as User[];
     }
 &nbsp;
-    static async findById (id:string): Promise&lt; User | null&gt; {
-        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, user_password, nationality, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Users WHERE user_id = UUID_TO_BIN("${id}")`);
+    static async findById(id:string): Promise&lt; User | null&gt; {
+        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(appointment_id) AS appointment_id FROM Users WHERE user_id = UUID_TO_BIN("${id}")`);
         return (user as User[]).at(0) || <span class="branch-1 cbranch-no" title="branch not covered" >null;</span>
     }
 &nbsp;
     static async create(user: User): Promise&lt;User | null&gt; {
-        const { user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id } = user;
+        const { user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user;
         const [newUser, metadata] = await db.query(
-            'INSERT INTO Users (user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id) VALUES (?, ?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?))',
+            'INSERT INTO Users (user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id) VALUES (?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
             {
                 replacements:
-                [user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id],
+                [user_name, surname, nationality ,date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id],
             }
         );
     
@@ -279,11 +277,11 @@ class UserModel  {
     }
    
     static async update(user:User, id: string): Promise&lt;User| null&gt;{
-        const { user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id } = user;
-        await db.query('UPDATE Users SET user_name = ?, surname = ?, user_password = ?, nationality = ?, family_members_id = UUID_TO_BIN(?), zip_code_id = UUID_TO_BIN(?), reference_center_id = UUID_TO_BIN(?) WHERE user_id = UUID_TO_BIN(?)',
+        const { user_name, surname, nationality ,date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id } = user;
+        await db.query('UPDATE Users SET user_name = ?, surname = ?, nationality = ?, date_of_last_report_id = UUID_TO_BIN(?), family_members_id = UUID_TO_BIN(?), zip_code_id = UUID_TO_BIN(?), reference_center_id = UUID_TO_BIN(?), appointment_id = UUID_TO_BIN(?) WHERE user_id = UUID_TO_BIN(?)',
         {
             replacements:
-            [user_name, surname, user_password, nationality, family_members_id, zip_code_id, reference_center_id, id],
+            [user_name, surname, nationality ,date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id, id],
         });
         const  updatedUser = await UserModel.findById(id);
         const updatedUserAsUser = updatedUser as unknown as User;
@@ -299,12 +297,11 @@ class UserModel  {
         })
         const eliminatedUserAsUser = eliminatedUser as unknown as User;
         <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof eliminatedUserAsUser !== 'object') {<span class="cstat-no" title="statement not covered" >return null;}</span>
-        console.log(eliminatedUser);
         return eliminatedUserAsUser;
         
     }
     static async findByName(name:string):Promise&lt; User[] | null&gt;{
-        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, user_password, nationality, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Users WHERE user_name = "${name}"`);
+        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(appointment_id) AS appointment_id FROM Users WHERE user_name = "${name}"`);
         return user as User[];
 &nbsp;
     }
@@ -343,7 +340,7 @@ export default UserModel; </pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-13T05:14:13.537Z
+                at 2023-11-22T00:35:55.004Z
             </div>
         <script src="../prettify.js"></script>
         <script>
