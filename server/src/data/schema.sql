@@ -1,4 +1,4 @@
-e ropero_solidario;
+create database ropero_solidario;
 use ropero_solidario;
 
 CREATE TABLE Users (

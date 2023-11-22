@@ -1,5 +1,0 @@
-node_modules/
-.env
-dbData.ts
-db-data.ts
-coverage/
