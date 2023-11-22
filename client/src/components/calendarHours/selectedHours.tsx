@@ -17,7 +17,7 @@ const SlotHoursButton: React.FC<SlotHoursButtonProps> = ({ onClick, label, isSel
     </button>
 );
 
-interface AdminSelectedSlotHoursProps {
+export interface AdminSelectedSlotHoursProps {
     selectedDate: moment.Moment;
     handleHourButtonClick: (hour: number) => void;
 }

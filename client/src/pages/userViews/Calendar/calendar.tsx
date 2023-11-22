@@ -1,9 +1,11 @@
 import { Calendar, momentLocalizer, DateLocalizer, View, NavigateAction, DateHeaderProps } from 'react-big-calendar';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import moment from 'moment';
 import React from 'react';
 import prevIcon from '../../../assets/Icons/prevIcon.png';
 import nextIcon from '../../../assets/Icons/nextIcon.png';
+import  AdminSelectedSlotHours, { AdminSelectedSlotHoursProps } from '../../../components/calendarHours/selectedHours';
+
 import './calendar.css';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
@@ -17,6 +19,12 @@ interface CustomToolbarProps {
   onNavigate: (action: NavigateAction, date?: Date) => void;
   className?: string;
 }
+
+
+interface MyCalendarProps {
+  SelectedSlotHoursComponent: React.ComponentType<AdminSelectedSlotHoursProps>;
+}
+
 
 const CustomToolbar: React.FC<CustomToolbarProps> = ({ onNavigate, label }) => {
   const goToPrevious = () => {
@@ -40,7 +48,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({ onNavigate, label }) => {
   );
 };
 
-const MyCalendar: React.FC = () => {
+const MyCalendar: React.FC<MyCalendarProps> = ({ SelectedSlotHoursComponent }) => {
   const [selectedEvent, setSelectedEvent] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [selectedDay, setSelectedDay] = useState<string>('');
@@ -89,26 +97,35 @@ const MyCalendar: React.FC = () => {
   };
 
   const renderSelectedSlotHours = () => {
-    if (selectedEvent) {
+    if (selectedEvent && SelectedSlotHoursComponent) {
       const selectedDate = moment(selectedEvent);
       return (
-        <div className="selected-slot-hours">
-          <p>Horas Disponibles:</p>
-          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.hour())}>
-            {selectedDate.format('LT')}
-          </button>
-          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
-            {selectedDate.clone().add(2, 'hours').format('LT')}
-          </button>
-          <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(3, 'hours').hour())}>
-            {selectedDate.clone().add(3, 'hours').format('LT')}
-          </button>
-          <Link to="/datealert">
-            <Button text="Reservar cita" />
-          </Link>
-        </div>
+        <AdminSelectedSlotHours
+          selectedDate={selectedDate}
+          handleHourButtonClick={handleHourButtonClick}
+        />
       );
-    }
+    }else if (selectedEvent){
+
+          const selectedDate = moment(selectedEvent);
+          return (
+            <div className="selected-slot-hours">
+              <p>Horas Disponibles:</p>
+              <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.hour())}>
+                {selectedDate.format('LT')}
+              </button>
+              <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(2, 'hours').hour())}>
+                {selectedDate.clone().add(2, 'hours').format('LT')}
+              </button>
+              <button className='slot-hours-button' onClick={() => handleHourButtonClick(selectedDate.clone().add(3, 'hours').hour())}>
+                {selectedDate.clone().add(3, 'hours').format('LT')}
+              </button>
+              <Link to="/datealert">
+                <Button text="Reservar cita" />
+              </Link>
+            </div>
+          );
+          }
     return null;
   };
 
