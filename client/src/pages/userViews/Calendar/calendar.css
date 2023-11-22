@@ -8,7 +8,7 @@
  
 }
 .rbc-calendar {
-  width: 60%; 
+  width: 40%; 
 }
 
 .rbc-row.rbc-month-header{
@@ -68,10 +68,18 @@
   margin-bottom: 10px;
 }
 
-.selected-slot-hours {
+.selected-slot-hours-users{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 20%; 
   color: #000;
   margin-top: 10px;
+}
+.admin-selected-slot-hours{
+  flex-direction: column;
+  width: 80%;
 }
 
 .slot-hours-button{
@@ -90,6 +98,10 @@
 }
 hidden-day{
   background-color: green;
+}
+.admin-calendar-btn{
+  display: flex;
+  justify-content: center;
 }
 
 
