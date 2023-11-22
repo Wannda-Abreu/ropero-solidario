@@ -1,4 +1,3 @@
-
 import { Router } from 'express';
 import { getAppointmentTimes, getAppointmentTime, createAppointmentTime, updateAppointmentTime, deleteAppointmentTimeById} from '../controllers/appointmentsTimeController';
 
