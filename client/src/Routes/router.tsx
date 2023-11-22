@@ -59,7 +59,7 @@ const router = createBrowserRouter([
       {
         path: "/admincalendar",
         element: <AdminCalendar />,
-      },
+    },
       {
         path: "/appointments",
         element: <AppointmentsPage/>,

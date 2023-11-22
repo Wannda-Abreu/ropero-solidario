@@ -1,18 +1,12 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faCalendar,
-  faUserGear,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faCalendar, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./dashboard.css";
-import FontSizeToggle from "../../../components/ThemeSettings/fontsizeSettings";
 
-const Dashboard = () => {
-
+const Dashboard = ({ fontSize }) => {
   return (
-    <Container fluid className="dashboard-container" style={{ fontSize: `${FontSizeToggle}px` }}>
+    <Container fluid className={`dashboard-container font-size-${fontSize}`}>
       <Row>
         <Col md={12} lg={9} className="dashboard-content">
           <h5 className="dashboard-title">
@@ -54,4 +48,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
 

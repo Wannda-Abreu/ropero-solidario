@@ -1,7 +1,8 @@
 const FontSizeToggle = ({ changePageFont }) => {
-  const Sizes = ["1rem", "1.5rem", "2rem"];
+  const Sizes = ["1rem", "1.5rem", "5rem"];
 
   const changeFontSize = (fontSize) => {
+    console.log("Changing font size to:", fontSize);
     changePageFont(fontSize);
   };
 
@@ -17,6 +18,8 @@ const FontSizeToggle = ({ changePageFont }) => {
 };
 
 export default FontSizeToggle;
+
+
 
 
 
