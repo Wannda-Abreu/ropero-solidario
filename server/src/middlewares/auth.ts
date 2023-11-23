@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../../utils/JWT';
-import AdminUser from '../models/AdminModel';
+
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 try {

@@ -64,21 +64,9 @@ class AdminRolesModel {
         if (typeof newAdmiRoleAsAdmiRole !== 'object') { return null; }
         return newAdmiRoleAsAdmiRole;
     }
-    
-    static async updateAdmiRole(admiRole: AdminRolesType, adminUserId: string, roleId: string): Promise<AdminRolesType | null> {
-        const { roles_id, admin_user_id } = admiRole;
-        await db.query('UPDATE Admin_user_Roles SET admin_user_id = UUID_TO_BIN(?), roles_id = UUID_TO_BIN(?) WHERE admin_user_id = UUID_TO_BIN(?) AND roles_id = UUID_TO_BIN(?)',
-            {
-                replacements: [adminUserId, roles_id, adminUserId, roleId],
-            });
-    
-        const updatedAdmiRole = await AdminRolesModel.findAdmiRoleById(adminUserId);
-        const updatedAdmiRoleAsAdmiRole = updatedAdmiRole as unknown as AdminRolesType;
-        if (typeof updatedAdmiRoleAsAdmiRole !== 'object') { return null; }
-        return updatedAdmiRoleAsAdmiRole;
-    }
 
-    static async updateAdminUser(Admin_User_Roles: Partial<AdminRolesType>, id: string): Promise<AdminRolesType | null> {
+
+    static async updateAdminRoles(Admin_User_Roles: Partial<AdminRolesType>, id: string): Promise<AdminRolesType | null> {
         try {
             const filteredFields: Partial<AdminRolesType> = {};
                 for (const key in Admin_User_Roles) {
