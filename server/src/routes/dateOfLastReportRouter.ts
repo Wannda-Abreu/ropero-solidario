@@ -7,6 +7,7 @@ const DateOfLastReportRouter = Router ();
     DateOfLastReportRouter.get('/:id', getDateOfLastReportById);
     DateOfLastReportRouter.post('/', createDateOfLastReport);
     DateOfLastReportRouter.put('/:id',updateDateOfLastReport);
+    DateOfLastReportRouter.patch('/:id',updateDateOfLastReport);
     DateOfLastReportRouter.delete('/:id',deleteDateOfLastReport);
 
 export default DateOfLastReportRouter;

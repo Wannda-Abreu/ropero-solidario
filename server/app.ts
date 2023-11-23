@@ -5,9 +5,10 @@ import zipCodeRouter from './src/routes/zipCodeRoutes';
 import appointmentRouter from './src/routes/appointmentsRoutes';
 import { adminRouter } from './src/routes/auth.routes';
 import DateOfLastReportRouter from './src/routes/dateOfLastReportRouter';
-import familyInfoRouter from './src/routes/familyInfoRoutes';
-import referenceCenterRouter from './src/routes/reference-center';
-import telephoneRouter from './src/routes/telephones';
+import familyInfoRouter from './src/routes/familyInfoRouter';
+import referenceCenterRouter from './src/routes/referenceCenterRouter';
+import telephoneRouter from './src/routes/telephonesRouter';
+import appointmentsTimeRouter from './src/routes/appointmentsTimeRouter';
 
 const app = express();
 app.use(corsMiddleware());
@@ -15,7 +16,7 @@ app.use(express.json());
 
 app.use('/users', userRouter);
 app.use('/appointments', appointmentRouter);
-app.use('/appoinmentsTime', appointmentRouter);
+app.use('/appointmentsTime', appointmentsTimeRouter);
 app.use('/adminUser', adminRouter);
 app.use('/ZIPCodes', zipCodeRouter);
 app.use('/dayOfLastReport', DateOfLastReportRouter);

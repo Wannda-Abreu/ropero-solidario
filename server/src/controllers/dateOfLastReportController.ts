@@ -33,16 +33,18 @@ const getDateOfLastReportById = async (req: Request, res: Response): Promise<Res
 };
 
 const createDateOfLastReport = async (req: Request, res: Response): Promise<Response> => {
-  const dateOfLastReportData: DateOfLastReport = req.body;
-
+ 
   try {
-    const newDateOfLastReport = await DateOfLastReportModel.create(dateOfLastReportData);
-
-    if (!newDateOfLastReport) {
-      return res.status(500).json({ message: 'Failed to create DateOfLastReport' });
+    const {day_of_last_report} = req.body;
+        
+    if( !day_of_last_report){
+        return res.status(400).json({ message: 'Invalid Request data. All fields are required.'});
     }
-
-    return res.status(201).json(newDateOfLastReport);
+    await DateOfLastReportModel.create(req.body);
+    
+    return res.status(201).json({message:'The Reference Center has been created successfully!'});
+    
+   
   } catch (error: unknown) {
     return res.status(500).json({ message: (error as Error).message });
   }
@@ -59,7 +61,7 @@ const updateDateOfLastReport = async (req: Request, res: Response): Promise<Resp
       return res.status(404).json({ message: 'DateOfLastReport not found' });
     }
 
-    return res.status(200).json(updatedDateOfLastReport);
+    return res.status(200).json({ message: 'DateOfLastReport was updated successfully!!!' });
   } catch (error: unknown) {
     return res.status(500).json({ message: (error as Error).message });
   }

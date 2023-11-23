@@ -13,31 +13,33 @@ class ZIPCodeModel {
 
 
     static async findById(id: string): Promise<ZIPCode | null> {
-        const [zipCode, metadata] = await db.query(`SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM ZIPCodes WHERE zip_code_id = UUID_TO_BIN("${id}")`);
+        const [zipCode, metadata] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM ZIPCodes WHERE zip_code_id = UUID_TO_BIN(?);',
+        {
+          replacements: [id]
+        }
+        );
         return (zipCode as ZIPCode[]).at(0) || null;
       }
 
       
     static async create(zipCodeData: ZIPCode): Promise<ZIPCode | null> {
-        const { zip_code_id, zip_code } = zipCodeData;
+        const { zip_code } = zipCodeData;
         const [newZipCode, metadata] = await db.query(
-          'INSERT INTO ZIPCodes (zip_code_id, zip_code) VALUES (UUID_TO_BIN(UUID()), ?)',
+          'INSERT INTO ZIPCodes (zip_code) VALUES (?);',
           {
             replacements: [zip_code],
           }
         );
-      
-        const newZipCodeAsZIPCode = newZipCode as unknown as ZIPCode;
-        if (
-            typeof newZipCodeAsZIPCode !== 'object') { return null; }
 
+        const newZipCodeAsZIPCode = newZipCode as unknown as ZIPCode;
+        
+        if (typeof newZipCodeAsZIPCode !== 'object') { return null };
         return newZipCodeAsZIPCode;
-      }
-      
+      }     
 
     static async update(zipCodeData: ZIPCode, id: string): Promise<ZIPCode | null> {
         const { zip_code_id, zip_code } = zipCodeData;
-        await db.query('UPDATE ZIPCodes SET zip_code = ? WHERE zip_code_id = UUID_TO_BIN(?)',
+        await db.query('UPDATE ZIPCodes SET zip_code = ? WHERE zip_code_id = UUID_TO_BIN(?);',
           {
             replacements: [zip_code, id],
           });
