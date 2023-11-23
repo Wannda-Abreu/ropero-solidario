@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import DateOfLastReportModel from '../models/dateOfLastReportModel';
-import  DateOfLastReport  from '../types/dateOfLastReportTypes';
+import DateOfLastReport from '../types/dateOfLastReportTypes';
 
 const getDateOfLastReports = async (_req: Request, res: Response): Promise<Response> => {
   try {
