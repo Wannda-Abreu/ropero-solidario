@@ -28,10 +28,5 @@ app.get('/', (_req: Request, res: Response) => {
   res.end();
 });
 
-// Middleware de manejo de errores
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
-});
 
 export default app;
