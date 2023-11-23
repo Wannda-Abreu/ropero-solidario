@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import AppointmentModel from '../models/appointmentsModel';
+import AppointmentTimeModel from '../models/appointmentTimesModel';
 
 const getAppointmentTimes = async (_req: Request, res: Response): Promise<Response> => {
   try {
-    const appointmentTimes = await AppointmentModel.findAll();
+    const appointmentTimes = await AppointmentTimeModel.findAll();
 
     if (!appointmentTimes) {
       return res.status(404).json({ message: 'Appointment times not found' });
@@ -17,7 +17,7 @@ const getAppointmentTimes = async (_req: Request, res: Response): Promise<Respon
 const getAppointmentTime = async (req: Request, res: Response): Promise<Response> => {
   try {
     const appointmentTimeId = req.params.id;
-    const appointmentTime = await AppointmentModel.findById(appointmentTimeId);
+    const appointmentTime = await AppointmentTimeModel.findById(appointmentTimeId);
 
     if (!appointmentTime) {
       return res.status(404).json({ message: 'Appointment time not found' });
@@ -36,7 +36,7 @@ const createAppointmentTime = async (req: Request, res: Response): Promise<Respo
       return res.status(400).json({ message: 'Invalid Request data. All fields are required.' });
     }
 
-    await AppointmentModel.create(req.body);
+    await AppointmentTimeModel.create(req.body);
 
     return res.status(201).json({ message: 'The Appointment time has been created successfully!' });
   } catch (error: unknown) {
@@ -53,7 +53,7 @@ const updateAppointmentTime = async (req: Request, res: Response): Promise<Respo
     }
 
     const appointmentTimeId = req.params.id;
-    await AppointmentModel.update(req.body, appointmentTimeId);
+    await AppointmentTimeModel.update(req.body, appointmentTimeId);
     return res.status(200).json({ message: 'The appointment time has been updated successfully!' });
   } catch (error: unknown) {
     return res.status(500).json({ message: (error as Error).message });
@@ -63,7 +63,7 @@ const updateAppointmentTime = async (req: Request, res: Response): Promise<Respo
 const deleteAppointmentTimeById = async (req: Request, res: Response): Promise<Response> => {
   try {
     const appointmentTimeId = req.params.id;
-    const eliminatedAppointmentTime = await AppointmentModel.eliminateById(appointmentTimeId);
+    const eliminatedAppointmentTime = await AppointmentTimeModel.eliminateById(appointmentTimeId);
 
     if (!eliminatedAppointmentTime) {
       return res.status(404).json({ message: 'Appointment time Not Found' });

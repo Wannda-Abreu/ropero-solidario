@@ -14,15 +14,12 @@ const getZipCodes = async (_req: Request, res: Response): Promise<Response> => {
 };
 
 const getZipCodesById = async (req: Request, res: Response): Promise<Response> => {
-    const { id } = req.params;
       
     try {
-    const zipCode = await ZipCodeModel.findById(id);
+    const ZIPCodeId = req.params.id; 
+    const zipCode = await ZipCodeModel.findById(ZIPCodeId);
       
-       /*if (!zipCode) {*/
-       if (ZipCodeModel.length === 0){
-        return res.status(404).json({ message: 'ZipCode not found' });
-        }
+       if(!zipCode){return res.status(404).json({message:'ZipCode not found'})}
       
         return res.status(200).json(zipCode);
         } 
@@ -32,16 +29,17 @@ const getZipCodesById = async (req: Request, res: Response): Promise<Response> =
     };
 
 const createZipCode = async (req: Request, res: Response): Promise<Response> => {
-    const zipCodeData: ZipCode = req.body;
       
     try {
-        const newZipCode = await ZipCodeModel.create(zipCodeData);
-      
-        if (!newZipCode) {
-        return res.status(500).json({ message: 'Failed to create ZipCode' });
+        const {zip_code} = req.body;
+        
+        if( !zip_code){
+            return res.status(400).json({ message: 'Invalid Request data. All fields are required.'});
         }
+        const newZipCode = await ZipCodeModel.create(req.body);
+        console.log(newZipCode);
       
-        return res.status(201).json(newZipCode);
+        return res.status(201).json({message:'The ZipCode has been created successfully!'});
         } 
         catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });
@@ -59,7 +57,7 @@ const updateZipCode = async (req: Request, res: Response): Promise<Response> => 
         return res.status(404).json({ message: 'ZipCode not found' });
         }
       
-        return res.status(200).json(updatedZipCode);
+        return res.status(200).json("ZipCode was updated successfully!!!");
         } 
         catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });
@@ -76,7 +74,7 @@ const deleteZipCode = async (req: Request, res: Response): Promise<Response> => 
         return res.status(404).json({ message: 'ZipCode not found' });
         }
       
-        return res.status(200).json(deletedZipCode);
+        return res.status(200).json("ZipCode was deleted successfully!!!");
         } 
         catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });

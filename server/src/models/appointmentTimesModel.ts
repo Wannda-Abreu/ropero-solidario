@@ -1,7 +1,7 @@
 import AppointmentsTime from "../types/apointmentTimes";
 import db from "../config/dbConfig.sequelize";
 
-class AppointmentModel {
+class AppointmentTimeModel {
 
     static async findAll(): Promise<AppointmentsTime[] | null> {
         const [appointmentTimes, metadata] = await db.query(
@@ -42,7 +42,7 @@ class AppointmentModel {
             replacements: [available_times, is_active, id],
         });
 
-        const updatedAppointmentTime = await AppointmentModel.findById(id);
+        const updatedAppointmentTime = await AppointmentTimeModel.findById(id);
         const updatedAppointmentTimeAsAppointmentTime = updatedAppointmentTime as unknown as AppointmentsTime;
         if (typeof updatedAppointmentTimeAsAppointmentTime !== 'object') {
             return null;
@@ -51,7 +51,7 @@ class AppointmentModel {
     }
 
     static async eliminateById(id: string): Promise<AppointmentsTime | null> {
-        let eliminatedAppointmentTime = AppointmentModel.findById(id);
+        let eliminatedAppointmentTime = AppointmentTimeModel.findById(id);
         await db.query('DELETE FROM appoitment_times WHERE appointment_time_id = UUID_TO_BIN(?)', {
             replacements: [id],
         });
@@ -74,7 +74,7 @@ class AppointmentModel {
     }
 
     static async eliminateAppointmentTimesByDay(day: string): Promise<AppointmentsTime | null> {
-        let eliminatedAppointmentTime = AppointmentModel.findAppointmentTimesByDay(day);
+        let eliminatedAppointmentTime = AppointmentTimeModel.findAppointmentTimesByDay(day);
         await db.query('DELETE FROM appoitment_times WHERE some_column_related_to_day = ?', {
             replacements: [day],
         });
@@ -87,4 +87,4 @@ class AppointmentModel {
     }
 }
 
-export default AppointmentModel;
+export default AppointmentTimeModel;

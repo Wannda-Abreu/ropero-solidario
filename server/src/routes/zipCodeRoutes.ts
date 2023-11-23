@@ -7,6 +7,7 @@ const zipCodeRouter = Router();
     zipCodeRouter.get('/:id', getZipCodesById);
     zipCodeRouter.post('/', createZipCode);
     zipCodeRouter.put('/:id', updateZipCode);
+    zipCodeRouter.patch('/:id', updateZipCode);
     zipCodeRouter.delete('/:id', deleteZipCode);
 
 

@@ -6,12 +6,12 @@ class AppointmentModel {
      
     static async findAll(): Promise<Appointment[] | null> {
 
-        const [appointments, metadata] = await db.query('SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, appointment_time_id FROM Appointments;');
+        const [appointments, metadata] = await db.query('SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appointments;');
         return appointments as Appointment[];
     }
 
     static async findById(id: string): Promise<Appointment | null>{
-        const [appointment, metadata] =  await db.query(`SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, appointment_time_id FROM Appointments WHERE appointment_id = UUID_TO_BIN("${id}");`)
+        const [appointment, metadata] =  await db.query(`SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appointments WHERE appointment_id = UUID_TO_BIN("${id}");`)
         return (appointment as Appointment[]).at(0) || null;
     }
     
