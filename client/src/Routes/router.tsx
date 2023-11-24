@@ -7,12 +7,12 @@ import NewUser from "../../../../ropero-solidario/client/src/pages/userViews/new
 import AppoinmentConfirmation from "../../../../ropero-solidario/client/src/pages/userViews/AppoinmentConfirmation/ApponinmentConfirmation.tsx";
 import Home from "../../../../ropero-solidario/client/src/pages/userViews/home/home.tsx";
 import Dashboard from "../../../../ropero-solidario/client/src/pages/adminViews/Dashboard/dashboard.tsx";
-import AdminUserForm from "../../../../ropero-solidario/client/src/pages/adminViews/adminUserForm/adminUserForm.tsx";
 import AppointmentsPage from "../../../../ropero-solidario/client/src/pages/adminViews/appointments/appointments.tsx";
 import RegisterForm from "../pages/adminViews/register/register.tsx";
 import AdminSettings from "../pages/adminViews/adminSettings/adminSettings.tsx";
 import SettingsPage from "../pages/adminViews/settings/settings.tsx";
 import AdminCalendar from "../pages/adminViews/adminCalendar/adminCalendar.tsx"
+import AdminRegisterForm from "../../../../ropero-solidario/client/src/pages/adminViews/adminUserForm/adminUserForm.tsx";
 
 
 const router = createBrowserRouter([
@@ -26,11 +26,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/userform",
-        element: <UserFormPage  buttonLink="/calendar" />,
+        element: <UserFormPage />,
       },
       {
         path: "/calendar",
-        element: <MyCalendar />,
+        element: <MyCalendar SelectedSlotHoursComponent={undefined} />,
       },
       {
         path: "/newuser",
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/adminuserform",
-        element: <AdminUserForm buttonLink="/admincalendar" />,
+        element: <AdminRegisterForm />,
       },
       {
         path: "/admincalendar",

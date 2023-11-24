@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import InputField from '../../../components/atoms/inputFieldProps';
-import { Container, Row, Form, Col, Image } from 'react-bootstrap';
+import { Container, Row, Form, Col, Image, Alert } from 'react-bootstrap';
 import logotype from "../../../assets/Logos/logotype.png";
 import Button from "../../../components/Button/Button";
-import './LoginForm.css'; 
+import { useApi } from '../../../context/FrontContext';
+import './LoginForm.css';
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail,] = useState("");
+  const [email, setEmail] = useState("");
   const [admin_password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const { post } = useApi();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -17,19 +21,35 @@ const LoginForm: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, admin_password);
+
+    let AdminData = {
+      email,
+      admin_password
+    };
+
+    try {
+      const data = await post('adminUser/login', AdminData);
+      console.log(data);
+
+      // Si el inicio de sesión es exitoso, redirigir a /dashboard
+      window.location.href = '/dashboard';
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError("Usuario no encontrado");
+    }
   };
 
   return (
     <Form onSubmit={handleSubmit} className="login-form">
       <Container>
-        <Row >
+        <Row>
           <Col className='img-container'>
-            <Image src={logotype} fluid  className='logo-img'/>
+            <Image src={logotype} fluid className='logo-img' />
           </Col>
         </Row>
+        {error && <Alert variant="danger">{error}</Alert>}
         <Form.Group>
           <InputField
             label="Email"
@@ -43,11 +63,11 @@ const LoginForm: React.FC = () => {
             label="Password"
             type="password"
             value={admin_password}
-            onChange={handlePasswordChange} 
+            onChange={handlePasswordChange}
           />
         </Form.Group>
         <div className="d-flex justify-content-center mt-5 mb-5">
-        <Button type="submit" text="Iniciar Sesión" />
+          <Button type="submit" text="Iniciar Sesión" />
         </div>
       </Container>
     </Form>

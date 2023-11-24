@@ -6,49 +6,43 @@ import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 import "./userForm.css";
 
-interface UserFormProps {
-  onSubmit: (userData: UserData) => void;
-  buttonLink: string;
-}
+import { useApi } from "../../context/FrontContext";
 
-interface UserData {
-  user_name: string;
-  user_lastname: string;
-  postalCode: string;
-  numberOfRelatives: number;
-  people0to18: number;
-}
 
-const UserFormComponent: React.FC<UserFormProps> = ({ onSubmit, buttonLink }) => {
+
+const UserFormComponent: React.FC = ( ) => {
   const [user_name, setUserName] = useState("");
   const [user_lastname, setUserlastname] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [nacionality, setNacionality] = useState("")
   const [numberOfRelatives, setNumberOfRelatives] = useState(0);
   const [people0to18, setPeople0to18] = useState(0);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { post } = useApi();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    onSubmit({
-      user_name,
-      user_lastname,
-      postalCode,
-      numberOfRelatives,
-      people0to18,
-    });
+    let UserData ={
+      user_name: user_name,
+      surname: user_lastname,
+      nacionality: nacionality,
+      number_family_members: numberOfRelatives,
+    };
+
+    try {
+      const data = await post('appointments', UserData);
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      console.log("Sorry, there was an error");
+    }
+
+
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="report-container mt-4">
+    <Form className="report-container mt-4">
       <Container>
-        <Form.Group>
-          <InputField
-            label="¿En qué fecha relleno la solicitud?"
-            type="text"
-            value={user_name}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </Form.Group>
         <Form.Group>
           <InputField
             label="Nombre"
@@ -67,10 +61,10 @@ const UserFormComponent: React.FC<UserFormProps> = ({ onSubmit, buttonLink }) =>
         </Form.Group>
         <Form.Group>
           <InputField
-            label="Codigo Postal"
+            label="nacionalidad"
             type="text"
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
+            value={nacionality}
+            onChange={(e) => setNacionality(e.target.value)}
           />
         </Form.Group>
         <div className="mt-3 mb-2">Nº de familiares</div>
@@ -89,8 +83,8 @@ const UserFormComponent: React.FC<UserFormProps> = ({ onSubmit, buttonLink }) =>
           onUpdate={(newCount: number) => setPeople0to18(newCount)}
         />
         <div className="form-button">
-          <Link to={buttonLink}>
-            <Button text="Reservar cita" />
+          <Link to= '/calendar'>
+            <Button text="Reservar cita" onClick={handleSubmit} />
           </Link>
         </div>
       </Container>

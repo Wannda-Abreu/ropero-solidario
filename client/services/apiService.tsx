@@ -1,18 +1,19 @@
 
-const BASE_URL = 'URLLLL'; 
+const BASE_URL = 'http://localhost:3000/'; 
 
-interface RequestOptions {
+export interface RequestOptions {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
     headers?: Record<string, string>;
     body?: string;
 }
 
-    const handleRequestError = (error: Error): never => {
+    export const handleRequestError = (error: Error): unknown => {
         console.error('Error de solicitud:', error.message);
         throw error;
 };
 
     export const request = async (url: string, options: RequestOptions) => {
+    
     try {
         const response = await fetch(`${BASE_URL}${url}`, options);
         if (!response.ok) {
@@ -42,4 +43,16 @@ interface RequestOptions {
             body: JSON.stringify(data),
         };
             return request(url, options);
+};
+
+    export const post = async (url: string, data: unknown) => {
+    const options: RequestOptions = {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+    },
+        body: JSON.stringify(data),
+    };
+
+    return request(url, options);
 };
