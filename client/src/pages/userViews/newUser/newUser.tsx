@@ -14,11 +14,10 @@ function NewUser() {
             <Card.Text className="user-txt text-center">
               <h6 className="mb-4">Bienvenido a proyecto ropero solidario</h6>
               <p className="mb-4">
-                Para comenzar el proceso de asistencia, por favor, dirígete a
-                la oficina externa de Servicios Sociales ubicada en [dirección]. Allí, encontrarás el formulario necesario para iniciar el proceso y recibir el apoyo adecuado.
+              Si eres nuevo en Ropero Solidario, diríjase a tu centro de servicios sociales para que te realicen un informe de derivación.
               </p>
               <p className="mb-5">
-                Tras completar el formulario, contáctanos por WhatsApp para más detalles. Agradecemos tu colaboración y estamos comprometidos a brindarte el mejor apoyo. ¡Esperamos tu visita!
+              Una vez que tengas el informe de derivación contáctanos por WhatsApp +34 677450122. Agradecemos tu colaboración y estamos comprometidos a brindarte el mejor apoyo. ¡Esperamos tu visita!
               </p>
               <div className="card-button d-flex justify-content-center">
               <Link to="/">

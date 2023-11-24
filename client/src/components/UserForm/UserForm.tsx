@@ -39,11 +39,11 @@ const UserFormComponent: React.FC<UserFormProps> = ({ onSubmit, buttonLink }) =>
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="report-container mt-4">
+    <Form onSubmit={handleSubmit} className="report-container mt-5">
       <Container>
         <Form.Group>
           <InputField
-            label="¿En qué fecha relleno la solicitud?"
+            label="¿De que fecha es su informe de derivación?"
             type="text"
             value={user_name}
             onChange={(e) => setUserName(e.target.value)}
@@ -73,17 +73,17 @@ const UserFormComponent: React.FC<UserFormProps> = ({ onSubmit, buttonLink }) =>
             onChange={(e) => setPostalCode(e.target.value)}
           />
         </Form.Group>
-        <div className="mt-3 mb-2">Nº de familiares</div>
+        <div className="mt-3 mb-2">Nº de familiares según informe de derivación</div>
         <ClickCounter
           initialCount={numberOfRelatives}
           onUpdate={(newCount: number) => setNumberOfRelatives(newCount)}
         />
-        <div className="mt-3 mb-2">Personas de 0 a 18 años</div>
+        <div className="mt-3 mb-2">Personas menores de 18 años</div>
         <ClickCounter
           initialCount={people0to18}
           onUpdate={(newCount: number) => setPeople0to18(newCount)}
         />
-        <div className="mt-3 mb-2">Personas de 0 a 18 años</div>
+        <div className="mt-3 mb-2">Personas mayores de 18 años</div>
         <ClickCounter
           initialCount={0}
           onUpdate={(newCount: number) => setPeople0to18(newCount)}

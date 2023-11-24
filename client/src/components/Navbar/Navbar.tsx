@@ -70,7 +70,7 @@ function Header() {
           <Link to="/newuser" className="navbar-li" aria-label="aboutus">
             Información adicional
           </Link>
-          <Link to="/newuser" className="navbar-li" aria-label="contact"> {/*pendiente verificar si hay que crear la pag*/}
+          <Link to="/contact" className="navbar-li" aria-label="contact"> {/*pendiente verificar si hay que crear la pag*/}
             Contacto
           </Link>
         </ul>

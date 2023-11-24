@@ -13,6 +13,7 @@ import RegisterForm from "../pages/adminViews/register/register.tsx";
 import AdminSettings from "../pages/adminViews/adminSettings/adminSettings.tsx";
 import SettingsPage from "../pages/adminViews/settings/settings.tsx";
 import AdminCalendar from "../pages/adminViews/adminCalendar/adminCalendar.tsx"
+import ContactPage from "../pages/userViews/contactPage/contactPage.tsx";
 
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/datealert",
         element: <AppoinmentConfirmation />,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />,
       },
       {
         path: "/login",
@@ -73,7 +78,6 @@ const router = createBrowserRouter([
         path: "/settings",
         element: <SettingsPage/>,
       },
-      
     ],
   },
 ]);
