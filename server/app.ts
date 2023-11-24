@@ -17,8 +17,9 @@ import Rolesrouter from './src/routes/rolesRoutes';
 
 const app = express();
 
-app.use(corsMiddleware());
+app.use(corsMiddleware);
 app.use(express.json());
+
 
 app.use('/users', userRouter);
 app.use('/appointments', appointmentRouter);

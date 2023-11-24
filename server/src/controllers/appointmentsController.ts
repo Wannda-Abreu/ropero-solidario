@@ -31,9 +31,9 @@ const getAppointment = async (req: Request, res: Response): Promise<Response> =>
 
 const createAppointment = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { appointment_day, appointment_month, appointment_year, appointment_time_id } = req.body;
+        const { appointment_day, appointment_month, appointment_year, appointment_timeC } = req.body;
 
-        if (!appointment_day || !appointment_month || !appointment_year) {
+        if (!appointment_day || !appointment_month || !appointment_year || !appointment_timeC) {
             return res.status(400).json({ message: 'Invalid Request data. All fields are required.' });
         }
 

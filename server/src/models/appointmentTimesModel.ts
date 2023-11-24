@@ -36,21 +36,21 @@ class AppointmentTimeModel {
         return newAppointmentTimeAsAppointmentTime;
     }
 
-    static async update(appointmentTime: AppointmentsTime, id: string): Promise<AppointmentsTime | null> {
+    static async update(appointmentTime: AppointmentsTime): Promise<AppointmentsTime | null> {
         const { available_times, is_active } = appointmentTime;
-        await db.query('UPDATE appoitment_times SET available_times = ?, is_active = ? WHERE appointment_time_id = UUID_TO_BIN(?)', {
-            replacements: [available_times, is_active, id],
+        
+        let updatedAppointmentTime = await db.query('UPDATE appoitment_times SET  is_active = ? WHERE available_times = ?', {
+            replacements: [ is_active, available_times],
         });
 
-        const updatedAppointmentTime = await AppointmentTimeModel.findById(id);
-        const updatedAppointmentTimeAsAppointmentTime = updatedAppointmentTime as unknown as AppointmentsTime;
-        if (typeof updatedAppointmentTimeAsAppointmentTime !== 'object') {
-            return null;
-        }
-        return updatedAppointmentTime;
+      
+        return updatedAppointmentTime as unknown as AppointmentsTime;
+        
     }
 
     static async eliminateById(id: string): Promise<AppointmentsTime | null> {
+
+
         let eliminatedAppointmentTime = AppointmentTimeModel.findById(id);
         await db.query('DELETE FROM appoitment_times WHERE appointment_time_id = UUID_TO_BIN(?)', {
             replacements: [id],

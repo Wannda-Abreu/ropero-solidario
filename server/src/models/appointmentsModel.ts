@@ -6,7 +6,7 @@ class AppointmentModel {
      
     static async findAll(): Promise<Appointment[] | null> {
 
-        const [appointments, metadata] = await db.query('SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appointments;');
+        const [appointments, metadata] = await db.query('SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, BIN_TO_UUID(appointment_time_id) AS appointment_time_id, appointment_timeC FROM Appointments;');
         return appointments as Appointment[];
     }
 
@@ -16,13 +16,13 @@ class AppointmentModel {
     }
     
     static async create(appointment: Appointment): Promise<Appointment | null> {
-        const { appointment_day, appointment_month, appointment_year, appointment_time_id } = appointment;
+        const { appointment_day, appointment_month, appointment_year, appointment_timeC  } = appointment;
         const [newAppointment, metadata] = await db.query(
-            'INSERT INTO Appointments (appointment_day, appointment_month, appointment_year, appointment_time_id) VALUES (?,?,?,?);',
+            'INSERT INTO Appointments (appointment_day, appointment_month, appointment_year, appointment_timeC) VALUES (?,?,?,?);',
         
             {
                 replacements:
-                [appointment_day, appointment_month, appointment_year, appointment_time_id],
+                [appointment_day, appointment_month, appointment_year, appointment_timeC ],
             }
         );
     

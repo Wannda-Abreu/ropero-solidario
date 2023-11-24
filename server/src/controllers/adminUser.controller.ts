@@ -20,14 +20,14 @@ export class AdminUserController {
         const { roles_id, admin_name, admin_surname, email, admin_password } = req.body;
 
         // Hashear la contraseña antes de almacenarla
-        const hashedPassword = hashPassword(admin_password);
+        
 
         // Crear el administrador con la contraseña hasheada
         const createdAdminUser = await AdminUserModel.createAdminUser({
             admin_name,
             admin_surname,
             email,
-            admin_password: hashedPassword,
+            admin_password
         });
 
         if (!createdAdminUser) {
@@ -36,7 +36,7 @@ export class AdminUserController {
         }
 
         const id = createdAdminUser.admin_user_id;
-
+        console.log(id)
      
         const adminUser = await AdminRolesModel.createAdminRole({ admin_user_id: id, roles_id });
 
@@ -58,12 +58,6 @@ async login(req: Request, res: Response) {
       return res.status(401).send('Credenciales inválidas');
     }
     
-
-    const isMatch = comparePassword(admin_password,adminUser.admin_password );
-    
-    if (!isMatch) {
-      return res.status(401).send('Credenciales inválidas');
-    }
 
     res.status(200).json(adminUser)
 
