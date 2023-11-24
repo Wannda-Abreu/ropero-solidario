@@ -1,40 +1,57 @@
 .contact-info {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+}
+
+.info-section {
+  margin: 1rem;
+  width: 25rem;
+  height: 10rem;
+  border-radius: 0.5rem;
+}
+
+.whatsapp-section {
+  width: 22vw;
+  height: 11rem;
+  background-color: black;
+  color: white;
+  padding: 1rem;
+}
+
+.location-section {
+  width: 22vw;
+  height: 11rem;
+  background-color: black;
+  color: white;
+  padding: 1rem;
+}
+
+.clock-section {
+  width: 22vw;
+  height: 11rem;
+  background-color: black;
+  color: white;
+  padding: 1rem;
+}
+@media only screen and (max-width: 768px) {
+  .contact-info {
     display: flex;
-    justify-content: space-around;
-    margin: 1rem;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
   }
-  
-  .info-section {
-    margin: 1rem;
-    width: 25rem;
-    height: 10rem;
-    border-radius: .5rem;
-  }
-  
-  .whatsapp-section {
-    width: 30vw;
-    height: 11rem;
-    background-color:#000000;
-    font-size: 1rem;
-    color: #ffffff;
-    padding: 1rem;
-  }
-  
+
   .location-section {
-    width: 30vw;
-    height: 11rem;
-    background-color:#000000;
-    font-size: 1rem;
-    color: #ffffff;
-    padding: 1rem;
+    width: 18rem;
+    height: 10rem;
   }
-  
   .clock-section {
-    width: 30vw;
-    height: 11rem;
-    background-color:#000000;
-    font-size: 1rem;
-    color: #ffffff;
-    padding: 1rem;
+    width: 18rem;
+    height: 10rem;
   }
-  
+  .whatsapp-section {
+    width: 18rem;
+    height: 10rem;
+  }
+}

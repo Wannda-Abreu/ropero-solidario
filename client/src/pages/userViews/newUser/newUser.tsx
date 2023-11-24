@@ -12,7 +12,7 @@ function NewUser() {
         <Card.Body className="user-card-text d-flex flex-column flex-md-row justify-content-center align-items-center">
           <div className="col-md-6 mb-3 d-flex justify-content-center">
             <Card.Text className="user-txt text-center">
-              <h6 className="mb-4">Bienvenido a proyecto ropero solidario</h6>
+              <h5 className="mb-4">Bienvenido a proyecto ropero solidario</h5>
               <p className="mb-4">
               Si eres nuevo en Ropero Solidario, diríjase a tu centro de servicios sociales para que te realicen un informe de derivación.
               </p>

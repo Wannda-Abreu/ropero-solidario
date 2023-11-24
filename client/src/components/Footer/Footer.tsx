@@ -7,7 +7,7 @@ function Footer() {
       <section aria-label="Footer" className="banner">
         <div className="footer-content">
           <div className="footer-text">
-            <h5>Ropero Solidario</h5>
+            <h6>Ropero Solidario</h6>
             <h6>Fundación Instituto San José</h6>
             <h6>Hermanos de San Juan de Dios</h6>
           </div> 
