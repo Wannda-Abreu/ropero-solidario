@@ -1,13 +1,12 @@
 import UserFormComponent from "../../../components/UserForm/UserForm";
 
-interface UserFormPageProps {
-  buttonLink: string;
-}
 
-const UserFormPage: React.FC<UserFormPageProps> = ({ buttonLink }) => {
+
+
+const UserFormPage: React.FC = () => {
   return (
     <div>
-      <UserFormComponent onSubmit={console.log} buttonLink={buttonLink} />
+      <UserFormComponent  />
     </div>
   );
 };

@@ -1,59 +1,58 @@
 import React, { useEffect, useState } from "react";
 import Stack from "react-bootstrap/Stack";
+import { useApi } from "../../../context/FrontContext";
 
 interface AppointmentItemProps {
-  name: string;
-  appointmentDate: string;
-  appointmentTime: string;
-  phoneNumber: number;
+  appointment_day: string;
+  appointment_month: string;
+  appointment_timeC: string;
 }
 
 const AppointmentItem: React.FC<AppointmentItemProps> = ({
-  name,
-  appointmentDate,
-  appointmentTime,
-  phoneNumber,
+
+  appointment_day,
+  appointment_month,
+  appointment_timeC
 }) => (
   <div className="p-2">
-    <strong>{name}</strong>
+
     <br />
-    Fecha de Cita: {appointmentDate}
+    Fecha de la Cita: {appointment_day}
     <br />
-    Hora de Cita: {appointmentTime}
+    Mes de la Cita: {appointment_month}
     <br />
-    Teléfono: {phoneNumber}
+    Hora de la Cita: {appointment_timeC}
   </div>
 );
 
 const AppointmentsPage: React.FC = () => {
   const [itemsData, setItemsData] = useState<AppointmentItemProps[]>([]);
+  const {get} = useApi()
 
   useEffect(() => {
-    const fetchDataFromDatabase = async () => {
+    const getAppoiments = async () => {
       try {
-        const response = await fetch('tu-endpoint-de-api');
-        const data = await response.json();
+        const data = await get('appointments');
+        console.log(data)
         setItemsData(data);
       } catch (error) {
         console.error('Error al obtener datos de la base de datos', error);
       }
     };
 
-    fetchDataFromDatabase();
+    getAppoiments();
   }, []); 
 
   return (
     <div className="appointment-title p-2">
       <h3> Listado de Citas </h3>
       <Stack gap={3}>
-        {itemsData.map(({ name, appointmentDate, appointmentTime, phoneNumber }, index) => (
+        {itemsData.map(({ appointment_day, appointment_timeC, appointment_month }, index) => (
           <AppointmentItem
             key={index}
-            name={name}
-            appointmentDate={appointmentDate}
-            appointmentTime={appointmentTime}
-            phoneNumber={phoneNumber}
-          />
+            appointment_day={appointment_day}
+            appointment_timeC={appointment_timeC}
+            appointment_month={appointment_month}          />
         ))}
       </Stack>
     </div>
