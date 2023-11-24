@@ -25,7 +25,7 @@ function ContactPage() {
               <span className="info-section clock-section m-3">
                 <FontAwesomeIcon icon={faClock} size="4x" />
                 <h6 className="m-2">Horarios de Atención:</h6>
-                 Lunes a Viernes: 10:00 am - 3:00 pm
+                 Lunes a Viernes: 10:00 am - 5:00 pm
               </span>
             </p>
           </Card.Text>
