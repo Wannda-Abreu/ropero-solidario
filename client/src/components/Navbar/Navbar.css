@@ -12,6 +12,7 @@
 }
 
 .logotype-img {
+  margin: 1rem;
   display: flex;
   height: 3rem;
 }

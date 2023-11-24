@@ -51,7 +51,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/newuser" aria-label="contact">
+            <Link to="/contact" aria-label="contact">
               Contacto
             </Link>
           </li>
