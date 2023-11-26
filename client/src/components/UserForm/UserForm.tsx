@@ -41,12 +41,6 @@ const UserFormComponent: React.FC = ( ) => {
   };
 
   return (
-<<<<<<< HEAD
-    <Form className="report-container mt-4">
-      <Container>
-        <Form.Group>
-          <InputField
-=======
     <Form onSubmit={handleSubmit} className="report-container mt-5">
       <Container>
         <Form.Group>
@@ -59,7 +53,6 @@ const UserFormComponent: React.FC = ( ) => {
         </Form.Group>
         <Form.Group>
           <InputField
->>>>>>> 259bebefbec347cab2cb3fc29f16b53614db0927
             label="Nombre"
             type="text"
             value={user_name}

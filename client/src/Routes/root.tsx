@@ -7,41 +7,36 @@ import { ApiProvider } from "../context/FrontContext";
 
 function Root() {
   const location = useLocation();
-
-  if (
+  const isAdminPage =
     location.pathname === "/dashboard" ||
     location.pathname === "/adminuserform" ||
     location.pathname === "/appointments" ||
     location.pathname === "/adminsettings" ||
     location.pathname === "/settings" ||
-    location.pathname === "/admincalendar"
-    
-  
-  ) {
-    return (
-      <ApiProvider>
-        <Sidebar />
-        <Outlet />
-      </ApiProvider>
-    );
-  } else if (
-    location.pathname === "/login" ||
-    location.pathname === "/register"
-  ) {
-    return (
+    location.pathname === "/admincalendar";
+
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/register";
+
+  return (
     <ApiProvider>
-    <Outlet />
-    </ApiProvider>)
-  } else {
-    return (
-      <ApiProvider>
-        <Header />
-        <CarouselComponent />
+      {isAdminPage ? (
+        <>
+          <Sidebar />
+          <Outlet />
+        </>
+      ) : isAuthPage ? (
         <Outlet />
-        <Footer />
-      </ApiProvider>
-    );
-  }
+      ) : (
+        <>
+          <Header />
+          <CarouselComponent />
+          <Outlet />
+          <Footer />
+        </>
+      )}
+    </ApiProvider>
+  );
 }
 
 export default Root;
