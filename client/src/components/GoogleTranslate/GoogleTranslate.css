@@ -1,0 +1,31 @@
+select.goog-te-combo {
+    height: 2.4rem;
+    border: none;
+    background-color: #dc291e;
+    color: #ffffff;
+    font-size: 1.5em;
+    padding: 0;
+    cursor: pointer;
+}
+
+select.goog-te-combo:hover {
+    font-weight: 550;
+}
+
+div.skiptranslate.goog-te-gadget {
+    color: transparent;
+    height: 1rem;
+}
+
+a.VIpgJd-ZVi9od-l4eHX-hSRGPd {
+    display: none;
+}
+
+#google_translate_element {
+    background-color: #dc291e;
+    color: #ffffff;
+    width: auto;
+    height: 3rem;
+    margin-bottom: 0;
+    padding: 0;
+}
