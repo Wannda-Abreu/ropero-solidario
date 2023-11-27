@@ -105,6 +105,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ SelectedSlotHoursComponent }) =
     };
 
     getActiveHours();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSelectEvent = (event: { start: Date; end: Date }) => {
