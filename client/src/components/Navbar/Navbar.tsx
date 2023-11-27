@@ -59,8 +59,8 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/newuser" aria-label="info">
-                  Información adicional
+                <Link to="/userappointments" aria-label="info">
+                  Gestionar cita
                 </Link>
               </li>
               <li>
