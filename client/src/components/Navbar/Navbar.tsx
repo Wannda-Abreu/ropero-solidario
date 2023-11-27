@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logotype from "../../assets/Logos/white-logo.png";
 import GoogleTranslate from "../../components/GoogleTranslate/GoogleTransalate";
-import UpdateAppointmentPage from "../../pages/userViews/UpdateAppointmentPage/UpdateAppointmentPage";
 import "./Navbar.css";
 
 function Header() {
