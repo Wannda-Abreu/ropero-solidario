@@ -12,7 +12,7 @@ class ReferenceCenterModel {
     return (center as ReferenceCenter[]).at(0) || null;
   }
 
-  static async create(center: ReferenceCenter): Promise<ReferenceCenter | null> {
+  static async create(center: ReferenceCenter): Promise<Object | null> {
     const { reference_center } = center;
     const [newCenter, metadata] = await db.query(
       'INSERT INTO Reference_centers (reference_center) VALUES (?);',
@@ -21,9 +21,11 @@ class ReferenceCenterModel {
       }
     );
 
-    const newCenterAsReferenceCenter = newCenter as unknown as ReferenceCenter;
-    if (typeof newCenterAsReferenceCenter !== 'object') { return null; }
-    return newCenterAsReferenceCenter;
+    const [referenceCenterId] = await db.query('SELECT BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Reference_centers ORDER BY reference_center_id DESC LIMIT 1;');
+
+    if (typeof referenceCenterId !== 'object') {return null;}
+      
+    return referenceCenterId;
   }
 
   static async update(center: ReferenceCenter, id: string): Promise<ReferenceCenter | null> {

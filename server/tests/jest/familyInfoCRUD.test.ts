@@ -156,7 +156,7 @@ describe('CRUD FamilyInfo Test', () => {
   });
 
   afterAll(async () => {
-    server.close();
+    // server.close();
     db.close();
   });
   

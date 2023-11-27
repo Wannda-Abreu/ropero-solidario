@@ -17,7 +17,7 @@ class DateOfLastReportModel {
     return (dateOfLastReport as DateOfLastReport[]).at(0) || null;
   }
 
-  static async create(DateOfLastReportData: DateOfLastReport): Promise<DateOfLastReport | null> {
+  static async create(DateOfLastReportData: DateOfLastReport): Promise<Object | null> {
     const { date_of_last_report_id, day_of_last_report } = DateOfLastReportData;
     const [newDateOfLastReport, metadata] = await db.query(
       'INSERT INTO Dates_of_last_report (date_of_last_report_id, day_of_last_report) VALUES (UUID_TO_BIN(UUID()), ?)',
@@ -25,11 +25,13 @@ class DateOfLastReportModel {
         replacements: [day_of_last_report],
       }
     );
-    const newDateOfLastReportAs = newDateOfLastReport as unknown as DateOfLastReport;
-    if (typeof newDateOfLastReportAs !== 'object') {
-      return null;
-    }
-    return newDateOfLastReportAs;
+    
+    const [dateOfLastReportId] = await db.query('SELECT BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id FROM Dates_of_last_report ORDER BY date_of_last_report_id DESC LIMIT 1;');
+
+      if (typeof  dateOfLastReportId !== 'object') {return null;}
+        
+      return  dateOfLastReportId;
+
   }
 
   static async update(DateOfLastReportData: DateOfLastReport, id: string): Promise<DateOfLastReport | null> {

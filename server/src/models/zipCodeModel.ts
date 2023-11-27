@@ -22,8 +22,8 @@ class ZIPCodeModel {
       }
 
       
-    static async create(zipCodeData: ZIPCode): Promise<ZIPCode | null> {
-        const { zip_code } = zipCodeData;
+    static async create(zipCodeData: ZIPCode): Promise<Object | null> {
+        const {zip_code} = zipCodeData;
         const [newZipCode, metadata] = await db.query(
           'INSERT INTO ZIPCodes (zip_code) VALUES (?);',
           {
@@ -31,10 +31,12 @@ class ZIPCodeModel {
           }
         );
 
-        const newZipCodeAsZIPCode = newZipCode as unknown as ZIPCode;
-        
-        if (typeof newZipCodeAsZIPCode !== 'object') { return null };
-        return newZipCodeAsZIPCode;
+        const [zipCodeId] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id FROM ZIPCodes ORDER BY zip_code_id DESC LIMIT 1;');
+
+        if (typeof zipCodeId !== 'object') {return null;}
+          
+        return zipCodeId;
+  
       }     
 
     static async update(zipCodeData: ZIPCode, id: string): Promise<ZIPCode | null> {
@@ -43,6 +45,7 @@ class ZIPCodeModel {
           {
             replacements: [zip_code, id],
           });
+          console.log(zip_code);
 
         const updatedZipCode = await ZIPCodeModel.findById(id);
         const updatedZipCodeAsZIPCode = updatedZipCode as unknown as ZIPCode;
@@ -64,6 +67,29 @@ class ZIPCodeModel {
 
         return eliminatedZipCodeAsZIPCode;
       }
+
+      static async findByZipCode(zip_code:number): Promise< ZIPCode[] | null>{
+        const[zipCodes, metadata] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id, zip_code FROM ZIPCodes WHERE zip_code = ?',
+        {
+          replacements: [zip_code]
+        });
+        return zipCodes as ZIPCode[];
+
+    }
+
+    
+
+    static async eliminateByZipCode(zip_code: number): Promise< ZIPCode | null>{
+        let eliminatedZipCode = await ZIPCodeModel.findByZipCode(zip_code);
+        await db.query('DELETE FROM ZIPCodes WHERE zip_code = ?',
+        {
+            replacements: [zip_code]
+        })
+        const eliminatedZipCodeAsZIPCode = eliminatedZipCode as unknown as ZIPCode;
+        if (typeof eliminatedZipCodeAsZIPCode !== 'object') {return null;}
+        return eliminatedZipCodeAsZIPCode;
+        
+    } 
             
 
 }

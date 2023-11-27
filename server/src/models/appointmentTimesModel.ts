@@ -20,7 +20,7 @@ class AppointmentTimeModel {
         return (appointmentTime as AppointmentsTime[]).at(0) || null;
     }
 
-    static async create(appointmentTime: AppointmentsTime): Promise<AppointmentsTime | null> {
+    static async create(appointmentTime: AppointmentsTime): Promise<Object | null> {
         const { available_times, is_active } = appointmentTime;
         const [newAppointmentTime, metadata] = await db.query(
             'INSERT INTO appoitment_times (appointment_time_id, available_times, is_active) VALUES (UUID_TO_BIN(UUID()), ?, ?);',
@@ -28,12 +28,12 @@ class AppointmentTimeModel {
                 replacements: [available_times, is_active],
             }
         );
+        const [appointmentTimeId] = await db.query('SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appoitment_times ORDER BY appointment_time_id DESC LIMIT 1;');
 
-        const newAppointmentTimeAsAppointmentTime = newAppointmentTime as unknown as AppointmentsTime;
-        if (typeof newAppointmentTimeAsAppointmentTime !== 'object') {
-            return null;
-        }
-        return newAppointmentTimeAsAppointmentTime;
+        if (typeof  appointmentTimeId !== 'object') {return null;}
+        
+        return  appointmentTimeId;
+       
     }
 
     static async update(appointmentTime: AppointmentsTime, id: string): Promise<AppointmentsTime | null> {

@@ -37,9 +37,9 @@ const createAppointment = async (req: Request, res: Response): Promise<Response>
             return res.status(400).json({ message: 'Invalid Request data. All fields are required.' });
         }
 
-        await AppointmentModel.create(req.body);
+        const appointmentId = await AppointmentModel.create(req.body);
 
-        return res.status(201).json({ message: 'The Appointment has been created successfully!' });
+        return res.status(201).json(appointmentId);
     } catch (error: unknown) {
         return res.json({ message: (error as Error).message });
     }

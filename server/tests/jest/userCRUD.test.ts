@@ -169,7 +169,7 @@ describe("CRUD Users Test",() =>{
 
     
     afterAll(async () => {
-        server.close();
+        // server.close();
         db.close();
     });   
 })  

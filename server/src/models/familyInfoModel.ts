@@ -17,7 +17,7 @@ class FamilyInfoModel {
         return (familyInfo as FamilyInfo[]).at(0) || null;
     }
     
-    static async create(familyInfo: FamilyInfo): Promise<FamilyInfo | null> {
+    static async create(familyInfo: FamilyInfo): Promise<Object | null> {
         const { number_of_family_members, underaged_family_members, overaged_family_members} = familyInfo;
         const [newFamilyInfo, metadata] = await db.query(
             'INSERT INTO Families_info (number_of_family_members, underaged_family_members, overaged_family_members) VALUES (?,?,?);',
@@ -27,10 +27,11 @@ class FamilyInfoModel {
                 [number_of_family_members, underaged_family_members, overaged_family_members],
             }
         );
-    
-        const newFamilyInfoAsFamilyInfo = newFamilyInfo as unknown as FamilyInfo;
-        if (typeof  newFamilyInfoAsFamilyInfo !== 'object') {return null;}
-        return  newFamilyInfoAsFamilyInfo;
+        const [familyInfoId] = await db.query('SELECT BIN_TO_UUID(family_info_id) AS family_info_id FROM Families_info ORDER BY family_info_id DESC LIMIT 1;');
+
+        if (typeof  familyInfoId !== 'object') {return null;}
+        
+        return  familyInfoId;
         
     }
 

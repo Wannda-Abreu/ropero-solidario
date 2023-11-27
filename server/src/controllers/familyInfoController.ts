@@ -36,8 +36,9 @@ const createFamilyInfo = async (req: Request, res: Response): Promise<Response> 
             return res.status(400).json({message: 'Invalid Request Data. All fields are required.'});   
         }
         
-        await FamilyInfoModel.create(req.body);
-        return res.status(201).json({message:'The Family Info has been created successfully!'});
+        const familyInfo = await FamilyInfoModel.create(req.body);
+        if(typeof familyInfo !== 'object'){return res.status(404).json({message: 'Invalid Request Data. All fields are required.'}); }
+        return res.status(201).json(familyInfo);
         
     } catch (error: unknown) {
         return res.json({message:(error as Error).message});
@@ -47,11 +48,13 @@ const createFamilyInfo = async (req: Request, res: Response): Promise<Response> 
 
 const updateFamilyInfo = async (req: Request, res: Response): Promise<Response> => {
     try {
+        
         const {number_of_family_members, underaged_family_members, overaged_family_members} = req.body;
         if(!number_of_family_members|| !underaged_family_members || !overaged_family_members){
             return res.status(400).json({message: 'Invalid Request Data. All fields are required.'});   
         }
-        await FamilyInfoModel.create(req.body);
+        const familyInfoIdId = req.params.id;
+        await FamilyInfoModel.update(req.body, familyInfoIdId);
 
         return res.status(200).json({message: 'The Family Info has been created succesfully!'});
         
