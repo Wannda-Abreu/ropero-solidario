@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logotype from "../../assets/Logos/white-logo.png";
 import GoogleTranslate from "../../components/GoogleTranslate/GoogleTransalate";
+import UpdateAppointmentPage from "../../pages/userViews/UpdateAppointmentPage/UpdateAppointmentPage";
 import "./Navbar.css";
 
 function Header() {
@@ -28,8 +29,8 @@ function Header() {
               <Link to="/" className="navbar-li" aria-label="home">
                 Ropero solidario
               </Link>
-              <Link to="/newuser" className="navbar-li" aria-label="aboutus">
-                Información adicional
+              <Link to="/userappointments" className="navbar-li" aria-label="aboutus">
+                Gestionar cita
               </Link>
               <Link to="/contact" className="navbar-li" aria-label="contact">
                 Contacto
