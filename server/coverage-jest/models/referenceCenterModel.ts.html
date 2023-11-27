@@ -115,8 +115,10 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,19 +141,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,10 +156,22 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">import ReferenceCenter from '../types/referenceCenter'
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import ReferenceCenter from '../types/referenceCenter'
 import db from "../config/dbConfig.sequelize";
 &nbsp;
 class ReferenceCenterModel {
@@ -181,7 +185,7 @@ class ReferenceCenterModel {
 <span class="cstat-no" title="statement not covered" >    return (center as ReferenceCenter[]).at(0) || null;</span>
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  static </span>async create(center: ReferenceCenter): Promise&lt;ReferenceCenter | null&gt; {
+<span class="fstat-no" title="function not covered" >  static </span>async create(center: ReferenceCenter): Promise&lt;Object | null&gt; {
     const { reference_center } = <span class="cstat-no" title="statement not covered" >center;</span>
     const [newCenter, metadata] = <span class="cstat-no" title="statement not covered" >await db.query(</span>
       'INSERT INTO Reference_centers (reference_center) VALUES (?);',
@@ -190,9 +194,11 @@ class ReferenceCenterModel {
       }
     );
 &nbsp;
-    const newCenterAsReferenceCenter = <span class="cstat-no" title="statement not covered" >newCenter as unknown as ReferenceCenter;</span>
-<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof newCenterAsReferenceCenter !== 'object') { <span class="cstat-no" title="statement not covered" >return null; </span>}</span>
-<span class="cstat-no" title="statement not covered" >    return newCenterAsReferenceCenter;</span>
+    const [referenceCenterId] = <span class="cstat-no" title="statement not covered" >await db.query('SELECT BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Reference_centers ORDER BY reference_center_id DESC LIMIT 1;');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof referenceCenterId !== 'object') {<span class="cstat-no" title="statement not covered" >return null;}</span></span>
+      
+<span class="cstat-no" title="statement not covered" >    return referenceCenterId;</span>
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  static </span>async update(center: ReferenceCenter, id: string): Promise&lt;ReferenceCenter | null&gt; {
@@ -226,7 +232,7 @@ export default ReferenceCenterModel;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-27T10:34:14.274Z
+                at 2023-11-27T14:37:38.015Z
             </div>
         <script src="../prettify.js"></script>
         <script>

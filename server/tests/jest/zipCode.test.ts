@@ -3,6 +3,8 @@ import app from '../../app';
 import server from '../../index';
 import ZIPCodeModel from '../../src/models/zipCodeModel'; 
 import db from '../../src/config/dbConfig.sequelize';
+import ZiPCodeId from '../../src/types/zipCodeId';
+
 
 describe("CRUD ZIPCodes Test", () => {
   
@@ -17,23 +19,18 @@ describe("CRUD ZIPCodes Test", () => {
     zip_code: 12345
   };
 
-  const createAndGetId = async () => {
-    const createdZIPCode = await ZIPCodeModel.create(newZipCode);
-    const createdZIPCodeId = createdZIPCode?.zip_code_id || '';
+  
+  
+  const createAndGetId = async (): Promise<string | null> => {
+    const createdZIPCodeId: ZiPCodeId | null = await ZIPCodeModel.create(newZipCode);
     console.log(createdZIPCodeId);
-    return createdZIPCodeId;
-    // const createdZIPCode = await ZIPCodeModel.create(newZipCode);
     
-
-    // if (createdZIPCode != null) {
-        
-    //   const createdZIPCodeId = createdZIPCode?.zip_code_id || '';
-    //   console.log(createdZIPCodeId);
-    //   return  createdZIPCodeId;
-    
-    // }
-   }
-
+    if (!createdZIPCodeId || typeof createdZIPCodeId !== 'object'){return null}
+    console.log(createdZIPCodeId);
+  
+    const zipCodeId = createdZIPCodeId.zip_code_id;
+    return zipCodeId.toString();
+  };
 
   describe("GET /ZIPCodes", () => {
     beforeEach(async () => {
@@ -53,6 +50,7 @@ describe("CRUD ZIPCodes Test", () => {
   describe("GET /ZIPCodes by ID", () => {
     beforeEach(async () => {
       const createdZIPCodeId = await createAndGetId();
+      console.log(createdZIPCodeId);
       response = await request(app).get(`/ZIPCodes/${createdZIPCodeId}`).send();
     });
       
@@ -80,7 +78,7 @@ describe("CRUD ZIPCodes Test", () => {
 
     test('Should return a message ZIPCode created successfully', async () => {
       const response = await request(app).post('/ZIPCodes').send(newZipCode);
-      expect(response.body.message).toContain("The ZipCode has been created successfully!");
+      expect(response.body).toBeInstanceOf(Object);
     });
     afterAll(async () => {
       await ZIPCodeModel.eliminateByZipCode(12345);

@@ -1,5 +1,7 @@
 import ZIPCode from "../types/zipCodeTypes";
 import db from "../config/dbConfig.sequelize";
+import ZiPCodeId from "../types/zipCodeId";
+
 
 
 
@@ -22,7 +24,7 @@ class ZIPCodeModel {
       }
 
       
-    static async create(zipCodeData: ZIPCode): Promise<Object | null> {
+    static async create(zipCodeData: ZIPCode): Promise<ZiPCodeId | null> {
         const {zip_code} = zipCodeData;
         const [newZipCode, metadata] = await db.query(
           'INSERT INTO ZIPCodes (zip_code) VALUES (?);',
@@ -31,11 +33,11 @@ class ZIPCodeModel {
           }
         );
 
-        const [zipCodeId] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id FROM ZIPCodes ORDER BY zip_code_id DESC LIMIT 1;');
+        const [[zipCodeId]] = await db.query('SELECT BIN_TO_UUID(zip_code_id) AS zip_code_id FROM ZIPCodes ORDER BY zip_code_id DESC LIMIT 1;');
 
         if (typeof zipCodeId !== 'object') {return null;}
           
-        return zipCodeId;
+        return zipCodeId as ZiPCodeId;
   
       }     
 

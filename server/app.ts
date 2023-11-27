@@ -9,10 +9,13 @@ import familyInfoRouter from './src/routes/familyInfoRouter';
 import referenceCenterRouter from './src/routes/referenceCenterRouter';
 import telephoneRouter from './src/routes/telephonesRouter';
 import appointmentsTimeRouter from './src/routes/appointmentsTimeRouter';
+import bodyParser from 'body-parser';
 
 const app = express();
 app.use(corsMiddleware());
 app.use(express.json());
+app.use(bodyParser.json());
+
 
 app.use('/users', userRouter);
 app.use('/appointments', appointmentRouter);
