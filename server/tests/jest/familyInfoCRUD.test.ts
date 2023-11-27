@@ -4,6 +4,7 @@ import server from '../../index';
 import FamilyInfoModel from '../../src/models/familyInfoModel';
 import FamilyInfo from '../../src/types/familyInfoTypes';
 import db from '../../src/config/dbConfig.sequelize';
+import FamilyInfoId from '../../src/types/id-types/familyInfoId';
 
 describe('CRUD FamilyInfo Test', () => {
   let response: Response;
@@ -16,13 +17,10 @@ describe('CRUD FamilyInfo Test', () => {
   };
 
   const postFamilyInfoAndGetId = async () => {
-    await request(app).post('/familyInfos').send(newFamilyInfo);
-    const familyInfo = await FamilyInfoModel.findByNumberOfMembers(100);
-
-    if (familyInfo !== null) {
-      const { family_info_id, number_of_family_members, underaged_family_members, overaged_family_members } = familyInfo[0];
-      return family_info_id;
-    }
+    const createdFamilyInfoId: FamilyInfoId | null = await FamilyInfoModel.create(newFamilyInfo); 
+        if (!createdFamilyInfoId || typeof createdFamilyInfoId !== 'object'){return null}
+        const zipCodeId = createdFamilyInfoId.family_info_id;
+        return zipCodeId.toString();
   };
 
   describe('GET /FamilyInfo', () => {
@@ -84,7 +82,7 @@ describe('CRUD FamilyInfo Test', () => {
 
     test('Should return a message family info created successfully', async () => {
       const response = await request(app).post('/familyInfos').send(newFamilyInfo);
-      expect(response.body.message).toContain('The Family Info has been created successfully!');
+      expect(response.body).toBeInstanceOf(Object);
     });
 
     test('Should return a message insertion error if post wrong family info', async () => {

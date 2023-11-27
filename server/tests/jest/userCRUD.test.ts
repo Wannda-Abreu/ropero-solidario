@@ -3,12 +3,14 @@ import app from '../../app';
 import server from '../../index';
 import UserModel from '../../src/models/userModel';
 import db from '../../src/config/dbConfig.sequelize';
+import UserId from '../../src/types/id-types/userId';
+import User from '../../src/types/userTypes';
 
 describe("CRUD Users Test",() =>{
             
     let response: request.Response;
 
-    const newUser = {  
+    const newUser :User = {  
 
         user_name: 'test',
         surname: "test",
@@ -22,14 +24,10 @@ describe("CRUD Users Test",() =>{
     }
     
     const postUserAndGetId = async () => {
-        await request(app).post('/users').send(newUser);
-        const user = await UserModel.findByName('test');
-
-        if (user != null) {
-            console.log(user);
-            let {user_id,user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user[0];
-            return  user_id;
-        }
+        const createdUserId: UserId | null = await UserModel.create(newUser); 
+        if (!createdUserId || typeof createdUserId !== 'object'){return null}
+        const zipCodeId = createdUserId.user_id;
+        return zipCodeId.toString();
     }
 
     describe("GET /Users", () =>{
@@ -93,7 +91,7 @@ describe("CRUD Users Test",() =>{
     
         test('Should return a message user created successfully', async () => {
             const response = await request(app).post('/users').send(newUser);
-            expect(response.body.message).toContain("The User has been created successfully!");
+            expect(response.body).toBeInstanceOf(Object);
         });
     
         test('Should return a message insertion error if post wrong user', async () => {

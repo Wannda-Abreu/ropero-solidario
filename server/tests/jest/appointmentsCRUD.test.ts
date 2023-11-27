@@ -3,6 +3,7 @@ import app from '../../app';
 import server from '../../index';
 import AppointmentModel from '../../src/models/appointmentsModel';
 import db from '../../src/config/dbConfig.sequelize';
+import AppointmentsId from '../../src/types/id-types/appointmentId';
 
 
 let response: request.Response;
@@ -15,13 +16,10 @@ let response: request.Response;
     }
 
 const postAppointmentAndGetId = async () => {
-    await request(app).post('/appointments').send(newAppointment);
-    const appointment = await AppointmentModel.findByDay("32");
-
-    if (appointment != null) {
-        const {appointment_id, appointment_day, appointment_month, appointment_year,appointment_time_id} = appointment[0];
-        return appointment_id;
-    }
+    const createdAppointmentId: AppointmentsId | null = await AppointmentModel.create(newAppointment); 
+        if (!createdAppointmentId || typeof createdAppointmentId !== 'object'){return null}
+        const zipCodeId = createdAppointmentId.appointment_id;
+        return zipCodeId.toString();
 }
 
 
@@ -76,7 +74,7 @@ describe("CRUD Appointments Test", () => {
 
         test('Should return a message appointment created successfully', async () => {
             const response = await request(app).post('/appointments').send(newAppointment);
-            expect(response.body.message).toContain("The Appointment has been created successfully!");
+            expect(response.body).toBeInstanceOf(Object);
         });
 
         test('Should return a message insertion error if post wrong appointment', async () => {

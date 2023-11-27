@@ -1,5 +1,6 @@
 import FamilyInfo from "../types/familyInfoTypes";
 import db from "../config/dbConfig.sequelize";
+import FamilyInfoId from "../types/id-types/familyInfoId";
 
 class FamilyInfoModel {
      
@@ -17,7 +18,7 @@ class FamilyInfoModel {
         return (familyInfo as FamilyInfo[]).at(0) || null;
     }
     
-    static async create(familyInfo: FamilyInfo): Promise<Object | null> {
+    static async create(familyInfo: FamilyInfo): Promise<FamilyInfoId | null> {
         const { number_of_family_members, underaged_family_members, overaged_family_members} = familyInfo;
         const [newFamilyInfo, metadata] = await db.query(
             'INSERT INTO Families_info (number_of_family_members, underaged_family_members, overaged_family_members) VALUES (?,?,?);',
@@ -27,11 +28,11 @@ class FamilyInfoModel {
                 [number_of_family_members, underaged_family_members, overaged_family_members],
             }
         );
-        const [familyInfoId] = await db.query('SELECT BIN_TO_UUID(family_info_id) AS family_info_id FROM Families_info ORDER BY family_info_id DESC LIMIT 1;');
+        const [[familyInfoId]] = await db.query('SELECT BIN_TO_UUID(family_info_id) AS family_info_id FROM Families_info ORDER BY family_info_id DESC LIMIT 1;');
 
         if (typeof  familyInfoId !== 'object') {return null;}
         
-        return  familyInfoId;
+        return  familyInfoId as FamilyInfoId;
         
     }
 

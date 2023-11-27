@@ -1,5 +1,6 @@
 import User from "../types/userTypes";
 import db from "../config/dbConfig.sequelize";
+import UserId from "../types/id-types/userId";
 
 
 class UserModel  {
@@ -15,7 +16,7 @@ class UserModel  {
         return (user as User[]).at(0) || null;
     }
 
-    static async create(user: User): Promise<Object | null> {
+    static async create(user: User): Promise<UserId | null> {
         const { user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user;
         const [newUser, metadata] = await db.query(
             'INSERT INTO Users (user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id) VALUES (?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
@@ -25,11 +26,11 @@ class UserModel  {
             }
         );
     
-        const [userId] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id FROM Users ORDER BY user_id DESC LIMIT 1;');
+        const [[userId]] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id FROM Users ORDER BY user_id DESC LIMIT 1;');
 
         if (typeof  userId !== 'object') {return null;}
           
-        return  userId;
+        return  userId as UserId;
   
     }
    

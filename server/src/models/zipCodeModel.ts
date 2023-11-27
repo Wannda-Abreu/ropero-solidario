@@ -1,6 +1,6 @@
 import ZIPCode from "../types/zipCodeTypes";
 import db from "../config/dbConfig.sequelize";
-import ZiPCodeId from "../types/zipCodeId";
+import ZiPCodeId from "../types/id-types/zipCodeId";
 
 
 
@@ -47,7 +47,6 @@ class ZIPCodeModel {
           {
             replacements: [zip_code, id],
           });
-          console.log(zip_code);
 
         const updatedZipCode = await ZIPCodeModel.findById(id);
         const updatedZipCodeAsZIPCode = updatedZipCode as unknown as ZIPCode;

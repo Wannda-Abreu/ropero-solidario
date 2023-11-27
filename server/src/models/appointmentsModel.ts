@@ -1,6 +1,7 @@
 import Appointment from "../types/apointmentTypes"; // Cambiado el nombre del tipo
 
 import db from "../config/dbConfig.sequelize";
+import AppointmentsId from "../types/id-types/appointmentId";
 
 class AppointmentModel { 
      
@@ -15,7 +16,7 @@ class AppointmentModel {
         return (appointment as Appointment[]).at(0) || null;
     }
     
-    static async create(appointment: Appointment): Promise< Object | null> {
+    static async create(appointment: Appointment): Promise< AppointmentsId | null> {
         const { appointment_day, appointment_month, appointment_year, appointment_time_id } = appointment;
         const [newAppointment, metadata] = await db.query(
             'INSERT INTO Appointments (appointment_day, appointment_month, appointment_year, appointment_time_id) VALUES (?,?,?,?);',
@@ -26,11 +27,11 @@ class AppointmentModel {
             }
         );
     
-        const [appointmentId] = await db.query('SELECT BIN_TO_UUID(appointment_id) AS appointment_id FROM Appointments ORDER BY appointment_id DESC LIMIT 1;');
+        const [[appointmentId]] = await db.query('SELECT BIN_TO_UUID(appointment_id) AS appointment_id FROM Appointments ORDER BY appointment_id DESC LIMIT 1;');
 
       if (typeof  appointmentId !== 'object') {return null;}
         
-      return  appointmentId;
+      return appointmentId as AppointmentsId;
         
     }
 

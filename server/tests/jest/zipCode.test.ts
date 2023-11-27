@@ -3,7 +3,7 @@ import app from '../../app';
 import server from '../../index';
 import ZIPCodeModel from '../../src/models/zipCodeModel'; 
 import db from '../../src/config/dbConfig.sequelize';
-import ZiPCodeId from '../../src/types/zipCodeId';
+import ZiPCodeId from '../../src/types/id-types/zipCodeId';
 
 
 describe("CRUD ZIPCodes Test", () => {
@@ -16,18 +16,14 @@ describe("CRUD ZIPCodes Test", () => {
   };
 
   const updatedZIPCode = {
-    zip_code: 12345
+    zip_code: 22345
   };
 
   
   
   const createAndGetId = async (): Promise<string | null> => {
-    const createdZIPCodeId: ZiPCodeId | null = await ZIPCodeModel.create(newZipCode);
-    console.log(createdZIPCodeId);
-    
+    const createdZIPCodeId: ZiPCodeId | null = await ZIPCodeModel.create(newZipCode); 
     if (!createdZIPCodeId || typeof createdZIPCodeId !== 'object'){return null}
-    console.log(createdZIPCodeId);
-  
     const zipCodeId = createdZIPCodeId.zip_code_id;
     return zipCodeId.toString();
   };
@@ -94,14 +90,16 @@ describe("CRUD ZIPCodes Test", () => {
     test('Should return a response with status 200, type json, and a ZIPCode updated successfully! message when a correct ZIPCode is updated', async () => {
     
       const createdZIPCodeId = await createAndGetId();
-      const updateResponse = await request(app).patch(`/ZIPCodes/${createdZIPCodeId}`).send(updatedZIPCode);
-      expect(updateResponse.status).toBe(200);
-      expect(updateResponse.headers['content-type']).toContain('json');
-      expect(updateResponse.body.message).toContain('The ZIPCode has been updated successfully!');
+      console.log(createAndGetId);
+      const response = await request(app).patch(`/ZIPCodes/${createdZIPCodeId}`).send(updatedZIPCode);
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toContain('json');
+      expect(response.body.message).toContain("ZipCode was updated successfully!!!");
     });
 
     afterAll(async () => {
       await ZIPCodeModel.eliminateByZipCode(12345);
+      await ZIPCodeModel.eliminateByZipCode(22345);
       
     });
   });
@@ -111,10 +109,11 @@ describe("CRUD ZIPCodes Test", () => {
     test('Should return a response with status 200, type json, and a ZIPCode eliminated successfully! message when a correct ZIPCode is deleted', async () => {
       
       const createdZIPCodeId = await createAndGetId();
+      console.log(createdZIPCodeId);
       const response = await request(app).delete(`/ZIPCodes/${createdZIPCodeId}`).send();
       expect(response.status).toBe(200);
       expect(response.headers['content-type']).toContain('json');
-      expect(response.body.message).toContain('The ZIPCode has been eliminated!');
+      expect(response.body.message).toContain("ZipCode was deleted successfully!!!");
     });
     afterAll(async () => {
       console.log('Before calling eliminateByZipCode');
