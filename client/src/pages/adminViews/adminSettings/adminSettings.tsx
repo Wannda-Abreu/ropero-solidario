@@ -3,8 +3,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import Stack from "react-bootstrap/Stack"; 
 import { useApi } from "../../../context/FrontContext";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 interface AdminData {
   admin_name: string;
@@ -12,10 +14,10 @@ interface AdminData {
   email: string;
   admin_password: string
 }
-
 const AdminSettings = () => {
   const [adminsData, setAdminsData] = useState<AdminData[]>([]);
-const {get} = useApi() 
+  const { get } = useApi();
+
   useEffect(() => {
     const fetchDataFromDatabase = async () => {
       try {
@@ -27,8 +29,16 @@ const {get} = useApi()
     };
 
     fetchDataFromDatabase();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleEditAdmin = (adminId: string) => {
+    console.log(`Editar administrador con ID ${adminId}`);
+  };
+
+  const handleDeleteAdmin = (adminId: string) => {
+    console.log(`Eliminar administrador con ID ${adminId}`);
+  };
 
   return (
     <Container fluid className="dashboard-container mt-5">
@@ -52,15 +62,30 @@ const {get} = useApi()
               </button>
             </Link>
           </div>
-          <Stack gap={2}>
+          <div className="d-flex flex-wrap align-items-center m-2 mt-5 p-0">
             {adminsData.map((admin, index) => (
-              <div key={index} className="p-2">
-                <strong>{`${admin.admin_name} ${admin.admin_surname}`}</strong>
-                <br />
-                Email: {admin.email}
+              <div key={index} className="p-0 m-2 mt-3">
+                <strong className="m-3">
+                  <FontAwesomeIcon icon={faUser} /> {`${admin.admin_name} ${admin.admin_surname}`}
+                </strong>
+                <FontAwesomeIcon icon={faEnvelope} /> Email: {admin.email}
+                <div className="d-flex m-2">
+                  <button
+                    className="appointment-button d-flex m-2"
+                    onClick={() => handleEditAdmin(admin.admin_id)}
+                  >
+                    <FontAwesomeIcon icon={faPen} />
+                  </button>
+                  <button
+                    className="appointment-button d-flex m-2"
+                    onClick={() => handleDeleteAdmin(admin.admin_id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </div>
               </div>
             ))}
-          </Stack>
+          </div>
         </Col>
       </Row>
     </Container>
