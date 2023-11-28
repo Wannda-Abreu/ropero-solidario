@@ -3,6 +3,7 @@ type User = {
     user_name: string,
     surname: string,
     nationality: string,
+    user_status: string | boolean,
     date_of_last_report_id?: string |undefined| null,
     family_members_id?: string| undefined| null,
     zip_code_id?: string| undefined| null,

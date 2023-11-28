@@ -1,5 +1,6 @@
 import {Request,Response} from 'express';
 import UserModel from '../models/userModel';
+import { validateUser } from '../schemas/user';
 
 const getUsers = async (_req: Request, res: Response): Promise<Response> =>{
     try {       
@@ -27,12 +28,12 @@ const getUser = async (req: Request, res: Response): Promise<Response> => {
 
 const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const {user_name, surname, nationality} = req.body;
+        const user = validateUser(req.body);
         
-        if( !user_name|| !surname|| !nationality){
-            return res.status(400).json({ message: 'Invalid Request data. All fields are required.'});
+        if( !user.success){
+            return res.status(400).json({ error: JSON.parse(user.error.message) });
         }
-    
+        
         const userId = await UserModel.create(req.body);
         
         return res.status(201).json(userId);

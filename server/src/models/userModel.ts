@@ -17,15 +17,16 @@ class UserModel  {
     }
 
     static async create(user: User): Promise<UserId | null> {
-        const { user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user;
+        const { user_name, surname, nationality, user_status, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id } = user;
+    
         const [newUser, metadata] = await db.query(
-            'INSERT INTO Users (user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id) VALUES (?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
+            'INSERT INTO Users (user_name, surname, nationality, user_status, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id) VALUES (?, ?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
             {
                 replacements:
-                [user_name, surname, nationality ,date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id],
+                [user_name, surname, nationality, user_status, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id],
             }
         );
-    
+
         const [[userId]] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id FROM Users ORDER BY user_id DESC LIMIT 1;');
 
         if (typeof  userId !== 'object') {return null;}
@@ -83,6 +84,5 @@ class UserModel  {
     }
     
 }
-
 
 export default UserModel; 
