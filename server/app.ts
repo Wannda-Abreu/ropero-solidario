@@ -1,7 +1,5 @@
 import express, { Request, Response } from 'express';
 import corsMiddleware from './src/middlewares/cors';
-
-
 import userRouter from './src/routes/userRoutes';
 import zipCodeRouter from './src/routes/zipCodeRoutes';
 import appointmentRouter from './src/routes/appointmentsRoutes';

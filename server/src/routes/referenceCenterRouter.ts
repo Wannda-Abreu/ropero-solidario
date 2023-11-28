@@ -1,11 +1,5 @@
 import { Router } from 'express';
-import {
-  getReferenceCenters,
-  getReferenceCenter,
-  createReferenceCenter,
-  updateReferenceCenter,
-  deleteReferenceCenterById
-} from '../controllers/referenceCenterController'; 
+import { getReferenceCenters, getReferenceCenter, createReferenceCenter, updateReferenceCenter, deleteReferenceCenterById} from '../controllers/referenceCenterController'; 
 
 const referenceCenterRouter = Router();
 

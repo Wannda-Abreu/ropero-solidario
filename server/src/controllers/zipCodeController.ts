@@ -37,9 +37,9 @@ const createZipCode = async (req: Request, res: Response): Promise<Response> => 
             return res.status(400).json({ message: 'Invalid Request data. All fields are required.'});
         }
         const newZipCode = await ZipCodeModel.create(req.body);
-        console.log(newZipCode);
+       
       
-        return res.status(201).json({message:'The ZipCode has been created successfully!'});
+        return res.status(201).json(newZipCode);
         } 
         catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });
@@ -57,7 +57,7 @@ const updateZipCode = async (req: Request, res: Response): Promise<Response> => 
         return res.status(404).json({ message: 'ZipCode not found' });
         }
       
-        return res.status(200).json("ZipCode was updated successfully!!!");
+        return res.status(200).json({message:"ZipCode was updated successfully!!!"});
         } 
         catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });
@@ -74,13 +74,14 @@ const deleteZipCode = async (req: Request, res: Response): Promise<Response> => 
         return res.status(404).json({ message: 'ZipCode not found' });
         }
       
-        return res.status(200).json("ZipCode was deleted successfully!!!");
+        return res.status(200).json({message:"ZipCode was deleted successfully!!!"});
         } 
         catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });
         }
       };
       
+
 
 export {getZipCodes, 
         getZipCodesById,

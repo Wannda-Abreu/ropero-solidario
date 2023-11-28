@@ -1,5 +1,6 @@
 import User from "../types/userTypes";
 import db from "../config/dbConfig.sequelize";
+import UserId from "../types/id-types/userId";
 
 
 class UserModel  {
@@ -15,7 +16,7 @@ class UserModel  {
         return (user as User[]).at(0) || null;
     }
 
-    static async create(user: User): Promise<User | null> {
+    static async create(user: User): Promise<UserId | null> {
         const { user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user;
         const [newUser, metadata] = await db.query(
             'INSERT INTO Users (user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id) VALUES (?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
@@ -25,10 +26,12 @@ class UserModel  {
             }
         );
     
-        const newUserAsUser = newUser as unknown as User;
-        if (typeof newUserAsUser !== 'object') {return null;}
-        return newUserAsUser;
-        
+        const [[userId]] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id FROM Users ORDER BY user_id DESC LIMIT 1;');
+
+        if (typeof  userId !== 'object') {return null;}
+          
+        return  userId as UserId;
+  
     }
    
     static async update(user:User, id: string): Promise<User| null>{
@@ -56,7 +59,11 @@ class UserModel  {
         
     }
     static async findByName(name:string):Promise< User[] | null>{
-        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(appointment_id) AS appointment_id FROM Users WHERE user_name = "${name}"`);
+        const[user, metadata] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(appointment_id) AS appointment_id FROM Users WHERE user_name = ?',
+        {
+            replacements: [name]
+        }
+        );
         return user as User[];
 
     }
@@ -64,7 +71,7 @@ class UserModel  {
     
 
     static async eliminateByName(name: string): Promise< User | null>{
-        let eliminatedUser = UserModel.findByName(name);
+        let eliminatedUser = await UserModel.findByName(name);
         await db.query('DELETE FROM Users WHERE user_name = ?',
         {
             replacements: [name]
@@ -74,18 +81,8 @@ class UserModel  {
         return eliminatedUserAsUser;
         
     }
-
-   
-   
-
-    
     
 }
 
- // static async findIdByName(name:string):Promise< Object | null>{
-    //      const[userId, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id  FROM Users WHERE user_name = '${name}'`);
-    //      return (userId as Object[]).at(0) || null;
-         
-    // }
 
 export default UserModel; 

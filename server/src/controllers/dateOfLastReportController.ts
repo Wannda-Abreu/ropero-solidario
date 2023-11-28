@@ -40,9 +40,9 @@ const createDateOfLastReport = async (req: Request, res: Response): Promise<Resp
     if( !day_of_last_report){
         return res.status(400).json({ message: 'Invalid Request data. All fields are required.'});
     }
-    await DateOfLastReportModel.create(req.body);
+    const dateOfLastReportId =await DateOfLastReportModel.create(req.body);
     
-    return res.status(201).json({message:'The Reference Center has been created successfully!'});
+    return res.status(201).json(dateOfLastReportId);
     
    
   } catch (error: unknown) {

@@ -1,6 +1,7 @@
 // import request from 'supertest';
-// import { server, app } from '../../app';
-// import TelephoneModel from '../../src/models/telephoneModel';
+// import  app  from '../../app';
+// import server from '../../index';
+// import TelephoneModel from '../../src/models/telephonesModel';
 // import db from '../../src/config/dbConfig.sequelize';
 
 // describe('CRUD Telephones Test', () => {

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.55% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/29</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -150,11 +150,9 @@
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,8 +179,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,8 +211,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,16 +231,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,6 +239,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">import User from "../types/userTypes";
 import db from "../config/dbConfig.sequelize";
+import UserId from "../types/id-types/userId";
 &nbsp;
 &nbsp;
 class UserModel  {
@@ -260,7 +255,7 @@ class UserModel  {
         return (user as User[]).at(0) || <span class="branch-1 cbranch-no" title="branch not covered" >null;</span>
     }
 &nbsp;
-    static async create(user: User): Promise&lt;User | null&gt; {
+    static async create(user: User): Promise&lt;UserId | null&gt; {
         const { user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user;
         const [newUser, metadata] = await db.query(
             'INSERT INTO Users (user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id) VALUES (?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
@@ -270,10 +265,12 @@ class UserModel  {
             }
         );
     
-        const newUserAsUser = newUser as unknown as User;
-        if (typeof newUserAsUser !== 'object') {return null;}
-<span class="cstat-no" title="statement not covered" >        return newUserAsUser;</span>
-        
+        const [[userId]] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id FROM Users ORDER BY user_id DESC LIMIT 1;');
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof  userId !== 'object') {<span class="cstat-no" title="statement not covered" >return null;}</span>
+          
+        return  userId as UserId;
+  
     }
    
     static async update(user:User, id: string): Promise&lt;User| null&gt;{
@@ -301,7 +298,11 @@ class UserModel  {
         
     }
     static async findByName(name:string):Promise&lt; User[] | null&gt;{
-        const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(appointment_id) AS appointment_id FROM Users WHERE user_name = "${name}"`);
+        const[user, metadata] = await db.query('SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(appointment_id) AS appointment_id FROM Users WHERE user_name = ?',
+        {
+            replacements: [name]
+        }
+        );
         return user as User[];
 &nbsp;
     }
@@ -309,7 +310,7 @@ class UserModel  {
     
 &nbsp;
     static async eliminateByName(name: string): Promise&lt; User | null&gt;{
-        let eliminatedUser = UserModel.findByName(name);
+        let eliminatedUser = await UserModel.findByName(name);
         await db.query('DELETE FROM Users WHERE user_name = ?',
         {
             replacements: [name]
@@ -319,19 +320,9 @@ class UserModel  {
         return eliminatedUserAsUser;
         
     }
-&nbsp;
-   
-   
-&nbsp;
-    
     
 }
 &nbsp;
- // static async findIdByName(name:string):Promise&lt; Object | null&gt;{
-    //      const[userId, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id  FROM Users WHERE user_name = '${name}'`);
-    //      return (userId as Object[]).at(0) || null;
-         
-    // }
 &nbsp;
 export default UserModel; </pre></td></tr></table></pre>
 
@@ -340,7 +331,7 @@ export default UserModel; </pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-22T00:35:55.004Z
+                at 2023-11-28T11:21:45.030Z
             </div>
         <script src="../prettify.js"></script>
         <script>
