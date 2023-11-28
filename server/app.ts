@@ -13,11 +13,13 @@ import telephoneRouter from './src/routes/telephonesRouter';
 import appointmentsTimeRouter from './src/routes/appointmentsTimeRouter';
 import AdminRolesRouter from './src/routes/adminUserRoleRoutes';
 import Rolesrouter from './src/routes/rolesRoutes';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
 
 app.use(corsMiddleware);
+app.use(cookieParser())
 app.use(express.json());
 
 

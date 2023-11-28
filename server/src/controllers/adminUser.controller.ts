@@ -19,15 +19,15 @@ export class AdminUserController {
     try {
         const { roles_id, admin_name, admin_surname, email, admin_password } = req.body;
 
-        // Hashear la contraseña antes de almacenarla
-        
 
-        // Crear el administrador con la contraseña hasheada
+        let hashedPassword = hashPassword(admin_password)
+
+
         const createdAdminUser = await AdminUserModel.createAdminUser({
             admin_name,
             admin_surname,
             email,
-            admin_password
+            admin_password: hashedPassword
         });
 
         if (!createdAdminUser) {
@@ -40,7 +40,7 @@ export class AdminUserController {
      
         const adminUser = await AdminRolesModel.createAdminRole({ admin_user_id: id, roles_id });
 
-        return res.json("usuario registrado exitosamente");
+        return res.json(createdAdminUser);
 
     } catch (error: unknown) {
         console.error(error);
@@ -58,8 +58,19 @@ async login(req: Request, res: Response) {
       return res.status(401).send('Credenciales inválidas');
     }
     
+    const passwordMatch = comparePassword(admin_password, adminUser.admin_password);
 
-    res.status(200).json(adminUser)
+    if (!passwordMatch) {
+      return res.status(401).send('Credenciales2 inválidas');
+    }
+
+    let userId = adminUser.admin_user_id
+
+    const token = createToken({admin_user_id: userId})
+
+    res.cookie('token', token, { httpOnly: true });
+
+    res.status(200).json(token)
 
   } catch (error: unknown) {
     console.error(error);

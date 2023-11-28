@@ -12,11 +12,9 @@ import RegisterForm from "../pages/adminViews/register/register.tsx";
 import AdminSettings from "../pages/adminViews/adminSettings/adminSettings.tsx";
 import SettingsPage from "../pages/adminViews/settings/settings.tsx";
 import AdminCalendar from "../pages/adminViews/adminCalendar/adminCalendar.tsx"
-<<<<<<< HEAD
-import AdminRegisterForm from "../../../../ropero-solidario/client/src/pages/adminViews/adminUserForm/adminUserForm.tsx";
-=======
 import ContactPage from "../pages/userViews/contactPage/contactPage.tsx";
->>>>>>> 259bebefbec347cab2cb3fc29f16b53614db0927
+import UserForm from "../pages/adminViews/adminUserForm/adminUserForm.tsx";
+
 
 
 const router = createBrowserRouter([
@@ -62,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/adminuserform",
-        element: <AdminRegisterForm />,
+        element: <UserForm />,
       },
       {
         path: "/admincalendar",

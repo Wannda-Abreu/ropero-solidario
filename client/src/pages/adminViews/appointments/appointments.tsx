@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Stack from "react-bootstrap/Stack";
-import { useApi } from "../../../context/FrontContext";
+import { useApi } from "../../../context/ApiContext";
 
 interface AppointmentItemProps {
   appointment_day: string;

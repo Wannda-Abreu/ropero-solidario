@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import InputField from "../../components/atoms/inputFieldProps";
-import { Container, Form } from "react-bootstrap";
 import ClickCounter from "../../components/Counter/counter";
 import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import InputField from "../atoms/inputFieldProps";
+import { Form, Container } from "react-bootstrap";
 import "./userForm.css";
 
-import { useApi } from "../../context/FrontContext";
+import { useApi } from "../../context/ApiContext";
 
 
 
@@ -41,12 +41,6 @@ const UserFormComponent: React.FC = ( ) => {
   };
 
   return (
-<<<<<<< HEAD
-    <Form className="report-container mt-4">
-      <Container>
-        <Form.Group>
-          <InputField
-=======
     <Form onSubmit={handleSubmit} className="report-container mt-5">
       <Container>
         <Form.Group>
@@ -59,7 +53,6 @@ const UserFormComponent: React.FC = ( ) => {
         </Form.Group>
         <Form.Group>
           <InputField
->>>>>>> 259bebefbec347cab2cb3fc29f16b53614db0927
             label="Nombre"
             type="text"
             value={user_name}
@@ -108,6 +101,3 @@ const UserFormComponent: React.FC = ( ) => {
 };
 
 export default UserFormComponent;
-
-
-

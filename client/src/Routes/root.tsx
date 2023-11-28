@@ -3,7 +3,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Navbar/Navbar";
 import Sidebar from "../components/AdminSidebar/AdminsideBar";
 import CarouselComponent from "../components/carousel/Carousel";
-import { ApiProvider } from "../context/FrontContext";
+import { AdminProvider } from "../context/AdminContext";
 
 function Root() {
   const location = useLocation();
@@ -19,27 +19,29 @@ function Root() {
   
   ) {
     return (
-      <ApiProvider>
+    <AdminProvider>
+      <>
         <Sidebar />
         <Outlet />
-      </ApiProvider>
+      </>
+      </AdminProvider>
     );
   } else if (
     location.pathname === "/login" ||
     location.pathname === "/register"
   ) {
     return (
-    <ApiProvider>
+    <>
     <Outlet />
-    </ApiProvider>)
+    </>)
   } else {
     return (
-      <ApiProvider>
+      <>
         <Header />
         <CarouselComponent />
         <Outlet />
         <Footer />
-      </ApiProvider>
+      </>
     );
   }
 }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { AdminUserController } from '../controllers/adminUser.controller';
-import { authMiddleware } from '../middlewares/auth';
+import { authToken, isAdmin } from '../middlewares/auth';
 
 export const adminRouter = Router();
 
@@ -10,7 +10,7 @@ adminRouter.post('/signup', adminUserController.signup);
 adminRouter.post('/login', adminUserController.login);
 
 
-adminRouter.get('/', adminUserController.getAll);
+adminRouter.get('/', authToken, isAdmin, adminUserController.getAll);
 adminRouter.get('/:id', adminUserController.getById);
 adminRouter.put('/:id', adminUserController.update);
 adminRouter.get('/roles/:id', adminUserController.getUserRole);
