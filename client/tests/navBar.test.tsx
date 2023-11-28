@@ -1,10 +1,10 @@
 import { BrowserRouter } from 'react-router-dom';
 import { useState } from "react";
-import {render, /*screen*/} from '@testing-library/react';
+import {getByTestId, render, screen} from '@testing-library/react';
 import { Link } from "react-router-dom";
 import logotype from "../src/assets/Logos/white-logo.png"
 import GoogleTranslate from "../src/components/GoogleTranslate/GoogleTransalate";
-import { HTMLElement } from 'dom';
+
 
 describe("Testing that the Header is Rendered", () => {
     
@@ -16,59 +16,61 @@ describe("Testing that the Header is Rendered", () => {
         };
       
         return (
-          <nav aria-label="Navbar" className="navbar-container">
-            <div className="menu-section">
-              <Link to="/">
+          <nav aria-label="Navbar" className="navbar-container" data-testid = "navBarContainer">
+            <div className="menu-section" data-testid = "menuSection">
+              <Link to="/" data-testid = "LogotypeLink">
                 <img
                   src={logotype}
                   aria-label="logotype"
                   className="logotype-img"
                   alt="Image of logotype"
+                  data-testid = "LogotypeImg"
                 />
               </Link>
-              <div className="right-container">
-                <main className="links-container">
-                  <ul className="ul-container">
-                    <Link to="/" className="navbar-li" aria-label="home">
+              <div className="right-container" data-testid = "rightContainer">
+                <main className="links-container" data-testid = "mainLinksContainer">
+                  <ul className="ul-container" data-testid = "topListUl">
+                    <Link to="/" className="navbar-li" aria-label="home" data-testid = "topNavBarLi1">
                       Ropero solidario
                     </Link>
-                    <Link to="/newuser" className="navbar-li" aria-label="aboutus">
+                    <Link to="/newuser" className="navbar-li" aria-label="aboutus" data-testid = "topNavBarLi2">
                       Información adicional
                     </Link>
-                    <Link to="/contact" className="navbar-li" aria-label="contact">
+                    <Link to="/contact" className="navbar-li" aria-label="contact" data-testid = "topNavBarLi3">
                       Contacto
                     </Link>
                   </ul>
                 </main>
                 <GoogleTranslate />
-                <div className="mobile-menu">
+                <div className="mobile-menu" data-testid = "mobileMenu">
                   <button
                     onClick={toggleDropdown}
                     className="mobile-menu-button"
                     aria-label="menu"
+                    data-testid = "mobileMenuButton"
                   >
                     {showDropdown ? (
-                      <div className="close-icon">
-                        <div className="line-horizontal"></div>
-                        <div className="line-vertical"></div>
+                      <div className="close-icon" data-testid = "closeIcon">
+                        <div className="line-horizontal" data-testid = "horizontaLine"></div>
+                        <div className="line-vertical" data-testid = "verticalLine"></div>
                       </div>
                     ) : (
                       "☰"
                     )}
                   </button>
-                  <ul className={`mobile-dropdown ${showDropdown ? "show" : ""}`}>
-                    <li>
-                      <Link to="/" className="navbar-li" aria-label="home">
+                  <ul data-testid = "hamburgerMenuUL" className={`mobile-dropdown ${showDropdown ? "show" : ""} `}>
+                    <li data-testid = "hamburgerMenuLi1">
+                      <Link to="/" className="navbar-li" aria-label="home" data-testid = "hamburgerMenuLink1">
                         Ropero solidario
                       </Link>
                     </li>
-                    <li>
-                      <Link to="/newuser" aria-label="info">
-                        Información adicional
+                    <li data-testid = "hamburgerMenuLi2">
+                      <Link to="/newuser" aria-label="info" data-testid = "hamburgerMenuLink2">
+                        Información adicional 
                       </Link>
                     </li>
-                    <li>
-                      <Link to="/contact" aria-label="contact">
+                    <li data-testid = "hamburgerMenuLi3">
+                      <Link to="/contact" aria-label="contact" data-testid = "hamburgerMenuLink3">
                         Contacto
                       </Link>
                     </li>
@@ -90,44 +92,39 @@ describe("Testing that the Header is Rendered", () => {
       });
 
       test("Testing that the div of logo container has renderder the logo-container class",() =>{
-        const navBarContainer = document.querySelector('navbar-container');
+        const navBarContainer = screen.getByTestId('navBarContainer');
         expect(navBarContainer).toBeDefined();
+        screen.debug();
     });
     test("Testing that the div of menu-section has renderder the menu-section",() =>{
-        const menuContainer = document.querySelector('menu-section');
+        const menuContainer = screen.getByTestId('menuSection');
         expect(menuContainer).toBeDefined();
         
     });
     
     test("Testing that the div of logotype-img has renderder the Logo Image",() =>{
-        const logoTypeImg :  HTMLElement = document.querySelector('logotype-img');
+        const logoTypeImg = screen.getByTestId('LogotypeImg');
         expect(logoTypeImg).toBeDefined();
-        if (logoTypeImg) {
-          test("Testing the src and alt of te Logo", ()=> {
-            expect(logoTypeImg.src).toBeDefined();
-            expect(logoTypeImg.alt).toBeDefined();
-        })
-         
-        }
-
     });
 
     test("Testing that the div of right-container has renderder the Right Container",() =>{
-        const rightContainer = document.querySelector('right-container');
+        const rightContainer = screen.getByTestId('rightContainer');
         expect(rightContainer).toBeDefined();
     });
-    test("Testing that the ul of navbar-li has renderder the NavBar List",() =>{
-        const navBarList = document.querySelector('navbar-li');
-        expect(navBarList).toBeDefined();
-    });
-
+   
     describe('Testing NavBar ul and its children', () => {
 
         test("Testing that the ul of navbar-li has renderder the NavBar List",() =>{
-            const navBarList = document.querySelector('navbar-li');
+            const navBarList = screen.getByTestId('mainLinksContainer');
             expect(navBarList).toBeDefined();
             
         });
+
+        test("Testing that the ul of navbar-li has renderder the NavBar List",() =>{
+          const navBarList = screen.getByTestId('mainLinksContainer');
+          expect(navBarList).toBeDefined();
+      });
+  
 
        
     })
