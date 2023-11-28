@@ -11,7 +11,7 @@ class UserModel  {
         return users as User[];
     }
 
-    static async findById(id:string | undefined): Promise< User | null> {
+    static async findById(id:string): Promise< User | null> {
         const[user, metadata] = await db.query(`SELECT BIN_TO_UUID(user_id) AS user_id, user_name, surname, nationality, BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id, BIN_TO_UUID(family_members_id) AS family_members_id,BIN_TO_UUID(zip_code_id) AS zip_code_id, BIN_TO_UUID(reference_center_id) AS reference_center_id, BIN_TO_UUID(appointment_id) AS appointment_id FROM Users WHERE user_id = UUID_TO_BIN("${id}")`);
         return (user as User[]).at(0) || null;
     }

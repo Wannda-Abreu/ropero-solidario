@@ -5,7 +5,7 @@ import "./GoogleTranslate.css"
 const GoogleTranslate: React.FC = () => {
   const googleTranslateElementInit = useCallback(() => {
     new (window as any).google.translate.TranslateElement(
-      { pageLanguage: "es", includedLanguages: "es,en,fr,ar" },
+      { pageLanguage: "es", includedLanguages: "es,en,fr,ar,de" },
       "google_translate_element"
     );
   }, []);

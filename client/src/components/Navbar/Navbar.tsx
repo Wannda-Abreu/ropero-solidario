@@ -28,8 +28,8 @@ function Header() {
               <Link to="/" className="navbar-li" aria-label="home">
                 Ropero solidario
               </Link>
-              <Link to="/newuser" className="navbar-li" aria-label="aboutus">
-                Información adicional
+              <Link to="/userappointments" className="navbar-li" aria-label="aboutus">
+                Gestionar cita
               </Link>
               <Link to="/contact" className="navbar-li" aria-label="contact">
                 Contacto
@@ -59,8 +59,8 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/newuser" aria-label="info">
-                  Información adicional
+                <Link to="/userappointments" aria-label="info">
+                  Gestionar cita
                 </Link>
               </li>
               <li>
