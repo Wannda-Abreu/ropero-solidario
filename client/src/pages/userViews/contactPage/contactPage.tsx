@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp} from "@fortawesome/free-brands-svg-icons";
-import "./ContactPage.css";
+import "./contactPage.css";
 
 function ContactPage() {
   return (

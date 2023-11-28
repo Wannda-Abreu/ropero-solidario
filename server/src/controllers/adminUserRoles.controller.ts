@@ -1,6 +1,7 @@
 import AdminRolesModel from "../models/adminUserRolesModel";
 import { Request, Response } from 'express';
 import AdminUserRolesType from "../types/adminUserRolesTypes";
+import { verifyToken } from "../../utils/JWT";
 
 export const getAllAdminUserRoles = async (_req: Request, res: Response): Promise<Response> => {
     try {
@@ -16,7 +17,7 @@ export const getAllAdminUserRoles = async (_req: Request, res: Response): Promis
     }
 };
 
- export const updateAdminRole= async(req: Request, res: Response) => {
+export const updateAdminRole= async(req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const { admin_user_id, roles_id } = req.body;
@@ -44,3 +45,20 @@ export const getAllAdminUserRoles = async (_req: Request, res: Response): Promis
         res.status(500).send('Error al actualizar el usuario administrador');
     }
 }
+
+
+export const translateToken = (req: Request, res: Response): any => {
+    const{ token } = req.body;
+
+    if (!token) {
+        return res.status(400).json({ error: 'Token no proporcionado en la solicitud.' });
+    }
+
+    let decoded = verifyToken(token)
+
+    if(!decoded){
+        return res.status(400).json({ error: 'No se ha decodificado el token' });
+    }
+
+    return res.status(200).json(decoded.admin_user_id)
+    }

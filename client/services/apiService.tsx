@@ -20,7 +20,7 @@ export interface RequestOptions {
             throw new Error(`Respuesta no exitosa: ${response.status}`);
     }
         return response.json();
-    } catch (error) {
+    } catch (error: any) {
         handleRequestError(error);
         throw error;
     }

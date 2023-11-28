@@ -1,23 +1,39 @@
-.button-admin-hours {
-    margin-right: 40rem;
-}
-.a{
+.selected-slot-hours-admin {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 3%;
 }
-.slot-hours-button.clicked {
-    background-color: #DC291E; 
-    color: white;
+
+.button-admin-hours {
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .slot-hours-button {
-    /* Agrega estilos adicionales según sea necesario para tus botones */
     margin: 5px;
-  }
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
 
-  @media only screen and (max-width: 600px) {
-    
-    .button-admin-hours{
-        margin-right: 7rem;
+.slot-hours-button.clicked{
+    background-color: #DC291E;
+    color: white;
+}
+
+@media only screen and (max-width: 800px) {
+    .button-admin-hours {
+        margin-right: auto;
+        margin-left: auto;
     }
-  }
+
+    .slot-hours-button {
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    .selected-slot-hours-admin {
+        flex-direction: column; /* Cambia a dirección vertical en dispositivos móviles */
+    }
+}

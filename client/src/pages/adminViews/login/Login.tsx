@@ -3,7 +3,7 @@ import InputField from '../../../components/atoms/inputFieldProps';
 import { Container, Row, Form, Col, Image, Alert } from 'react-bootstrap';
 import logotype from "../../../assets/Logos/logotype.png";
 import Button from "../../../components/Button/Button";
-import { useApi } from '../../../context/FrontContext';
+import { useApi } from '../../../context/ApiContext';
 import './LoginForm.css';
 
 const LoginForm: React.FC = () => {
@@ -31,10 +31,12 @@ const LoginForm: React.FC = () => {
 
     try {
       const data = await post('adminUser/login', AdminData);
-      console.log(data);
-
-      // Si el inicio de sesión es exitoso, redirigir a /dashboard
-      window.location.href = '/dashboard';
+        const token = data;
+        document.cookie = `token= ${token}; path=/`;
+        console.log(document.cookie)
+    
+        window.location.href = '/dashboard';
+      
     } catch (error) {
       console.error('Error fetching data:', error);
       setError("Usuario no encontrado");

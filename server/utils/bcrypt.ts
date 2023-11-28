@@ -2,7 +2,10 @@ import bcrypt from 'bcrypt';
 
 const SALT_ROUNDS = 10;
 
-export const hashPassword = (password: string) => bcrypt.hashSync(password, SALT_ROUNDS);
+export const hashPassword = (password: string) => {
+  let hashed= bcrypt.hashSync(password, SALT_ROUNDS);
+  return hashed
+}
 
 export const comparePassword = (password: string, hashedPassword: string): boolean => {
     try {

@@ -3,40 +3,47 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Navbar/Navbar";
 import Sidebar from "../components/AdminSidebar/AdminsideBar";
 import CarouselComponent from "../components/carousel/Carousel";
-import { ApiProvider } from "../context/FrontContext";
+import { AdminProvider } from "../context/AdminContext";
 
 function Root() {
   const location = useLocation();
-  const isAdminPage =
+
+  if (
     location.pathname === "/dashboard" ||
     location.pathname === "/adminuserform" ||
     location.pathname === "/appointments" ||
     location.pathname === "/adminsettings" ||
     location.pathname === "/settings" ||
-    location.pathname === "/admincalendar";
-
-  const isAuthPage =
-    location.pathname === "/login" || location.pathname === "/register";
-
-  return (
-    <ApiProvider>
-      {isAdminPage ? (
-        <>
-          <Sidebar />
-          <Outlet />
-        </>
-      ) : isAuthPage ? (
+    location.pathname === "/admincalendar"
+    
+  
+  ) {
+    return (
+    <AdminProvider>
+      <>
+        <Sidebar />
         <Outlet />
-      ) : (
-        <>
-          <Header />
-          <CarouselComponent />
-          <Outlet />
-          <Footer />
-        </>
-      )}
-    </ApiProvider>
-  );
+      </>
+      </AdminProvider>
+    );
+  } else if (
+    location.pathname === "/login" ||
+    location.pathname === "/register"
+  ) {
+    return (
+    <>
+    <Outlet />
+    </>)
+  } else {
+    return (
+      <>
+        <Header />
+        <CarouselComponent />
+        <Outlet />
+        <Footer />
+      </>
+    );
+  }
 }
 
 export default Root;

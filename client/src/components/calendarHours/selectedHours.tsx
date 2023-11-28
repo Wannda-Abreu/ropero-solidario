@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { useApi } from '../../context/FrontContext';
+import { useApi } from '../../context/ApiContext';
 
 import './selectedHours.css';
 import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
-import { put } from '../../../services/apiService';
+
 
 interface SlotHoursButtonProps {
   onClick: () => void;
@@ -30,7 +30,7 @@ const SlotHoursButton: React.FC<SlotHoursButtonProps> = ({ onClick, label, isSel
 
 export interface AdminSelectedSlotHoursProps {
   selectedDate: moment.Moment;
-  handleHourButtonClick: (hour: number, minute: number) => void;
+  handleHourButtonClick: (hour: number, minute: number) => null;
 }
 
 const AdminSelectedSlotHours: React.FC<AdminSelectedSlotHoursProps> = ({ selectedDate, handleHourButtonClick }) => {
@@ -43,7 +43,7 @@ const AdminSelectedSlotHours: React.FC<AdminSelectedSlotHoursProps> = ({ selecte
 
     const {put} = useApi()
 
-
+    
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault(); 
       
@@ -82,6 +82,7 @@ const AdminSelectedSlotHours: React.FC<AdminSelectedSlotHoursProps> = ({ selecte
       }));
       
       
+      console.log(hourInfo)
 
 
 
@@ -106,8 +107,8 @@ const AdminSelectedSlotHours: React.FC<AdminSelectedSlotHoursProps> = ({ selecte
 
   return (
     <>
+    <p>Horas Disponibles:</p>
     <div className="selected-slot-hours-admin">
-      <p>Horas Disponibles:</p>
       {timeSlotsButtons}
     </div>
     <div className='button-calendar-admin'>
