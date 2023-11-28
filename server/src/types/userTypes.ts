@@ -1,12 +1,12 @@
 type User = {
-    user_id?: string;
+    user_id?: string |undefined| null;
     user_name: string,
     surname: string,
     nationality: string,
-    date_of_last_report_id?: string,
-    family_members_id?: string,
-    zip_code_id?: string,
-    reference_center_id?: string,
-    appointment_id?: string
+    date_of_last_report_id?: string |undefined| null,
+    family_members_id?: string| undefined| null,
+    zip_code_id?: string| undefined| null,
+    reference_center_id?: string| undefined| null,
+    appointment_id?: string | undefined| null
 }
 export default User;

@@ -33,8 +33,8 @@ const createReferenceCenter = async (req: Request, res: Response): Promise<Respo
       return res.status(400).json({ message: 'Invalid Request data. Reference center field is required.' });
     }
 
-    await ReferenceCenterModel.create(req.body);
-    return res.status(201).json({ message: 'The Reference Center has been created successfully!' });
+    const referenceCenterId = await ReferenceCenterModel.create(req.body);
+    return res.status(201).json(referenceCenterId);
 
   } catch (error: unknown) {
     return res.json({ message: (error as Error).message });

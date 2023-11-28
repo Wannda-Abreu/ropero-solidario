@@ -12,13 +12,13 @@ function Home() {
         <Card.Body className="user-card-text d-flex flex-column flex-md-row justify-content-center align-items-center">
           <div className="col-md-6 mb-3 d-flex justify-content-center">
             <Card.Text className="user-txt text-center">
-              <h6 className="mt-4">
+              <p className="mt-4">
                 ¡Bienvenido al Proyecto Ropero Solidario! Esta app ha sido
                 diseñada para mejorar tu experiencia y la de la Fundación San
                 José. Accede de manera sencilla para completar datos, confirmar
                 citas y recibir ayuda solidaria.
-              </h6>
-              <h6 className="mt-4"><strong> Instrucciones: </strong> </h6>
+              </p>
+              <p className="mt-4"><strong> Instrucciones: </strong> </p>
               <ul className="list-unstyled mb-3">
                 <li className="mb-2">
                   <strong>Primer Contacto:</strong> Si es tu primera vez

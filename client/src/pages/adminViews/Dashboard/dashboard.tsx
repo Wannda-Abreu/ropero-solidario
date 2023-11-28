@@ -4,9 +4,9 @@ import { faUser, faCalendar, faUserGear } from "@fortawesome/free-solid-svg-icon
 import { Link } from "react-router-dom";
 import "./dashboard.css";
 
-const Dashboard = ({ fontSize }) => {
+const Dashboard = () => {
   return (
-    <Container fluid className={`dashboard-container font-size-${fontSize}`}>
+    <Container fluid>
       <Row>
         <Col md={12} lg={9} className="dashboard-content">
           <h5 className="dashboard-title">

@@ -1,6 +1,5 @@
 import {Request,Response} from 'express';
 import UserModel from '../models/userModel';
-import User from '../types/userTypes';
 
 const getUsers = async (_req: Request, res: Response): Promise<Response> =>{
     try {       
@@ -33,9 +32,10 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
         if( !user_name|| !surname|| !nationality){
             return res.status(400).json({ message: 'Invalid Request data. All fields are required.'});
         }
-        await UserModel.create(req.body);
+    
+        const userId = await UserModel.create(req.body);
         
-        return res.status(201).json({message:'The User has been created successfully!'});
+        return res.status(201).json(userId);
         
     } catch (error: unknown) {
         return res.json({message:(error as Error).message});

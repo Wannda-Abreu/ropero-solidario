@@ -14,7 +14,7 @@
 .whatsapp-section {
   width: 22vw;
   height: 11rem;
-  background-color: black;
+  background-color: rgb(15, 15, 15);
   color: white;
   padding: 1rem;
 }
@@ -22,7 +22,7 @@
 .location-section {
   width: 22vw;
   height: 11rem;
-  background-color: black;
+  background-color: rgb(15, 15, 15);
   color: white;
   padding: 1rem;
 }
@@ -30,7 +30,7 @@
 .clock-section {
   width: 22vw;
   height: 11rem;
-  background-color: black;
+  background-color: rgb(15, 15, 15);
   color: white;
   padding: 1rem;
 }

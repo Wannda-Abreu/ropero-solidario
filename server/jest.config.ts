@@ -8,7 +8,7 @@ const config: Config = {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(ts?|js?)$',
   modulePathIgnorePatterns: ['<rootDir>/node_modules','<rootDir>/tests/vitest',],
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/index.ts'],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coverageDirectory: 'coverage-jest',
   coverageReporters: ['text', 'html'],
   watchPathIgnorePatterns: ['node_modules',],
