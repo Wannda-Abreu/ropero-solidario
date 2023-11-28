@@ -37,7 +37,7 @@ class RolesModel {
         return Roles as rolesTypes[];
     }
 
-    static async findRolesById(id: string): Promise<rolesTypes | null> {
+    static async findRolesById(id: string | undefined): Promise<rolesTypes | null> {
         const [Roles, metadata] = await db.query(`SELECT BIN_TO_UUID(roles_id) AS roles_id, roles_name FROM Roles WHERE roles_id = UUID_TO_BIN("${id}")`);
         return (Roles as rolesTypes[]).at(0) || null;
     }

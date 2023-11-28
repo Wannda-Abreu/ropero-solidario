@@ -23,7 +23,16 @@ class UserModel  {
             'INSERT INTO Users (user_name, surname, nationality, user_status, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id) VALUES (?, ?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
             {
                 replacements:
-                [user_name, surname, nationality, user_status, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id],
+                [
+                    user_name,
+                    surname,
+                    nationality,
+                    date_of_last_report_id || null,
+                    family_members_id || null,
+                    zip_code_id || null,
+                    reference_center_id || null,
+                    appointment_id || null
+                ],
             }
         );
 

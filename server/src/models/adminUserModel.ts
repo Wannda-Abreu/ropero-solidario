@@ -67,12 +67,12 @@ class AdminUserModel {
       return (Admin_User as Admin_UserT[])[0] || null;
   }
 
-    static async findAdminUserById(id: string): Promise<Admin_UserT | null> {
+    static async findAdminUserById(id: string | undefined ): Promise<Admin_UserT | null> {
         const [Admin_User, metadata] = await db.query(`SELECT BIN_TO_UUID(admin_user_id) AS admin_user_id, admin_name, admin_surname, email, admin_password FROM Admin_User WHERE admin_user_id = UUID_TO_BIN("${id}")`);
         return (Admin_User as Admin_UserT[]).at(0) || null;
     }
 
-    static async findRolesByUserId(userId: string): Promise<rolesTypes[] | null> {
+    static async findRolesByUserId(userId: string | undefined): Promise<rolesTypes[] | null> {
       try {
         const roles = await db.query(
           'SELECT BIN_TO_UUID(r.roles_id) as roles_id, r.roles_name FROM Roles r INNER JOIN Admin_user_Roles aur ON r.roles_id = aur.roles_id WHERE aur.admin_user_id = UUID_TO_BIN(?)',

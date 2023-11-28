@@ -1,4 +1,4 @@
-import Appointment from "../types/apointmentTypes"; // Cambiado el nombre del tipo
+import Appointment from "../types/apointmentTypes";
 
 import db from "../config/dbConfig.sequelize";
 import AppointmentsId from "../types/id-types/appointmentId";
@@ -17,13 +17,13 @@ class AppointmentModel {
     }
     
     static async create(appointment: Appointment): Promise< AppointmentsId | null> {
-        const { appointment_day, appointment_month, appointment_year, appointment_time_id } = appointment;
-        const [newAppointment, metadata] = await db.query(
-            'INSERT INTO Appointments (appointment_day, appointment_month, appointment_year, appointment_timeC) VALUES (?,?,?,?);',
+        const { appointment_day, appointment_month, appointment_year,appointment_timeC, appointment_time_id } = appointment;
+        await db.query(
+            'INSERT INTO Appointments (appointment_day, appointment_month, appointment_year, appointment_timeC, appointment_time_id) VALUES (?,?,?,?,UUID_TO_BIN(?));',
         
             {
                 replacements:
-                [appointment_day, appointment_month, appointment_year, appointment_time_id],
+                [appointment_day, appointment_month, appointment_year, appointment_timeC ,appointment_time_id || null],
             }
         );
     
@@ -37,16 +37,16 @@ class AppointmentModel {
 
     static async update(appointment: Appointment, id: string): Promise<Appointment | null>{
 
-        const { appointment_day, appointment_month, appointment_year, appointment_time_id } = appointment;
-        await db.query('UPDATE Appointments SET appointment_day = ?, appointment_month = ?, appointment_year = ?, appointment_time_id = UUID_TO_BIN(?) WHERE appointment_id = UUID_TO_BIN(?)',
+        const { appointment_day, appointment_month, appointment_year, appointment_timeC, appointment_time_id } = appointment;
+        await db.query('UPDATE Appointments SET appointment_day = ?, appointment_month = ?, appointment_year = ?,appointment_timeC = ? ,appointment_time_id = UUID_TO_BIN(?) WHERE appointment_id = UUID_TO_BIN(?);',
         {
             replacements:
-            [appointment_day, appointment_month, appointment_year, appointment_time_id, id]
+            [appointment_day, appointment_month, appointment_year,appointment_timeC, appointment_time_id|| null, id]
         });
         const updatedAppointment = await AppointmentModel.findById(id);
         const updatedAppointmentAsAppointment = updatedAppointment as unknown as Appointment
         if(typeof updatedAppointmentAsAppointment !== 'object'){return null};
-        return updatedAppointment;
+        return updatedAppointmentAsAppointment;
     }
 
     static async eliminateById(id: string): Promise<Appointment | null> {

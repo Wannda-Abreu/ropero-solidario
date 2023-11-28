@@ -1,17 +1,17 @@
-
 .calendar {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly; 
   margin-top: 25vh;
   margin-bottom: 25vh;
- 
-}
-.rbc-calendar {
-  width: 40%; 
 }
 
-.rbc-row.rbc-month-header{
+
+.rbc-calendar{
+  width: 55%;
+}
+
+.rbc-row.rbc-month-header {
   background-color: #DC291E;
   text-align: center;
   color: white;
@@ -27,18 +27,30 @@
   gap: 3px; 
 }
 
-.rbc-row-bg{
+.rcbc-date-cell{
+  background-color: #DC291E;
+}
+
+.rbc-row-bg {
   display: none;
 }
 
-.custom-date-header.other-month-day{
-  display: none ;
+.custom-date-header.other-month-day {
+  display: none;
 }
 
+.custom-date-header.current-month-day.clicked{
+  background-color: #DC291E;
+  color: white;
+}
 
-.rbc-date-cell.rbc-off-range{
+.selected-hour-button{
+  background-color: #DC291E;
+  color: white;
+}
+
+.rbc-date-cell.rbc-off-range {
   background-color: #cfcfcf;
-
 }
 
 .custom-date-header {
@@ -47,13 +59,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 10vh; 
+  height: 13vh; 
   border-left: 1px solid grey;
   border-right: 1px solid grey ;
   border-top: 1px solid grey;
   border-bottom: 1px solid grey;
 }
-
 
 .rbc-row {
   display: grid;
@@ -61,14 +72,14 @@
   gap: 3px;
 }
 
-.custom-toolbar{
+.custom-toolbar {
   display: flex;
   justify-content: space-evenly;
   font-size: 2.5vh;
   margin-bottom: 10px;
 }
 
-.selected-slot-hours-users{
+.selected-slot-hours-users {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,39 +88,71 @@
   color: #000;
   margin-top: 10px;
 }
-.admin-selected-slot-hours{
+
+.admin-selected-slot-hours {
   flex-direction: column;
   width: 80%;
 }
 
-.slot-hours-button{
+.slot-hours-button {
   border: none;
   width: 20vw;
   margin-bottom: 5px;
 }
 
-.custom-toolbar button{
+.custom-toolbar button {
   border: none;
   background-color: #DC291E;
 }
 
-.actionImg{
+.actionImg {
   height: 5vh;
 }
-hidden-day{
+
+hidden-day {
   background-color: green;
 }
-.admin-calendar-btn{
+
+.admin-calendar-btn {
   display: flex;
   justify-content: center;
 }
 
+.selected-day {
+  background-color: red;
+  color: white;
+}
 
-@media (min-width: 1500px){
-  .custom-date-header{
-      height: 13vh;
+
+@media (max-width: 850px) {
+  .calendar {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
   }
-  .rbc-month-view{
-      width: 40vw;
+
+  .rbc-calendar {
+    width: 80%;
+  }
+
+  .custom-toolbar {
+    font-size: 1.5rem;
+  }
+
+  .custom-date-header {
+    height: 7vh;
+  }
+
+  .selected-slot-hours-users {
+    width: 80%;
+  }
+
+  .slot-hours-button {
+    width: 60vw;
+  }
+
+  .actionImg {
+    height: 3vh;
   }
 }

@@ -37,7 +37,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .toggle-btn {
     background-color: #dc291e;
     border: none;

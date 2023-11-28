@@ -1,0 +1,14 @@
+.appointment-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 2rem;
+    height: 1.7rem;
+    background-color: #ffffff;
+    color:#dc291e;
+    border: 2px solid #dc291e;
+}
+.appointment-item{
+    font-size: 1em;
+}

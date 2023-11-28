@@ -45,7 +45,7 @@ class AdminRolesModel {
     }
     
     
-    static async findAdmiRoleById(id: string): Promise<AdminRolesType | null> {
+    static async findAdmiRoleById(id: string | undefined ): Promise<AdminRolesType | null> {
         const [admiRole, metadata] = await db.query(`SELECT BIN_TO_UUID(admin_user_id) AS admin_user_id, BIN_TO_UUID(roles_id) AS roles_id FROM Admin_user_Roles WHERE admin_user_id = UUID_TO_BIN("${id}")`);
         return (admiRole as AdminRolesType[]).at(0) || null;
     }

@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { getAllAdminUserRoles, updateAdminRole } from '../controllers/adminUserRoles.controller';
+import { getAllAdminUserRoles, translateToken, updateAdminRole } from '../controllers/adminUserRoles.controller';
 
 const AdminRolesRouter = Router(); 
 
 AdminRolesRouter.get('/', getAllAdminUserRoles );
 AdminRolesRouter.put('/', updateAdminRole )
+AdminRolesRouter.post('/token', translateToken )
 
 export default AdminRolesRouter;

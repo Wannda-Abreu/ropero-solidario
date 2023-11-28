@@ -18,7 +18,7 @@ class TelephoneModel {
         const [newTelephone, metadata] = await db.query(
             'INSERT INTO Telephones (telephone, user_id) VALUES (?, UUID_TO_BIN(?));',
             {
-                replacements: [telephone, user_id],
+                replacements: [telephone, user_id || null],
             }
         );
 

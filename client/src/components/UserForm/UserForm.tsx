@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import InputField from "../../components/atoms/inputFieldProps";
-import { Container, Form } from "react-bootstrap";
 import ClickCounter from "../../components/Counter/counter";
 import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import InputField from "../atoms/inputFieldProps";
+import { Form, Container } from "react-bootstrap";
 import "./userForm.css";
 
-import { useApi } from "../../context/FrontContext";
+import { useApi } from "../../context/ApiContext";
 
 
 
@@ -101,6 +101,3 @@ const UserFormComponent: React.FC = ( ) => {
 };
 
 export default UserFormComponent;
-
-
-

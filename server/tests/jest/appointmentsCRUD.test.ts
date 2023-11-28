@@ -4,22 +4,34 @@ import server from '../../index';
 import AppointmentModel from '../../src/models/appointmentsModel';
 import db from '../../src/config/dbConfig.sequelize';
 import AppointmentsId from '../../src/types/id-types/appointmentId';
+import Appointment from '../../src/types/apointmentTypes';
 
 
 let response: request.Response;
 
-    const newAppointment = {
+    const newAppointment : Appointment = {
         appointment_day: "32",
-        appointment_month: "100",
+        appointment_month: "November",
         appointment_year: "2023",
-        appointment_time_id: null,
+        appointment_timeC: "10:30",
+        appointment_time_id: null
+       
     }
+    const updatedAppointment: Appointment =  {
+        appointment_day: "32",
+        appointment_month: "November",
+        appointment_year: "2023",
+        appointment_timeC: "10:30",
+        appointment_time_id: null
+       
+    }
+
 
 const postAppointmentAndGetId = async () => {
     const createdAppointmentId: AppointmentsId | null = await AppointmentModel.create(newAppointment); 
         if (!createdAppointmentId || typeof createdAppointmentId !== 'object'){return null}
-        const zipCodeId = createdAppointmentId.appointment_id;
-        return zipCodeId.toString();
+        const appointmentId = createdAppointmentId.appointment_id;
+        return appointmentId.toString();
 }
 
 
@@ -39,7 +51,7 @@ describe("CRUD Appointments Test", () => {
             expect(response.headers['content-type']).toContain('json');
         })
         test("Should return all Appointments", async () => {
-            expect(response.body).toBeInstanceOf(Array);
+            expect(response.body).toBeInstanceOf(Object);
         })
     })
 
@@ -91,13 +103,7 @@ describe("CRUD Appointments Test", () => {
 
     describe('UPDATE /appointments', () => {
 
-        const updatedAppointment = {
-            appointment_day: 2,
-            appointment_month: 2,
-            appointment_year: 2023,
-            appointment_time_id: null,
-        }
-
+        
         const wrongAppointment = {
             wrong_field: 2.75,
             wrong_field2: "pesa"
@@ -126,7 +132,7 @@ describe("CRUD Appointments Test", () => {
 
     describe('DELETE/ Appointment', () => {
 
-        test('Should return a response with status 200, type json, and an appointment created successfully! message when a correct appointment is updated', async () => {
+        test('Should return a response with status 200, type json, and The Appointment has been Eliminated! message when a correct appointment is deleted', async () => {
             const appointmentId = await postAppointmentAndGetId();
             const response = await request(app).delete(`/appointments/${appointmentId}`).send();
             expect(response.status).toBe(200);
