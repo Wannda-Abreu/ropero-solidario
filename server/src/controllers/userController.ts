@@ -33,7 +33,12 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
             return res.status(400).json({ message: 'Invalid Request data. All fields are required.'});
         }
     
-        const userId = await UserModel.create(req.body);
+        let data = {
+            user_name:user_name,
+            surname:surname,
+            nationality:nationality
+        }
+        const userId = await UserModel.create(data);
         
         return res.status(201).json(userId);
         

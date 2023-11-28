@@ -12,6 +12,7 @@ import RegisterForm from "../pages/adminViews/register/register.tsx";
 import AdminSettings from "../pages/adminViews/adminSettings/adminSettings.tsx";
 import AdminCalendar from "../pages/adminViews/adminCalendar/adminCalendar.tsx"
 import ContactPage from "../pages/userViews/contactPage/contactPage.tsx";
+import UpdateAppointmentPage from "../pages/userViews/UpdateAppointmentPage/UpdateAppointmentPage.tsx";
 import UserForm from "../pages/adminViews/adminUserForm/adminUserForm.tsx";
 
 
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "/adminsettings",
         element: <AdminSettings/>,
+      },
+      {
+        path:"userappointments",
+        element: <UpdateAppointmentPage />
       },
     ],
   },

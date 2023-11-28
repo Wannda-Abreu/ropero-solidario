@@ -2,7 +2,7 @@
 const BASE_URL = 'http://localhost:3000/'; 
 
 export interface RequestOptions {
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    method: 'GET' | 'POST' | 'PUT'|'DELETE';
     headers?: Record<string, string>;
     body?: string;
 }
@@ -44,7 +44,6 @@ export interface RequestOptions {
         };
             return request(url, options);
 };
-
     export const post = async (url: string, data: unknown) => {
     const options: RequestOptions = {
         method: 'POST',

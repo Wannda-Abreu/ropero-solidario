@@ -37,11 +37,11 @@ class AppointmentModel {
 
     static async update(appointment: Appointment, id: string): Promise<Appointment | null>{
 
-        const { appointment_day, appointment_month, appointment_year, appointment_time_id } = appointment;
-        await db.query('UPDATE Appointments SET appointment_day = ?, appointment_month = ?, appointment_year = ?, appointment_time_id = UUID_TO_BIN(?) WHERE appointment_id = UUID_TO_BIN(?)',
+        const { appointment_day, appointment_month, appointment_year, appointment_timeC} = appointment;
+        await db.query('UPDATE Appointments SET appointment_day = ?, appointment_month = ?, appointment_year = ?, appointment_timeC = ?  WHERE appointment_id = UUID_TO_BIN(?)',
         {
             replacements:
-            [appointment_day, appointment_month, appointment_year, appointment_time_id, id]
+            [appointment_day, appointment_month, appointment_year, appointment_timeC, id]
         });
         const updatedAppointment = await AppointmentModel.findById(id);
         const updatedAppointmentAsAppointment = updatedAppointment as unknown as Appointment

@@ -21,13 +21,13 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     get,
     remove,
     post,
-    put,
-    
+    put, 
   };
 
   return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useApi = (): ApiContextType => {
   const context = useContext(ApiContext);
   if (!context) {
