@@ -29,7 +29,25 @@ export interface RequestOptions {
     export const get = async (url: string) => {
     return request(url, { method: 'GET' });
 };
+export const getFilteredAppointments = async (
+    startYear: string,
+    startMonth: string,
+    startDay: string,
+    endYear: string,
+    endMonth: string,
+    endDay: string
+) => {
+    const url = `appointments/filter/${startYear}/${startMonth}/${startDay}/${endYear}/${endMonth}/${endDay}`;
 
+
+    try {
+        const data = await get(url);
+        return data;
+    } catch (error) {
+        console.error("Error al obtener citas filtradas", error);
+        throw error;
+    }
+};
     export const remove = async (url: string) => {
         return request(url, { method: 'DELETE' });
 };

@@ -3,12 +3,28 @@
     justify-content: center;
     align-items: center;
     align-content: center;
-    width: 2rem;
-    height: 1.7rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: .9em;
     background-color: #ffffff;
     color:#dc291e;
-    border: 2px solid #dc291e;
+    border: 1px solid #dc291e;
 }
-.appointment-item{
-    font-size: 1em;
+.appointment-title{
+    margin-top: 2rem;
+}
+
+label{
+    border:2px solid #ffffff;
+    width: 3rem;
+}
+input{
+    border:none;
+    background-color: rgb(241, 243, 246);
+    border-bottom: 1px solid #dc291e;
+}
+.filter-button{
+    background-color: #dc291e;
+    color: white;
+    border: #ffffff;
 }

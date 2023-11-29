@@ -1,4 +1,3 @@
-// Importa tus controladores
 import {
     getAppointments,
     getAppointment,
@@ -7,7 +6,8 @@ import {
     deleteAppointmentById,
   } from '../controllers/appointmentsController'; // Cambiado el nombre del controlador
   
-  import { GetAppointmentsByMonthAndYear} from '../controllers/appointmentFilter';
+  import {GetAppointmentsByDateRange} from '../controllers/appointmentFilter';
+
   
   import { Router } from 'express';
   
@@ -19,7 +19,11 @@ import {
   appointmentRouter.put('/:id', updateAppointment);
   appointmentRouter.patch('/:id', updateAppointment);
   appointmentRouter.delete('/:id', deleteAppointmentById);
-  appointmentRouter.get('/filter/:month/:year', GetAppointmentsByMonthAndYear);
+  
+  
+  
+  appointmentRouter.get('/filter/:startYear/:startMonth/:startDay/:endYear/:endMonth/:endDay', GetAppointmentsByDateRange);
+
   
   export default appointmentRouter;
   
