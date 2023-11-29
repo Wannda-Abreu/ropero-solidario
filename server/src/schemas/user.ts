@@ -15,26 +15,22 @@ const userSchema = zod.object ({
   }),
   user_status: zod.boolean(),
 
-  date_of_last_report_id: zod.null(),
-  family_members_id: zod.null(),
-  zip_code_id: zod.null(),
-  reference_center_id: zod.null(),
-  appointment_id: zod.null(),
-/* 
-  date_of_last_report_id: 
+  date_of_last_report_id: zod.string().regex(
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    , 'Invalid UUID') || zod.null(),
   family_members_id: zod.string().regex(
     /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    , 'Invalid UUID'),
+    , 'Invalid UUID') || zod.null(),
   zip_code_id: zod.string().regex(
     /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    , 'Invalid UUID'),
+    , 'Invalid UUID') || zod.null(),
   reference_center_id: zod.string().regex(
-    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    , 'Invalid UUID'),
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89 ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    , 'Invalid UUID') || zod.null(),
   appointment_id: zod.string().regex(
     /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    , 'Invalid UUID'),
- */
+    , 'Invalid UUID') || zod.null(),
+
 });
 
 export function validateUser (object: any) {
