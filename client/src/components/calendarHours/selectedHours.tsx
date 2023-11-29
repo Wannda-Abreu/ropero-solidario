@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { useApi } from '../../context/FrontContext';
-
 import './selectedHours.css';
 import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
-import { put } from '../../../services/apiService';
+import {PUT } from '../../../services/apiService';
 
 interface SlotHoursButtonProps {
   onClick: () => void;

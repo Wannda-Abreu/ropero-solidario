@@ -39,7 +39,7 @@ export interface RequestOptions {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-        },
+            },
             body: JSON.stringify(data),
         };
             return request(url, options);
