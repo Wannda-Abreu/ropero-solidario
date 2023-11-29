@@ -27,7 +27,7 @@ function Root() {
       </AdminProvider>
     );
   } else if (
-    location.pathname === "/login" ||
+    location.pathname === "/armarioSanJose-sigIn" ||
     location.pathname === "/register"
   ) {
     return (

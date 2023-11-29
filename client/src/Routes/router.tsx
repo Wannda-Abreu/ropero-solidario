@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         element: <ContactPage />,
       },
       {
-        path: "/login",
+        path: "/armarioSanJose-sigIn",
         element: <LoginForm />,
       },
       {
