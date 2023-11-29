@@ -5,7 +5,7 @@ import AdminRolesModel from '../models/adminUserRolesModel';
 import Admin_UserT from '../types/AdminUserTypes';
 import { comparePassword, hashPassword } from '../../utils/bcrypt';
 import { validateAdminUser } from '../schemas/adminUser';
-import { validateUser } from '../schemas/user';
+
 
 export class AdminUserController {
 
