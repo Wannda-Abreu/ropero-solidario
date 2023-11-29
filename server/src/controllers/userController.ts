@@ -30,7 +30,7 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
         const user = validateUser(req.body);
         
-        if( !user.success){
+        if (!user.success) {
             return res.status(400).json({ error: JSON.parse(user.error.message) });
         }
         

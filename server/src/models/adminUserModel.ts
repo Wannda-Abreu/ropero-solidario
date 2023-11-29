@@ -1,4 +1,4 @@
-import { DataTypes, QueryTypes} from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../config/dbConfig.sequelize";
 import Admin_UserT from "../types/AdminUserTypes";
 import { AdminUserRoles } from "./adminUserRolesModel";

@@ -1,28 +1,27 @@
 import { Request, Response } from 'express';
-
 import { createToken } from '../../utils/JWT';
 import AdminUserModel from '../models/adminUserModel';
 import AdminRolesModel from '../models/adminUserRolesModel';
 import Admin_UserT from '../types/AdminUserTypes';
 import { comparePassword, hashPassword } from '../../utils/bcrypt';
-
-
-
-
-
-
+import { validateAdminUser } from '../schemas/adminUser';
+import { validateUser } from '../schemas/user';
 
 export class AdminUserController {
 
 
   async signup(req: Request, res: Response): Promise<Response> {
     try {
-        const { roles_id, admin_name, admin_surname, email, admin_password } = req.body;
+      const { roles_id } = req.body;
+      const adminUser = validateAdminUser(req.body);
 
+      if (!adminUser.success) {
+        return res.status(401).json( {error: JSON.parse(adminUser.error.message) })
+      }
+      let hashedPassword = hashPassword(adminUser.data.admin_password)
 
-        let hashedPassword = hashPassword(admin_password)
-
-
+      const { admin_name, admin_surname, email } = req.body
+      
         const createdAdminUser = await AdminUserModel.createAdminUser({
             admin_name,
             admin_surname,
@@ -38,7 +37,7 @@ export class AdminUserController {
         const id = createdAdminUser.admin_user_id;
         console.log(id)
      
-        const adminUser = await AdminRolesModel.createAdminRole({ admin_user_id: id, roles_id });
+        const adminUserRole = await AdminRolesModel.createAdminRole({ admin_user_id: id, roles_id });
 
         return res.json(createdAdminUser);
 
@@ -50,6 +49,13 @@ export class AdminUserController {
 
 async login(req: Request, res: Response) {
   try {
+
+    const AdminUserLogin = validateAdminUser(req.body)
+
+    if (!AdminUserLogin.success) {
+      return res.status(401).json( { error: JSON.parse(AdminUserLogin.error.message)} )
+    }
+
     const { email, admin_password } = req.body;
 
     const adminUser = await AdminUserModel.findAdminUserByEmail( email );
