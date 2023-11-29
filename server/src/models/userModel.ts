@@ -18,7 +18,7 @@ class UserModel  {
 
     static async create(user: User): Promise<UserId | null> {
         const { user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id} = user;
-        const [newUser, metadata] = await db.query(
+        await db.query(
             'INSERT INTO Users (user_name, surname, nationality, date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id) VALUES (?, ?, ?, UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?));',
             {
                 replacements:

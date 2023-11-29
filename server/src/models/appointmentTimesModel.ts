@@ -1,5 +1,7 @@
 import AppointmentsTime from "../types/apointmentTimes";
 import db from "../config/dbConfig.sequelize";
+import AppointmentsTimeId from "../types/id-types/appointmentDates";
+
 
 class AppointmentTimeModel {
 
@@ -20,7 +22,7 @@ class AppointmentTimeModel {
         return (appointmentTime as AppointmentsTime[]).at(0) || null;
     }
 
-    static async create(appointmentTime: AppointmentsTime): Promise<Object | null> {
+    static async create(appointmentTime: AppointmentsTime): Promise<AppointmentsTimeId | null> {
         const { available_times, is_active } = appointmentTime;
         const [newAppointmentTime, metadata] = await db.query(
             'INSERT INTO appoitment_times (appointment_time_id, available_times, is_active) VALUES (UUID_TO_BIN(UUID()), ?, ?);',
@@ -28,11 +30,11 @@ class AppointmentTimeModel {
                 replacements: [available_times, is_active],
             }
         );
-        const [appointmentTimeId] = await db.query('SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appoitment_times ORDER BY appointment_time_id DESC LIMIT 1;');
+        const [[appointmentTimeId]] = await db.query('SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appoitment_times ORDER BY appointment_time_id DESC LIMIT 1;');
 
         if (typeof  appointmentTimeId !== 'object') {return null;}
         
-        return  appointmentTimeId;
+        return  appointmentTimeId as AppointmentsTimeId;
        
     }
 
@@ -63,20 +65,20 @@ class AppointmentTimeModel {
         return eliminatedAppointmentTimeAsAppointmentTime;
     }
 
-    static async findAppointmentTimesByDay(day: string): Promise<AppointmentsTime[] | null> {
+    static async findByTime(time: string): Promise<AppointmentsTime[] | null> {
         const [appointmentTimes, metadata] = await db.query(
             `SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id, available_times, is_active FROM appoitment_times WHERE some_column_related_to_day = ?`,
             {
-                replacements: [day],
+                replacements: [time],
             }
         );
         return appointmentTimes as AppointmentsTime[];
     }
 
-    static async eliminateAppointmentTimesByDay(day: string): Promise<AppointmentsTime | null> {
-        let eliminatedAppointmentTime = AppointmentTimeModel.findAppointmentTimesByDay(day);
+    static async eliminateByTime(time: string): Promise<AppointmentsTime | null> {
+        let eliminatedAppointmentTime = AppointmentTimeModel.findByTime(time);
         await db.query('DELETE FROM appoitment_times WHERE some_column_related_to_day = ?', {
-            replacements: [day],
+            replacements: [time],
         });
 
         const eliminatedAppointmentTimeAsAppointmentTime = eliminatedAppointmentTime as unknown as AppointmentsTime;

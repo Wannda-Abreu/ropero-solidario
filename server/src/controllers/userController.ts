@@ -32,7 +32,7 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
         if( !user_name|| !surname|| !nationality){
             return res.status(400).json({ message: 'Invalid Request data. All fields are required.'});
         }
-    
+        
         const userId = await UserModel.create(req.body);
         
         return res.status(201).json(userId);

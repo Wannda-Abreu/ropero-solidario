@@ -1,137 +1,130 @@
 import request from 'supertest';
 import app from '../../app';
-import server from '../../index';
-import AppointmentModel from '../../src/models/appointmentsModel';
+import AppointmentTimeModel from '../../src/models/appointmentTimesModel';
 import db from '../../src/config/dbConfig.sequelize';
+import AppointmentsTime from '../../src/types/apointmentTimes';
+import AppointmentsTimeId from '../../src/types/id-types/appointmentDates';
 
 
 let response: request.Response;
 
-    const newAppointment = {
-        appointment_day: "32",
-        appointment_month: "100",
-        appointment_year: "2023",
-        appointment_time_id: null,
+    const newAppointmentTime: AppointmentsTime = {
+        available_times: '10:30',
+        is_active: true
     }
 
-const postAppointmentAndGetId = async () => {
-    await request(app).post('/appointments').send(newAppointment);
-    const appointment = await AppointmentModel.findByDay("32");
-
-    if (appointment != null) {
-        const {appointment_id, appointment_day, appointment_month, appointment_year,appointment_time_id} = appointment[0];
-        console.log(appointment_id);
-        return appointment_id;
+    const postAppointmentTimeAndGetId = async () => {
+        const createdAppointmentTimeId: AppointmentsTimeId | null = await AppointmentTimeModel.create(newAppointmentTime); 
+            if (!createdAppointmentTimeId || typeof createdAppointmentTimeId !== 'object'){return null}
+            const appointmentTimeId = createdAppointmentTimeId.appointment_times_id;
+            return appointmentTimeId.toString();
     }
-}
 
 
-describe("CRUD Appointments Test", () => {
+describe("CRUD AppointmentTimes Test", () => {
 
     
 
    
 
-    describe("GET /Appointments", () => {
+    describe("GET /AppointmentsTime", () => {
 
         beforeEach(async () => {
-            response = await request(app).get('/appointments').send();
+            response = await request(app).get('/appointmentsTime').send();
         })
         test('Should return a response with status 200 and type json, when I send a Get request', async () => {
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toContain('json');
         })
         test("Should return all Appointments", async () => {
-            expect(response.body).toBeInstanceOf(Array);
+            expect(response.body).toBeInstanceOf(Object);
         })
     })
 
-    describe("GET /Appointments by ID", () => {
+    describe("GET /AppointmentTime by ID", () => {
 
         beforeEach(async () => {
-            const appointmentId = await postAppointmentAndGetId();
-            console.log(`/appointments/${appointmentId}`)
-            response = await request(app).get(`/appointments/${appointmentId}`).send();
+            const appointmentTimeId = await postAppointmentTimeAndGetId();
+            console.log(`/appointmentsTime/${appointmentTimeId}`)
+            response = await request(app).get(`/appointmentsTime/${appointmentTimeId}`).send();
         });
         test('Should return a response with status 200 and type json, when I send a Get by ID request', async () => {
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toContain('json');
         });
-        test("Should return an Appointment", async () => {
+        test("Should return an AppointmentTime", async () => {
             expect(response.body).toBeInstanceOf(Object);
         });
     });
 
-    describe('POST /appointments', () => {
+    describe('POST /appointmentsTime', () => {
 
-        const wrongAppointment = {
+        const wrongAppointmentTime = {
             wrong_field: 2.75,
             wrong_field2: "pesa"
         }
 
         test('Should return a response with status 201 and type json when a correct appointment is added', async () => {
-            const response = await request(app).post('/appointments').send(newAppointment);
+            const response = await request(app).post('/appointmentsTime').send(newAppointmentTime);
             expect(response.status).toBe(201);
             expect(response.headers['content-type']).toContain('json');
         });
 
         test('Should return a message appointment created successfully', async () => {
-            const response = await request(app).post('/appointments').send(newAppointment);
+            const response = await request(app).post('/appointmentsTime').send(newAppointmentTime);
             expect(response.body.message).toContain("The Appointment has been created successfully!");
         });
 
         test('Should return a message insertion error if post wrong appointment', async () => {
-            const response = await request(app).post('/appointments').send(wrongAppointment);
+            const response = await request(app).post('/appointmentsTime').send(wrongAppointmentTime);
             expect(response.status).toBe(400);
             expect(response.body.message).toContain("Invalid Request data. All fields are required.");
         });
 
         afterAll(async () => {
 
-            await AppointmentModel.eliminateByDay("32");
+            await AppointmentTimeModel.eliminateByTime("10:30");
         });
     });
 
-    describe('UPDATE /appointments', () => {
+    describe('UPDATE /appointmentsTime', () => {
 
-        const updatedAppointment = {
-            appointment_day: 2,
-            appointment_month: 2,
-            appointment_year: 2023,
-            appointment_time_id: null,
+        const updatedAppointmentTime = {
+            available_times: '10:30',
+            is_active: true
         }
 
-        const wrongAppointment = {
+        const wrongAppointmentTime = {
             wrong_field: 2.75,
             wrong_field2: "pesa"
         }
 
         test('Should return a response with status 200, type json, and an appointment created successfully! message when a correct appointment is updated', async () => {
-            const appointmentId = await postAppointmentAndGetId();
-            const response = await request(app).put(`/appointments/${appointmentId}`).send(updatedAppointment);
+            const appointmentTimeId = await postAppointmentTimeAndGetId();
+            const response = await request(app).put(`/appointmentsTime/${appointmentTimeId}`).send(updatedAppointmentTime);
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toContain('json');
-            expect(response.body.message).toContain('The appointment has been updated successfully!');
+            expect(response.body.message).toContain('The Appointment Time has been updated successfully!');
         });
 
         test('Should return a message insertion error if updated wrong appointment', async () => {
-            const appointmentId = await postAppointmentAndGetId();
-            const response = await request(app).put(`/appointments/${appointmentId}`).send(wrongAppointment);
+            const appointmentTimeId = await postAppointmentTimeAndGetId();
+            const response = await request(app).put(`/appointmentsTime/${appointmentTimeId}`).send(wrongAppointmentTime);
             expect(response.status).toBe(400);
             expect(response.body.message).toContain("Invalid data. All fields are required.");
         });
 
         afterAll(async () => {
            
-            await AppointmentModel.eliminateByDay("32");
+            await AppointmentTimeModel.eliminateByTime("10:30");
         });
     });
 
     describe('DELETE/ Appointment', () => {
 
         test('Should return a response with status 200, type json, and an appointment created successfully! message when a correct appointment is updated', async () => {
-            const appointmentId = await postAppointmentAndGetId();
-            const response = await request(app).delete(`/appointments/${appointmentId}`).send();
+            const appointmentTimeId = await postAppointmentTimeAndGetId();
+            const response = await request(app).delete(`/appointmentsTime/${appointmentTimeId}`).send();
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toContain('json');
             expect(response.body.message).toContain('The Appointment has been Eliminated!');
@@ -139,15 +132,14 @@ describe("CRUD Appointments Test", () => {
 
         afterAll(async () => {
         
-            await AppointmentModel.eliminateByDay("32");
+            await AppointmentTimeModel.eliminateByTime("10:30");
         });
 
     })
 
     afterAll(async () => {
-        server.close();
         db.close();
     });
 })
 
-export default postAppointmentAndGetId;
+export default postAppointmentTimeAndGetId;

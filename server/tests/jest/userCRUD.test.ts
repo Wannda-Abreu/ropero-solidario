@@ -15,11 +15,7 @@ describe("CRUD Users Test",() =>{
         user_name: 'test',
         surname: "test",
         nationality: "test",
-        date_of_last_report_id: null,
-        family_members_id: null,
-        zip_code_id: null,
-        reference_center_id: null,
-        appointment_id: null
+      
         
     }
     
@@ -163,11 +159,10 @@ describe("CRUD Users Test",() =>{
         });
 
         
-    })
+    });
 
     
     afterAll(async () => {
-        // server.close();
         db.close();
     });   
 })  
