@@ -1,10 +1,12 @@
 import { Op } from "sequelize";
 import AppointmentModel from "../models/appointmentsModel";
+import {Request, Response} from 'express';
 
 export const GetAppointmentsByMonthAndYear = async (req: Request, res: Response) => {
  
   try {
     const month = req.params.month;
+    const year = req.params.year;
 
     const appointments = await AppointmentModel.findByDateRange (
     month,year  
@@ -12,7 +14,7 @@ export const GetAppointmentsByMonthAndYear = async (req: Request, res: Response)
     Response.json(appointments);
 }
     catch (error: unknown) {
-        return Response.status(500).json({ message: (error as Error).message });
+        return res.status(500).json({ message: (error as Error).message });
     
 };
 }

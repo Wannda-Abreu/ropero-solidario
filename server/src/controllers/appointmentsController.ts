@@ -1,27 +1,38 @@
 import { Request, Response } from 'express';
 import AppointmentModel from '../models/appointmentsModel';
 
-const getAppointments = async (req: Request, res: Response): Promise<Response> => {
+// const getAppointments = async (req: Request, res: Response): Promise<Response> => {
+//     try {
+//         const { month, year } = req.query;
+//         const searchCriteria: any = {};
+
+//         if (month) {
+//             searchCriteria.appointment_month = month;
+//         }
+
+//         if (year) {
+//             searchCriteria.appointment_year = year;
+//         }
+
+//         const appointments = await AppointmentModel.findAll({ where: searchCriteria });
+//         console.log('Search Criteria:', searchCriteria);
+
+
+//         if (!appointments || appointments.length === 0) {
+//             return res.status(404).json({ message: 'Appointments not found' });
+//         }
+
+//         return res.status(200).json(appointments);
+//     } catch (error: unknown) {
+//         return res.status(500).json({ message: (error as Error).message });
+//     }
+// };
+const getAppointments = async (_req: Request, res: Response): Promise<Response> => {
     try {
-        const { month, year } = req.query;
-        const searchCriteria: any = {};
-
-        if (month) {
-            searchCriteria.appointment_month = month;
-        }
-
-        if (year) {
-            searchCriteria.appointment_year = year;
-        }
-
-        const appointments = await AppointmentModel.findAll({ where: searchCriteria });
-        console.log('Search Criteria:', searchCriteria);
-
-
-        if (!appointments || appointments.length === 0) {
+        const appointments = await AppointmentModel.findAll();
+        if (!appointments) {
             return res.status(404).json({ message: 'Appointments not found' });
         }
-
         return res.status(200).json(appointments);
     } catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });
