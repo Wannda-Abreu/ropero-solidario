@@ -76,8 +76,8 @@ static async eliminateByDay(day: string): Promise<Appointment | null>{
                 appointment_timeC
             FROM Appointments
             WHERE
-                STR_TO_DATE(CONCAT(appointment_year, '-', appointment_month, '-', '01'), '%Y-%m-%d') BETWEEN STR_TO_DATE(?, '%Y-%m-%d') AND STR_TO_DATE(?, '%Y-%m-%d');
-        `, {
+                CONCAT(appointment_year, '-', appointment_month, '-', '01')) BETWEEN ? AND ?;`, 
+        {
             replacements: [startDate, endDate],
         });
         return appointments as Appointment[];
