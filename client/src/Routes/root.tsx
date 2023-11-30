@@ -3,7 +3,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Navbar/Navbar";
 import Sidebar from "../components/AdminSidebar/AdminsideBar";
 import CarouselComponent from "../components/carousel/Carousel";
-import { AdminProvider } from "../context/AdminContext";
+
 
 function Root() {
   const location = useLocation();
@@ -19,12 +19,10 @@ function Root() {
   
   ) {
     return (
-    <AdminProvider>
       <>
         <Sidebar />
         <Outlet />
       </>
-      </AdminProvider>
     );
   } else if (
     location.pathname === "/armarioSanJose-sigIn" ||

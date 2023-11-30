@@ -11,6 +11,7 @@ import { useApi } from "../../context/ApiContext";
 
 
 const UserFormComponent: React.FC = ( ) => {
+  const [user_date, setUserDate] = useState("");
   const [user_name, setUserName] = useState("");
   const [user_lastname, setUserlastname] = useState("");
   const [nacionality, setNacionality] = useState("")
@@ -28,7 +29,7 @@ const UserFormComponent: React.FC = ( ) => {
       nacionality: nacionality,
       number_family_members: numberOfRelatives,
     };
-
+    window.location.href = '/calendar';
     try {
       const data = await post('appointments', UserData);
       console.log(data);
@@ -47,8 +48,8 @@ const UserFormComponent: React.FC = ( ) => {
           <InputField
             label="¿De que fecha es su informe de derivación?"
             type="text"
-            value={user_name}
-            onChange={(e) => setUserName(e.target.value)}
+            value={user_date}
+            onChange={(e) => setUserDate(e.target.value)}
           />
         </Form.Group>
         <Form.Group>

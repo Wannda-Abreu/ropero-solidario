@@ -10,7 +10,12 @@
   z-index: 3;
   background-color: #dc291e;
 }
-
+.logotype-text{
+  display: flex;
+  font: 1em sans-serif;
+  align-items:last baseline;
+  width: 7rem;
+}
 .logotype-img {
   display: flex;
   height: 3.8rem;
@@ -66,16 +71,29 @@ menu-section{
 .menu-section{
   display: flex;
   justify-content: flex-end;
-  margin: 1rem;
+  margin: .7rem;
   width: 98%;
 }
 
 @media only screen and (max-width: 768px) {
   .logotype-img {
-    height: 3.5;
+    display: flex;
+    align-items: center;
+    height:7vh;
+    margin:0;
   }
-
+ 
+  .logotype-text{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: .9em;
+    width: 5rem;
+  }
   .navbar-container {
+    display: flex;
+    height: 4rem;
+    align-items: center;
     margin: 0%;
   }
   .links-container {

@@ -20,7 +20,7 @@ function ContactPage() {
               <span className="info-section location-section m-3">
                 <FontAwesomeIcon icon={faMapMarkerAlt} size="2x" />
                 <h6 className="m-2">Dirección:</h6>
-                C/ del Alcalde Sainz de Baranda, 93 28007 Madrid
+                Avenida de la Hospitalidad s/n 28054. Madrid(Salida 30 M-40)
               </span>
               <span className="info-section clock-section m-3">
                 <FontAwesomeIcon icon={faClock} size="2x" />

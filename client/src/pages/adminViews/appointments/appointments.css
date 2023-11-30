@@ -10,11 +10,11 @@
     color:#dc291e;
     border: 1px solid #dc291e;
 }
-label{
+.appointment-label{
     border:2px solid #ffffff;
     width: 3rem;
 }
-input{
+.appointment-input{
     border:none;
     background-color: rgb(241, 243, 246);
     border-bottom: 1px solid #dc291e;

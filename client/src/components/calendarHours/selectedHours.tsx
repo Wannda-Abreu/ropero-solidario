@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
 
 
+
 interface SlotHoursButtonProps {
   onClick: () => void;
   label: string;
@@ -41,7 +42,7 @@ const AdminSelectedSlotHours: React.FC<AdminSelectedSlotHoursProps> = ({ selecte
     const endHour = 20;
     const intervalMinutes = 30;
 
-    const {put} = useApi()
+    const {_put,post} = useApi()
 
     
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,7 +50,7 @@ const AdminSelectedSlotHours: React.FC<AdminSelectedSlotHoursProps> = ({ selecte
       
         try {
             const promises = hourInfo.map(async (hour) => {
-                const data = await put('appointmentsTime', {
+                const data = await post('appointmentsTime', {
                     available_times:  hour.hour, 
                     is_active: hour.is_active, 
 

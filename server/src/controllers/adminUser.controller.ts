@@ -12,13 +12,8 @@ export class AdminUserController {
 
   async signup(req: Request, res: Response): Promise<Response> {
     try {
-      const { roles_id } = req.body;
-      const adminUser = validateAdminUser(req.body);
-
-      if (!adminUser.success) {
-        return res.status(401).json( {error: JSON.parse(adminUser.error.message) })
-      }
-      let hashedPassword = hashPassword(adminUser.data.admin_password)
+      const { roles_id,admin_password } = req.body;
+      let hashedPassword = hashPassword(admin_password)
 
       const { admin_name, admin_surname, email } = req.body
       
@@ -30,7 +25,7 @@ export class AdminUserController {
         });
 
         if (!createdAdminUser) {
-            console.error('Resultado del mapeo en el controlador:', createdAdminUser);
+            console.error('Maping result:', createdAdminUser);
             return res.status(201).json(createdAdminUser);
         }
 
