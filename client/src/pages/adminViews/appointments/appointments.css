@@ -10,10 +10,6 @@
     color:#dc291e;
     border: 1px solid #dc291e;
 }
-.appointment-title{
-    margin-top: 2rem;
-}
-
 label{
     border:2px solid #ffffff;
     width: 3rem;
@@ -27,4 +23,10 @@ input{
     background-color: #dc291e;
     color: white;
     border: #ffffff;
+}
+.dashboard-container{
+    display: flex;
+    align-items: center;
+    width: 50vw;
+    margin: 5rem;
 }

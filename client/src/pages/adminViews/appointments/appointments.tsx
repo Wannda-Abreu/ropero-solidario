@@ -64,7 +64,7 @@ const AppointmentsPage: React.FC = () => {
         endMonth,
         endDay
       );
-      console.log(data); // Agrega esta línea
+      console.log(data); 
       setItemsData(data);
       console.log("Datos en el estado:", itemsData);
     } catch (error) {
@@ -73,7 +73,7 @@ const AppointmentsPage: React.FC = () => {
   };
 
   return (
-    <div className="appointment-section m-5">
+    <div className="appointment-section m-5 p-0">
       <h4 className="appointment-title mt-5">Listado de citas</h4>
       <div>
         <h6 className="mt-4">Desde</h6>
