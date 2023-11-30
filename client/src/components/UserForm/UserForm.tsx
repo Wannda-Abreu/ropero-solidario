@@ -10,7 +10,10 @@ import "./userForm.css";
 
 import { useApi } from "../../context/ApiContext";
 
-const UserFormComponent: React.FC = () => {
+
+
+const UserFormComponent: React.FC = ( ) => {
+  const [user_date, setUserDate] = useState("");
   const [user_name, setUserName] = useState("");
   const [user_lastname, setUserlastname] = useState("");
   const [nacionality, setNacionality] = useState("");

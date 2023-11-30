@@ -34,15 +34,16 @@ const LoginForm: React.FC = () => {
         const token = data;
         document.cookie = `token= ${token}; path=/`;
         console.log(document.cookie)
-    
-        window.location.href = '/dashboard';
+      
+        
       
     } catch (error) {
       console.error('Error fetching data:', error);
       setError("Usuario no encontrado");
     }
+    window.location.href = '/dashboard';
   };
-
+ 
   return (
     <Form onSubmit={handleSubmit} className="login-form">
       <Container>
@@ -74,6 +75,7 @@ const LoginForm: React.FC = () => {
       </Container>
     </Form>
   );
+ 
 };
 
 export default LoginForm;

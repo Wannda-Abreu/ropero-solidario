@@ -77,22 +77,22 @@ const AppointmentsPage: React.FC = () => {
       <h4 className="appointment-title mt-5">Listado de citas</h4>
       <div>
         <h6 className="mt-4">Desde</h6>
-        <label className="mt-2" htmlFor="start-year">Año:</label>
-        <input
+        <label className="appointment-label mt-2" htmlFor="start-year">Año:</label>
+        <input className="appointment-input"
           type="text"
           value={startYear}
           onChange={(e) => setStartYear(e.target.value)}
         />
       
-        <label className="mt-2" htmlFor="start-month">Mes:</label>
-        <input
+        <label className="appointment-label mt-2" htmlFor="start-month">Mes:</label>
+        <input className="appointment-input"
           type="text"
           value={startMonth}
           onChange={(e) => setStartMonth(e.target.value)}
         />
       
-        <label className="mt-2" htmlFor="start-day">Día:</label>
-        <input
+        <label className="appointment-label mt-2" htmlFor="start-day">Día:</label>
+        <input className="appointment-input"
           id="start-day"
           type="text"
           value={startDay}
@@ -100,8 +100,8 @@ const AppointmentsPage: React.FC = () => {
         />
       
         <h6 className="mt-4">Hasta</h6>
-        <label className="mt-2" htmlFor="end-year">año:</label>
-        <input
+        <label className="appointment-label mt-2" htmlFor="end-year">año:</label>
+        <input className="appointment-input"
           id="end-year"
           type="text"
           value={endYear}
@@ -109,7 +109,7 @@ const AppointmentsPage: React.FC = () => {
         />
       
         <label className="mt-2" htmlFor="end-month">mes:</label>
-        <input
+        <input className="appointment-input"
           id="end-month"
           type="text"
           value={endMonth}
@@ -117,7 +117,7 @@ const AppointmentsPage: React.FC = () => {
         />
       
         <label className="mt-2" htmlFor="end-day">Día:</label>
-        <input
+        <input className="appointment-input"
           id="end-day"
           type="text"
           value={endDay}

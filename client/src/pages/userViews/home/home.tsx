@@ -13,7 +13,7 @@ function Home() {
           <div className="col-md-6 mb-3 d-flex justify-content-center">
             <Card.Text className="user-txt text-center">
               <p className="mt-4">
-                ¡Bienvenido al Proyecto Ropero Solidario! Esta app ha sido
+                ¡Bienvenido al Proyecto Ropero Solidario de Armario San Jose! Esta app ha sido
                 diseñada para mejorar tu experiencia y la de la Fundación San
                 José. Accede de manera sencilla para completar datos, confirmar
                 citas y recibir ayuda solidaria.
@@ -32,12 +32,12 @@ function Home() {
                   <FontAwesomeIcon icon={faUserCheck} />
                 </li>
               </ul>
-              <div className="card-button d-flex flex-column align-items-center">
+              <div className="card-button d-flex flex-column align-items-center mt-5">
               <Link to="/newuser">
                 <Button text="¿Primer contacto?" />
               </Link>
               </div>
-              <div className="card-button d-flex flex-column align-items-center">
+              <div className="card-button d-flex flex-column align-items-center mt-5">
                 <Link to="/userform">
                   <Button text="Ya soy usuario" />
                 </Link>

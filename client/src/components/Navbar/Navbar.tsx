@@ -21,6 +21,7 @@ function Header() {
             className="logotype-img"
             alt="Image of logotype"
           />
+           <h6 className="logotype-text m-2">Armario San José</h6>
         </Link>
         <div className="right-container">
           <main className="links-container">

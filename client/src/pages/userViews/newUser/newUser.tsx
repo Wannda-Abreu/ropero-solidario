@@ -1,41 +1,67 @@
+import { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "../../../components/Button/Button.tsx";
-import Image from "react-bootstrap/Image";
-import new_user_image from "../../../assets/Images/new-user-image.png";
-import "./newUser.css";
+import AlertComponent from "../../../components/Alert/alert.tsx";
 import { Link } from "react-router-dom";
+import { useApi } from "../../../context/ApiContext";
 
-function NewUser() {
+interface AlertProps {
+  variant: string;
+  heading: string;
+  message: string;
+  additionalMessage: string;
+}
+
+function AppoinmentConfirmation() {
+  const { get } = useApi();
+
+  const [updatedAppointment, setUpdatedAppointment] = useState<any>({});
+
+  const alertProps: AlertProps = {
+    variant: "success",
+    heading: "¡Cita Confirmada!",
+    message:
+      "¡Tu cita está confirmada! En caso de que no puedas asistir, por favor contáctanos para reprogramar o cancelar.",
+    additionalMessage:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing ipsu",
+  };
+
+  useEffect(() => {
+    // Fetch updated appointment data using the appointmentId or any other identifier
+    const fetchUpdatedAppointment = async () => {
+      try {
+        const data = await get(`appointments/${inputAppointmentId}`);
+        setUpdatedAppointment(data);
+      } catch (error) {
+        console.error("Error fetching updated appointment data:", error);
+      }
+    };
+
+    fetchUpdatedAppointment();
+  }, []);
+
   return (
-    <div className="card-container">
-      <Card border="0">
-        <Card.Body className="user-card-text d-flex flex-column flex-md-row justify-content-center align-items-center">
-          <div className="col-md-6 mb-3 d-flex justify-content-center">
-            <Card.Text className="user-txt text-center">
-              <h5 className="mb-5">¡Bienvenido a Ropero Solidario!</h5>
-              <div className="m-1">
-                Si eres nuevo en nuestra comunidad, te invitamos a dirigirte a
-                tu centro de servicios sociales para que te realicen un informe
-                de derivación. Una vez que cuentes con este informe, no dudes en
-                ponerte en contacto con nosotros a través de WhatsApp al número
-                +34 677 450 122. Valoramos tu colaboración y estamos
-                comprometidos a brindarte el mejor apoyo posible. ¡Esperamos con
-                entusiasmo tu visita!
+    <div className="appointment-container  d-flex justify-content-center align-items-center mt-5">
+      <Card className="w-100">
+        <Card.Body className="border-0 d-flex flex-column align-items-center">
+          <div className="confirmation-container mb-5 d-flex flex-column align-items-center justify-content-center text-center">
+            <AlertComponent {...alertProps} />
+            {Object.keys(updatedAppointment).length > 0 && (
+              <div>
+                <p>Nueva fecha de la cita: {updatedAppointment.appointment_day}/{updatedAppointment.appointment_month}/{updatedAppointment.appointment_year}</p>
+                <p>Nueva hora de la cita: {updatedAppointment.appointment_timeC}</p>
               </div>
-              <div className="card-button d-flex justify-content-center mt-5">
-                <Link to="/">
-                  <Button text="Volver a la página principal" />
-                </Link>
-              </div>
-            </Card.Text>
+            )}
           </div>
-          <div className="col-md-4 d-flex justify-content-center">
-            <Image className="image" src={new_user_image} fluid />
-          </div>
+          <Link to="/">
+            <div className="mb-5">
+              <Button text="Volver a la página principal" />
+            </div>
+          </Link>
         </Card.Body>
       </Card>
     </div>
   );
 }
 
-export default NewUser;
+export default AppoinmentConfirmation;
