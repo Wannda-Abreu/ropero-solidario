@@ -3,4 +3,3 @@ node_modules
 dbData.ts
 db-data.ts
 coverage/
-coverage-jest/
