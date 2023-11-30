@@ -35,11 +35,11 @@ const createTelephone = async (req: Request, res: Response): Promise<Response> =
         const { telephone, user_id } = req.body;
 
         if (!telephone) {
-            return res.status(400).json({ message: 'Invalid Request data. Both telephone and user_id are required.' });
+            return res.status(400).json({ message: 'Invalid Request Data. All fields are required.' });
         }
-        await TelephoneModel.create(req.body);
+        const telephoneId = await TelephoneModel.create(req.body);
 
-        return res.status(201).json({ message: 'The Telephone has been created successfully!' });
+        return res.status(201).json(telephoneId);
 
     } catch (error: unknown) {
         return res.json({ message: (error as Error).message });
@@ -51,7 +51,7 @@ const updateTelephone = async (req: Request, res: Response): Promise<Response> =
     try {
         const { telephone, user_id } = req.body;
         if (!telephone) {
-            return res.status(400).json({ message: 'Invalid data. Both telephone and user_id are required.' });
+            return res.status(400).json({ message: 'Invalid Request Data. All fields are required.'});
         }
 
         const telephoneId = req.params.id;
@@ -66,9 +66,10 @@ const updateTelephone = async (req: Request, res: Response): Promise<Response> =
 const deleteTelephoneById = async (req: Request, res: Response): Promise<Response> => {
     try {
         const telephoneId = req.params.id;
-        const eliminatedTelephone = await TelephoneModel.eliminateById(telephoneId);
+        const eliminatedTelephone = await TelephoneModel.findById(telephoneId);
 
         if (!eliminatedTelephone) { return res.status(404).json({ message: 'Telephone Not Found' }) }
+        await TelephoneModel.eliminateById(telephoneId);
         return res.status(200).json({ message: 'The Telephone has been Eliminated!' })
 
     } catch (error: unknown) {

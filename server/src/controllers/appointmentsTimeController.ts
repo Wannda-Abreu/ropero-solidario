@@ -48,16 +48,16 @@ const createAppointmentTime = async (req: Request, res: Response): Promise<Respo
 const updateAppointmentTime = async (req: Request, res: Response): Promise<Response> => {
   
     try {
-
-      const {available_times, is_active} = req.body;
+      const { available_times, is_active } = req.body;
+     if(!available_times|| !is_active) {
+          return res.status(400).json({ message: 'Invalid data. All fields are required.' });
+      }
+      const appointmentTimeId = req.params.id;
+      await AppointmentTimeModel.update(req.body, appointmentTimeId);
+      return res.status(200).json({ message:'The Appointment Time has been updated successfully!' });
   
-      
-      await AppointmentTimeModel.update({available_times, is_active});
-  
-      return res.status(200).json({ mensaje: 'Datos actualizados correctamente' });
-    } catch (error) {
-      console.error('Error al actualizar los datos por available_times:', error);
-      return res.status(500).json({ error: 'Error interno del servidor' });
+    } catch (error: unknown) {
+      return res.status(500).json({ message:(error as Error).message});
     }
   };
   

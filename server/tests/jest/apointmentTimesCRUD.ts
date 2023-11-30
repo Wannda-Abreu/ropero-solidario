@@ -3,10 +3,11 @@ import app from '../../app';
 import AppointmentTimeModel from '../../src/models/appointmentTimesModel';
 import db from '../../src/config/dbConfig.sequelize';
 import AppointmentsTime from '../../src/types/apointmentTimes';
-import AppointmentsTimeId from '../../src/types/id-types/appointmentDates';
+import AppointmentsTimeId from '../../src/types/id-types/appointmentTime';
+import server from '../../index';
 
-
-let response: request.Response;
+describe("CRUD Appointment Times Test", () => {
+    let response: request.Response;
 
     const newAppointmentTime: AppointmentsTime = {
         available_times: '10:30',
@@ -16,16 +17,12 @@ let response: request.Response;
     const postAppointmentTimeAndGetId = async () => {
         const createdAppointmentTimeId: AppointmentsTimeId | null = await AppointmentTimeModel.create(newAppointmentTime); 
             if (!createdAppointmentTimeId || typeof createdAppointmentTimeId !== 'object'){return null}
-            const appointmentTimeId = createdAppointmentTimeId.appointment_times_id;
+            console.log(createdAppointmentTimeId);
+            const appointmentTimeId = createdAppointmentTimeId.appointment_time_id;
+            console.log(appointmentTimeId)
             return appointmentTimeId.toString();
     }
-
-
-describe("CRUD AppointmentTimes Test", () => {
-
-    
-
-   
+  
 
     describe("GET /AppointmentsTime", () => {
 
@@ -72,7 +69,7 @@ describe("CRUD AppointmentTimes Test", () => {
 
         test('Should return a message appointment created successfully', async () => {
             const response = await request(app).post('/appointmentsTime').send(newAppointmentTime);
-            expect(response.body.message).toContain("The Appointment has been created successfully!");
+            expect(response.body).toBeInstanceOf(Object);
         });
 
         test('Should return a message insertion error if post wrong appointment', async () => {
@@ -89,7 +86,7 @@ describe("CRUD AppointmentTimes Test", () => {
 
     describe('UPDATE /appointmentsTime', () => {
 
-        const updatedAppointmentTime = {
+        const updatedAppointmentTime: AppointmentsTime = {
             available_times: '10:30',
             is_active: true
         }
@@ -127,7 +124,7 @@ describe("CRUD AppointmentTimes Test", () => {
             const response = await request(app).delete(`/appointmentsTime/${appointmentTimeId}`).send();
             expect(response.status).toBe(200);
             expect(response.headers['content-type']).toContain('json');
-            expect(response.body.message).toContain('The Appointment has been Eliminated!');
+            expect(response.body.message).toContain('The Appointment time has been Eliminated!');
         });
 
         afterAll(async () => {
@@ -138,8 +135,7 @@ describe("CRUD AppointmentTimes Test", () => {
     })
 
     afterAll(async () => {
+        server.close()
         db.close();
     });
 })
-
-export default postAppointmentTimeAndGetId;

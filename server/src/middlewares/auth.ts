@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../../utils/JWT';
+import { Admin_User } from '../models/adminUserModel';
 
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
@@ -14,7 +15,7 @@ try {
     console.log(decodedToken)
     if (!decodedToken || !decodedToken.id) {
       const userId = decodedToken.admin_user_id;
-      await AdminUser.findOne({ where: { admin_user_id: userId } })
+      await Admin_User.findOne({ where: { admin_user_id: userId } })
     }
     next();
   } catch (error: unknown) {

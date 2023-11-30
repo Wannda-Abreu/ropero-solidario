@@ -6,8 +6,10 @@ import db from '../../src/config/dbConfig.sequelize';
 import AppointmentsId from '../../src/types/id-types/appointmentId';
 import Appointment from '../../src/types/apointmentTypes';
 
-
-let response: request.Response;
+describe("CRUD Appointments Test", () => {
+    
+    
+    let response: request.Response;
 
     const newAppointment : Appointment = {
         appointment_day: "32",
@@ -33,14 +35,6 @@ const postAppointmentAndGetId = async () => {
         const appointmentId = createdAppointmentId.appointment_id;
         return appointmentId.toString();
 }
-
-
-describe("CRUD Appointments Test", () => {
-
-    
-
-   
-
     describe("GET /Appointments", () => {
 
         beforeEach(async () => {
@@ -148,9 +142,8 @@ describe("CRUD Appointments Test", () => {
     })
 
     afterAll(async () => {
-        server.close();
+        server.close()
         db.close();
     });
 })
 
-export default postAppointmentAndGetId;

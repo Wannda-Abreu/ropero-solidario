@@ -123,9 +123,7 @@ describe("CRUD ZIPCodes Test", () => {
   })
 
   afterAll(async () => {
-    console.log('Before calling eliminateByZipCode');
     await ZIPCodeModel.eliminateByZipCode(12345);
-    // server.close();
     db.close();
     
   });

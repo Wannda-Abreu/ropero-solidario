@@ -1,20 +1,20 @@
 import AppointmentsTime from "../types/apointmentTimes";
 import db from "../config/dbConfig.sequelize";
-import AppointmentsTimeId from "../types/id-types/appointmentDates";
+import AppointmentsTimeId from "../types/id-types/appointmentTime";
 
 
 class AppointmentTimeModel {
 
     static async findAll(): Promise<AppointmentsTime[] | null> {
         const [appointmentTimes, metadata] = await db.query(
-            'SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id, available_times, is_active FROM appoitment_times;'
+            'SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id, available_times, is_active FROM Appointment_times;'
         );
         return appointmentTimes as AppointmentsTime[];
     }
 
     static async findById(id: string): Promise<AppointmentsTime | null> {
         const [appointmentTime, metadata] = await db.query(
-            'SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id, available_times, is_active FROM appoitment_times WHERE appointment_time_id = UUID_TO_BIN(?)',
+            'SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id, available_times, is_active FROM Appointment_times WHERE appointment_time_id = UUID_TO_BIN(?)',
             {
                 replacements: [id],
             }
@@ -24,13 +24,13 @@ class AppointmentTimeModel {
 
     static async create(appointmentTime: AppointmentsTime): Promise<AppointmentsTimeId | null> {
         const { available_times, is_active } = appointmentTime;
-        const [newAppointmentTime, metadata] = await db.query(
-            'INSERT INTO appoitment_times (appointment_time_id, available_times, is_active) VALUES (UUID_TO_BIN(UUID()), ?, ?);',
+        await db.query(
+            'INSERT INTO Appointment_times (available_times, is_active) VALUES (?, ?);',
             {
                 replacements: [available_times, is_active],
             }
         );
-        const [[appointmentTimeId]] = await db.query('SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appoitment_times ORDER BY appointment_time_id DESC LIMIT 1;');
+        const [[appointmentTimeId]] = await db.query('SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appointment_times ORDER BY appointment_time_id DESC LIMIT 1;');
 
         if (typeof  appointmentTimeId !== 'object') {return null;}
         
@@ -38,11 +38,12 @@ class AppointmentTimeModel {
        
     }
 
-    static async update(appointmentTime: AppointmentsTime): Promise<AppointmentsTime | null> {
-        const { available_times, is_active } = appointmentTime;
+    static async update(appointmentTime: AppointmentsTime, id: string): Promise<AppointmentsTime | null> {
         
-        let updatedAppointmentTime = await db.query('UPDATE appoitment_times SET  is_active = ? WHERE available_times = ?', {
-            replacements: [ is_active, available_times],
+        const { available_times, is_active } = appointmentTime;
+        let updatedAppointmentTime = await db.query('UPDATE Appointment_times SET  available_times = ? , is_active = ? WHERE appointment_time_id = UUID_TO_BIN(?);', 
+        {
+            replacements: [available_times, is_active, id]
         });
 
       
@@ -53,8 +54,8 @@ class AppointmentTimeModel {
     static async eliminateById(id: string): Promise<AppointmentsTime | null> {
 
 
-        let eliminatedAppointmentTime = AppointmentTimeModel.findById(id);
-        await db.query('DELETE FROM appoitment_times WHERE appointment_time_id = UUID_TO_BIN(?)', {
+        let eliminatedAppointmentTime = await AppointmentTimeModel.findById(id);
+        await db.query('DELETE FROM Appointment_times WHERE appointment_time_id = UUID_TO_BIN(?)', {
             replacements: [id],
         });
 
@@ -67,7 +68,7 @@ class AppointmentTimeModel {
 
     static async findByTime(time: string): Promise<AppointmentsTime[] | null> {
         const [appointmentTimes, metadata] = await db.query(
-            `SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id, available_times, is_active FROM appoitment_times WHERE some_column_related_to_day = ?`,
+            `SELECT BIN_TO_UUID(appointment_time_id) AS appointment_time_id, available_times, is_active FROM Appointment_times WHERE some_column_related_to_day = ?`,
             {
                 replacements: [time],
             }
@@ -76,8 +77,8 @@ class AppointmentTimeModel {
     }
 
     static async eliminateByTime(time: string): Promise<AppointmentsTime | null> {
-        let eliminatedAppointmentTime = AppointmentTimeModel.findByTime(time);
-        await db.query('DELETE FROM appoitment_times WHERE some_column_related_to_day = ?', {
+        let eliminatedAppointmentTime = await AppointmentTimeModel.findByTime(time);
+        await db.query('DELETE FROM Appointment_times WHERE available_times = ?', {
             replacements: [time],
         });
 

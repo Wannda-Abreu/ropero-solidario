@@ -9,7 +9,7 @@ import FamilyInfoId from '../../src/types/id-types/familyInfoId';
 describe('CRUD FamilyInfo Test', () => {
   let response: Response;
 
-  const newFamilyInfo = {
+  const newFamilyInfo : FamilyInfo = {
     
     number_of_family_members: 100,
     underaged_family_members: 2,
@@ -154,7 +154,7 @@ describe('CRUD FamilyInfo Test', () => {
   });
 
   afterAll(async () => {
-    // server.close();
+    server.close();
     db.close();
   });
   

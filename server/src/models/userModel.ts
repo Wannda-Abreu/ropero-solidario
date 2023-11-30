@@ -48,7 +48,16 @@ class UserModel  {
         await db.query('UPDATE Users SET user_name = ?, surname = ?, nationality = ?, date_of_last_report_id = UUID_TO_BIN(?), family_members_id = UUID_TO_BIN(?), zip_code_id = UUID_TO_BIN(?), reference_center_id = UUID_TO_BIN(?), appointment_id = UUID_TO_BIN(?) WHERE user_id = UUID_TO_BIN(?)',
         {
             replacements:
-            [user_name, surname, nationality ,date_of_last_report_id, family_members_id, zip_code_id, reference_center_id, appointment_id, id],
+            [
+                user_name,
+                surname,
+                nationality,
+                date_of_last_report_id || null,
+                family_members_id || null,
+                zip_code_id || null,
+                reference_center_id || null,
+                appointment_id || null,
+                id],
         });
         const  updatedUser = await UserModel.findById(id);
         const updatedUserAsUser = updatedUser as unknown as User;
