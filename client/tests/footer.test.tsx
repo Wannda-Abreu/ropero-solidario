@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen} from '@testing-library/react';
+import { render} from '@testing-library/react';
 import logotype from "../../assets/Logos/white-logo.png";
 
 describe("Testing that the Footer is Rendered", () => {
