@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "unit-test": "vitest --ui --coverage",
-    "test": "jest --watchAll --detectOpenHandles --runInBand" ,
+    "test": "jest --watchAll --detectOpenHandles --runInBand",
     "start": "tsc & node .",
     "dev": "ts-node-dev --respawn --transpile-only ./index.ts"
   },
