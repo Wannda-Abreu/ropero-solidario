@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faUserGear } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useApi } from "../../../context/ApiContext";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 interface AdminData {
+  admin_user_id: string
   admin_name: string;
   admin_surname: string;
   email: string;
@@ -72,13 +73,13 @@ const AdminSettings = () => {
                 <div className="d-flex ">
                   <button
                     className="appointment-button d-flex m-3"
-                    onClick={() => handleEditAdmin(admin.admin_id)}
+                    onClick={() => handleEditAdmin(admin.admin_user_id)}
                   >
                     <FontAwesomeIcon icon={faPen} />
                   </button>
                   <button
                     className="appointment-button d-flex m-3"
-                    onClick={() => handleDeleteAdmin(admin.admin_id)}
+                    onClick={() => handleDeleteAdmin(admin.admin_user_id)}
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>

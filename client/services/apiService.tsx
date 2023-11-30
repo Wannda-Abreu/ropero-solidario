@@ -2,7 +2,7 @@
 const BASE_URL = 'http://localhost:3000/'; 
 
 export interface RequestOptions {
-    method: 'GET' | 'POST' | 'PUT'|'DELETE';
+    method: 'GET' | 'POST' | 'PUT'|'DELETE'| 'PATCH';
     headers?: Record<string, string>;
     body?: string;
 }
@@ -12,19 +12,32 @@ export interface RequestOptions {
         throw error;
 };
 
-    export const request = async (url: string, options: RequestOptions) => {
-    
+export const request = async (url: string, options: RequestOptions) => {
     try {
         const response = await fetch(`${BASE_URL}${url}`, options);
+
         if (!response.ok) {
-            throw new Error(`Respuesta no exitosa: ${response.status}`);
-    }
+            // Aquí puedes manejar diferentes códigos de estado específicos
+            if (response.status === 404) {
+                throw new Error('Recurso no encontrado');
+            } else {
+                throw new Error(`Respuesta no exitosa: ${response.status}`);
+            }
+        }
+
         return response.json();
     } catch (error: any) {
-        handleRequestError(error);
-        throw error;
+        // Puedes manejar errores específicos aquí y lanzar un error personalizado
+        if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+            throw new Error('Error de red. Asegúrate de que estás conectado a Internet.');
+        } else {
+            // Maneja otros errores aquí si es necesario
+            handleRequestError(error);
+            throw error;
+        }
     }
 };
+
 
     export const get = async (url: string) => {
     return request(url, { method: 'GET' });
@@ -68,6 +81,18 @@ export const getFilteredAppointments = async (
         headers: {
         'Content-Type': 'application/json',
     },
+        body: JSON.stringify(data),
+    };
+
+    return request(url, options);
+};
+
+export const patch = async (url: string, data: unknown) => {
+    const options: RequestOptions = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(data),
     };
 

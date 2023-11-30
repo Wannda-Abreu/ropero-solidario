@@ -19,12 +19,12 @@ function Root() {
   
   ) {
     return (
-    <AdminProvider>
+    
       <>
         <Sidebar />
         <Outlet />
       </>
-      </AdminProvider>
+      
     );
   } else if (
     location.pathname === "/armarioSanJose-sigIn" ||

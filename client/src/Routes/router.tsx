@@ -35,6 +35,10 @@ const router = createBrowserRouter([
         element: <MyCalendar SelectedSlotHoursComponent={undefined} />,
       },
       {
+        path: "/calendar?u=/:user_id",
+        element: <MyCalendar SelectedSlotHoursComponent={undefined} />,
+      },
+      {
         path: "/newuser",
         element: <NewUser />,
       },

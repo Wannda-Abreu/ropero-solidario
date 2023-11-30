@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
-
 const ClickCounter: React.FC<{
   initialCount: number;
   onUpdate: (newCount: number) => void;
 }> = ({ initialCount, onUpdate }) => {
   const [count, setCount] = useState<number>(initialCount);
 
-  const handleButtonClick = (operation: "increment" | "decrement") => {
+  const handleButtonClick = (event: React.MouseEvent, operation: "increment" | "decrement") => {
+    event.preventDefault();  // Evitar el comportamiento predeterminado del clic
+    event.stopPropagation();
+
     if (operation === "increment") {
       const newCount = count + 1;
       setCount(newCount);
@@ -21,24 +23,23 @@ const ClickCounter: React.FC<{
     }
   };
 
-    return (
-        <div className="Counters">
-        <button
-            className="counterButton"
-            onClick={() => handleButtonClick("decrement")}
-        >
-            <FontAwesomeIcon icon={faMinus}  />
-        </button>
-        <span>{count}</span> 
-        <button
-            className="counterButton"
-            onClick={() => handleButtonClick("increment")}
-        >
-         <FontAwesomeIcon icon={faPlus} />
-        </button>
-        </div>
-);
+  return (
+    <div className="Counters">
+      <button
+        className="counterButton"
+        onClick={(event) => handleButtonClick(event, "decrement")}
+      >
+        <FontAwesomeIcon icon={faMinus} />
+      </button>
+      <span>{count}</span> 
+      <button
+        className="counterButton"
+        onClick={(event) => handleButtonClick(event, "increment")}
+      >
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
+    </div>
+  );
 };
 
 export default ClickCounter;
-

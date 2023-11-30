@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
+import { useParams } from "react-router-dom";
 
 import {
   Calendar,
@@ -24,6 +25,7 @@ import './calendar.css';
 import SlotHoursUsers from '../../../components/calendarHours/usersHours';
 
 const localizer: DateLocalizer = momentLocalizer(moment);
+
 
 interface CustomToolbarProps {
   label: string;
@@ -71,8 +73,11 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ SelectedSlotHoursComponent }) =
     hour: number;
     minute: number;
   } | null>(null);
+  
+  const { id } = useParams<{ id: string }>();
 
-  const { post, get } = useApi();
+
+  const { post, get, patch } = useApi();
 
   const formData = {
     appointment_timeC: selectedTime,
@@ -188,7 +193,13 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ SelectedSlotHoursComponent }) =
     try {
       const data = await post('appointments', formData);
       console.log(data);
+      
+      let userdata= {
+        appoiment_id: data.appoiment_id
+      }
 
+      const user =  await patch(`users/${id}`, userdata)
+      console.log(user)
       window.location.href = '/datealert';
     } catch (error) {
       console.error('Error fetching data:', error);
