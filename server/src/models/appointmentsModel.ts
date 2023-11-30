@@ -3,13 +3,13 @@ import Appointment from "../types/apointmentTypes";
 import db from "../config/dbConfig.sequelize";
 import AppointmentsId from "../types/id-types/appointmentId";
 
-class AppointmentModel { 
-     
-    static async findAll(): Promise<Appointment[] | null> {
-
-        const [appointments, metadata] = await db.query('SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, BIN_TO_UUID(appointment_time_id) AS appointment_time_id, appointment_timeC FROM Appointments;');
-        return appointments as Appointment[];
-    }
+class AppointmentModel {
+  static async findAll(): Promise<Appointment[] | null> {
+    const [appointments, metadata] = await db.query(
+      'SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, BIN_TO_UUID(appointment_time_id) AS appointment_time_id, appointment_timeC FROM Appointments;'
+    );
+    return appointments as Appointment[];
+  }
 
     static async findById(id: string): Promise<Appointment | null>{
         const [appointment, metadata] =  await db.query(`SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year, BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appointments WHERE appointment_id = UUID_TO_BIN("${id}");`)
@@ -49,34 +49,36 @@ class AppointmentModel {
         return updatedAppointmentAsAppointment;
     }
 
-    static async eliminateById(id: string): Promise<Appointment | null> {
-        let eliminatedAppointment = AppointmentModel.findById(id);
-        await db.query('DELETE FROM Appointments WHERE appointment_id = UUID_TO_BIN(?)',
-        {
-            replacements: [id]
-        })
-        const eliminatedAppointmentAsAppointment = eliminatedAppointment as unknown as Appointment;
-        if(typeof eliminatedAppointmentAsAppointment !== 'object'){return null};
-        return eliminatedAppointmentAsAppointment;
+  static async eliminateById(id: string): Promise<Appointment | null> {
+    let eliminatedAppointment = await AppointmentModel.findById(id);
+    await db.query('DELETE FROM Appointments WHERE appointment_id = UUID_TO_BIN(?)', {
+      replacements: [id],
+    });
+    const eliminatedAppointmentAsAppointment = eliminatedAppointment as unknown as Appointment;
+    if (typeof eliminatedAppointmentAsAppointment !== 'object') {
+      return null;
     }
+    return eliminatedAppointmentAsAppointment;
+  }
 
-    static async findByDay(day: string): Promise<Appointment[] | null>{
-        const [appointments, metadata] = await db.query(`SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year,BIN_TO_UUID(appointment_time_id) AS appointment_time_id FROM Appointments WHERE appointment_day = "${day}"`);
-        return appointments as Appointment[];
+  static async findByDay(day: string): Promise<Appointment[] | null> {
+    const [appointments, metadata] = await db.query(
+      `SELECT BIN_TO_UUID(appointment_id) AS appointment_id, appointment_day, appointment_month, appointment_year,BIN_TO_UUID(appointment_time_id) AS appointment_time_id, appointment_timeC FROM Appointments WHERE appointment_day = '${day}'`
+    );
+    return appointments as Appointment[];
+  }
+
+  static async eliminateByDay(day: string): Promise<Appointment | null> {
+    let eliminatedAppointment = await AppointmentModel.findByDay(day);
+    await db.query('DELETE FROM Appointments WHERE appointment_day = ?', {
+      replacements: [day],
+    });
+    const eliminatedAppointmentAsAppointment = eliminatedAppointment as unknown as Appointment;
+    if (typeof eliminatedAppointmentAsAppointment !== 'object') {
+      return null;
     }
-
-    static async eliminateByDay(day: string): Promise<Appointment | null>{
-        let eliminatedAppointment = AppointmentModel.findByDay(day);
-        await db.query('DELETE FROM Appointments WHERE appointment_day = ?',
-        {
-            replacements: [day]
-        })
-        const eliminatedAppointmentAsAppointment = eliminatedAppointment as unknown as Appointment;
-        if (typeof eliminatedAppointmentAsAppointment !== 'object') {return null;}
-        return eliminatedAppointmentAsAppointment;
-    }
-
-    
+    return eliminatedAppointmentAsAppointment;
+  }
 }
 
 export default AppointmentModel;

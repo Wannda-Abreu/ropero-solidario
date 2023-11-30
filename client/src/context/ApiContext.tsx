@@ -1,5 +1,6 @@
-import React, { createContext, useContext } from 'react';
-import { request, get, remove, put, RequestOptions, post   } from '../../services/apiService';
+import { createContext, useContext } from 'react';
+import { request, get, remove, put, RequestOptions, post } from '../../services/apiService';
+import {getFilteredAppointments}  from "../../services/apiService";
 
 interface ApiContextType {
   request: (url: string, options: RequestOptions) => Promise<any>;
@@ -7,6 +8,7 @@ interface ApiContextType {
   remove: (url: string) => Promise<any>;
   put: (url: string, data: unknown) => Promise<any>;
   post: (url :string, data: unknown)=> Promise<any>;
+  getFilteredAppointments: (url :string, data: unknown)=> Promise<any>;
 }
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
@@ -22,6 +24,7 @@ export const ApiProvider: React.FC<ApiProviderProps> = ({ children }) => {
     remove,
     post,
     put, 
+    getFilteredAppointments
   };
 
   return <ApiContext.Provider value={api}>{children}</ApiContext.Provider>;

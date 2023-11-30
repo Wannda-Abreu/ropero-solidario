@@ -41,7 +41,7 @@ const AdminSettings = () => {
   };
 
   return (
-    <Container fluid className="dashboard-container mt-5">
+    <Container fluid className="dashboard-container p-5 mt-5">
       <Row>
         <Col md={12} lg={9} className="dashboard-content mt-5">
           <h5 className="dashboard-title">
@@ -64,20 +64,20 @@ const AdminSettings = () => {
           </div>
           <div className="d-flex flex-wrap align-items-center m-2 mt-5 p-0">
             {adminsData.map((admin, index) => (
-              <div key={index} className="p-0 m-2 mt-3">
+              <div key={index} className="p-0  mt-3">
                 <strong className="m-3">
                   <FontAwesomeIcon icon={faUser} /> {`${admin.admin_name} ${admin.admin_surname}`}
                 </strong>
                 <FontAwesomeIcon icon={faEnvelope} /> Email: {admin.email}
-                <div className="d-flex m-2">
+                <div className="d-flex ">
                   <button
-                    className="appointment-button d-flex m-2"
+                    className="appointment-button d-flex m-3"
                     onClick={() => handleEditAdmin(admin.admin_id)}
                   >
                     <FontAwesomeIcon icon={faPen} />
                   </button>
                   <button
-                    className="appointment-button d-flex m-2"
+                    className="appointment-button d-flex m-3"
                     onClick={() => handleDeleteAdmin(admin.admin_id)}
                   >
                     <FontAwesomeIcon icon={faTrash} />

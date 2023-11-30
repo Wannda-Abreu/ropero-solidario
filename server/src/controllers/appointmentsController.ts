@@ -1,14 +1,25 @@
 import { Request, Response } from 'express';
 import AppointmentModel from '../models/appointmentsModel';
 
-
-const getAppointments = async (_req: Request, res: Response): Promise<Response> => {
+const getAppointments = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const appointments = await AppointmentModel.findAll();
+        const { month, year } = req.query;
+        const searchCriteria: any = {};
+        
+        if (month) {
+            searchCriteria.appointment_month = month;
+        }
 
-        if (!appointments) {
+        if (year) {
+            searchCriteria.appointment_year = year;
+        }
+
+        const appointments = await AppointmentModel.findAll({ where: searchCriteria });
+
+        if (!appointments || appointments.length === 0) {
             return res.status(404).json({ message: 'Appointments not found' });
         }
+
         return res.status(200).json(appointments);
     } catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });
@@ -23,6 +34,7 @@ const getAppointment = async (req: Request, res: Response): Promise<Response> =>
         if (!appointment) {
             return res.status(404).json({ message: 'Appointment not found' });
         }
+        
         return res.status(200).json(appointment);
     } catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });
@@ -69,6 +81,7 @@ const deleteAppointmentById = async (req: Request, res: Response): Promise<Respo
         if (!eliminatedAppointment) {
             return res.status(404).json({ message: 'Appointment Not Found' });
         }
+
         return res.status(200).json({ message: 'The Appointment has been Eliminated!' });
     } catch (error: unknown) {
         return res.status(500).json({ message: (error as Error).message });

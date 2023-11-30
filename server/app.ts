@@ -14,6 +14,8 @@ import Rolesrouter from './src/routes/rolesRoutes';
 import cookieParser from 'cookie-parser';
 
 
+
+
 const app = express();
 
 app.use(corsMiddleware);
@@ -32,6 +34,8 @@ app.use('/referenceCenter', referenceCenterRouter);
 app.use('/telephones', telephoneRouter);
 app.use('/roles', Rolesrouter)
 app.use('/AdminRoles', AdminRolesRouter)
+
+
 
 app.get('/', (_req: Request, res: Response) => {
   res.status(200).send('Bienvenido al servidor del Ropero Solidario!!!');
