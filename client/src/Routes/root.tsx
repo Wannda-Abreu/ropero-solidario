@@ -19,18 +19,12 @@ function Root() {
   
   ) {
     return (
-<<<<<<< HEAD
     
-=======
->>>>>>> e739cd3383c3f7a6462b4ce83487812580834d38
       <>
         <Sidebar />
         <Outlet />
       </>
-<<<<<<< HEAD
       
-=======
->>>>>>> e739cd3383c3f7a6462b4ce83487812580834d38
     );
   } else if (
     location.pathname === "/armarioSanJose-sigIn" ||

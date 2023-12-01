@@ -75,13 +75,13 @@ const UpdateAppointmentPage: React.FC = () => {
               Ingrese el ID de la cita en el campo correspondiente.<FontAwesomeIcon icon={faCheckCircle} />
             </li>
             <li className="mt-2">
-               Revise los detalles actuales de su cita que se muestran.<FontAwesomeIcon icon={faCheckCircle} />
+                Revise los detalles actuales de su cita que se muestran.<FontAwesomeIcon icon={faCheckCircle} />
             </li>
             <li className="mt-2">
-               Después, introduzca los nuevos datos de su cita en los campos proporcionados.<FontAwesomeIcon icon={faCheckCircle} />
+                Después, introduzca los nuevos datos de su cita en los campos proporcionados.<FontAwesomeIcon icon={faCheckCircle} />
             </li>
             <li className="mt-2">
-               Haga clic en el botón "Actualizar cita" para confirmar los cambios.<FontAwesomeIcon icon={faCheckCircle} />
+                Haga clic en el botón "Actualizar cita" para confirmar los cambios.<FontAwesomeIcon icon={faCheckCircle} />
             </li>
           </ol>
           <Form onSubmit={handleSubmit}>
@@ -106,7 +106,7 @@ const UpdateAppointmentPage: React.FC = () => {
                     <p className="date-item m-1"> {appointmentData.appointment_day}</p>
                     <p className="date-item m-1">de {appointmentData.appointment_month}</p>
                     <p className="date-item m-1">del {appointmentData.appointment_year}</p>
-                    <p className="date-item m-1"> a las {appointmentData.appointment_timeC}:H</p>
+                    <p className="date-item m-1"> a las {appointmentData.appointment_timeC}</p>
                   </div>
                 </Form.Group>
                 <h5 className=" mt-2"> Introduzca aquí los nuevos datos de su cita </h5>
@@ -157,7 +157,7 @@ const UpdateAppointmentPage: React.FC = () => {
               <p>¡Cita actualizada! </p>
               <p>Su cita está programada para: </p>
               {newDay}/{newMonth}/{newYear}
-              <p> a las: {newTime} H </p>
+              <p> a las: {newTime} </p>
             </div>
           )}
         </Col>

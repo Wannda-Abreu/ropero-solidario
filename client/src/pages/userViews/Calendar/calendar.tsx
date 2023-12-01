@@ -23,6 +23,7 @@ import { useApi } from '../../../context/ApiContext';
 
 import './calendar.css';
 import SlotHoursUsers from '../../../components/calendarHours/usersHours';
+import { put } from '../../../../services/apiService';
 
 const localizer: DateLocalizer = momentLocalizer(moment);
 
@@ -74,9 +75,9 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ SelectedSlotHoursComponent }) =
     minute: number;
   } | null>(null);
   
-  const { id } = useParams<{ id: string }>();
+  const {id} = useParams<{ id: string }>();
 
-
+  console.log(id)
   const { post, get, patch } = useApi();
 
   const formData = {
@@ -194,12 +195,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ SelectedSlotHoursComponent }) =
       const data = await post('appointments', formData);
       console.log(data);
       
-      let userdata= {
-        appoiment_id: data.appoiment_id
-      }
-
-      const user =  await patch(`users/${id}`, userdata)
-      console.log(user)
+  
       window.location.href = '/datealert';
     } catch (error) {
       console.error('Error fetching data:', error);

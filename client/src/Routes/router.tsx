@@ -14,6 +14,7 @@ import AdminCalendar from "../pages/adminViews/adminCalendar/adminCalendar.tsx"
 import ContactPage from "../pages/userViews/contactPage/contactPage.tsx";
 import UpdateAppointmentPage from "../pages/userViews/appointmentPage/UpdateAppointmentPage.tsx";
 import UserForm from "../pages/adminViews/adminUserForm/adminUserForm.tsx";
+import EditAdminPage from "../pages/AdminUpdate/AdminUserUpdate.tsx";
 
 
 
@@ -35,12 +36,16 @@ const router = createBrowserRouter([
         element: <MyCalendar SelectedSlotHoursComponent={undefined} />,
       },
       {
-        path: "/calendar?u=/:user_id",
+        path: "/calendar/:id",
         element: <MyCalendar SelectedSlotHoursComponent={undefined} />,
       },
       {
         path: "/newuser",
         element: <NewUser />,
+      },
+      {
+        path: "/editadmin/:id",
+        element: <EditAdminPage />,
       },
       {
         path: "/datealert",

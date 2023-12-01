@@ -13,7 +13,6 @@ import { useApi } from "../../context/ApiContext";
 
 
 const UserFormComponent: React.FC = ( ) => {
-  const [user_date, setUserDate] = useState("");
   const [user_name, setUserName] = useState("");
   const [user_lastname, setUserlastname] = useState("");
   const [nacionality, setNacionality] = useState("");
@@ -110,7 +109,7 @@ const UserFormComponent: React.FC = ( ) => {
             ]);
             
 
-            const timeoutId = setTimeout(() => navigate(`/calendar?u=/${verifyUser.user_id}`), 3000);
+            const timeoutId = setTimeout(() => navigate(`/calendar/${verifyUser.user_id}`), 3000);
 
             console.log('Todas las actualizaciones PUT fueron exitosas', timeoutId);
           }
@@ -168,7 +167,7 @@ const UserFormComponent: React.FC = ( ) => {
             console.log('Respuesta de post Telephones:', telephone);
 
           
-            const timeoutId = setTimeout(() => navigate(`/calendar?u=/${newuser}`), 3000);
+            const timeoutId = setTimeout(() => navigate(`/calendar/${newuser}`), 3000);
             console.log(timeoutId)
           }
 

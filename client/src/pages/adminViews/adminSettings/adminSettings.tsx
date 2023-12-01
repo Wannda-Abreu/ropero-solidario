@@ -17,7 +17,9 @@ interface AdminData {
 }
 const AdminSettings = () => {
   const [adminsData, setAdminsData] = useState<AdminData[]>([]);
-  const { get } = useApi();
+  const { get, remove } = useApi();
+
+  let navigate = useNavigate()
 
   useEffect(() => {
     const fetchDataFromDatabase = async () => {
@@ -35,10 +37,13 @@ const AdminSettings = () => {
 
   const handleEditAdmin = (adminId: string) => {
     console.log(`Editar administrador con ID ${adminId}`);
+    navigate(`/editadmin/${adminId}`)
   };
 
-  const handleDeleteAdmin = (adminId: string) => {
+  const handleDeleteAdmin = async (adminId: string) => {
     console.log(`Eliminar administrador con ID ${adminId}`);
+    const data = await remove(`adminUser/${adminId}`);
+    console.log(data)
   };
 
   return (
