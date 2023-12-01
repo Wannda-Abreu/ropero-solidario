@@ -1,6 +1,7 @@
 import {Request,Response} from 'express';
 import UserModel from '../models/userModel';
 import { validateUser } from '../schemas/user';
+import User from '../types/userTypes';
 
 const getUsers = async (_req: Request, res: Response): Promise<Response> =>{
     try {       
@@ -28,11 +29,8 @@ const getUser = async (req: Request, res: Response): Promise<Response> => {
 
 const createUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const user = validateUser(req.body);
         
-        if (!user.success) {
-            return res.status(400).json({ error: JSON.parse(user.error.message) });
-        }
+        
         
         const userId = await UserModel.create(req.body);
         
@@ -44,21 +42,52 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
 
 }
 
-const updateUser = async (req: Request, res: Response): Promise<Response> => {
+const updateUser = async(req: Request, res: Response): Promise<Response> => {
     try {
-        const {user_name, surname, nationality}= req.body;
-        if( !user_name|| !surname|| !nationality){
-            return res.status(400).json({ message: 'Invalid data. All fields are required.'});
+        const { id } = req.params;
+
+        const {
+            user_name,
+            surname,
+            nationality,
+            user_status,
+            date_of_last_report_id,
+            family_members_id,
+            zip_code_id,
+            reference_center_id,
+            appointment_id,
+        } = req.body;
+
+        if (!id) {
+            return res.status(400).send('ID no proporcionado');
         }
 
-        const userId = req.params.id;
-        await UserModel.update(req.body, userId);
-        return res.status(200).json({message:'The user has been updated successfully!'})
+        const updatedFields: Partial<User> = {
+            user_name,
+            surname,
+            nationality,
+            user_status,
+            date_of_last_report_id,
+            family_members_id,
+            zip_code_id,
+            reference_center_id,
+            appointment_id,
+        } as User;
 
-    } catch (error : unknown) {
-        return res.json({message:(error as Error).message});
+        const user = await UserModel.update(updatedFields, id);
+
+        if (!user) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+    return res.status(200).json(user);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send('Error al actualizar el usuario');
     }
 }
+
+
 
 const deleteUserById = async (req: Request, res: Response): Promise<Response> => {
     try {

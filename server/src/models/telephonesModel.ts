@@ -13,6 +13,30 @@ class TelephoneModel {
         return (telephone as Telephone[]).at(0) || null;
     }
 
+    static async findByTelephone(telephone: string): Promise<Telephone | null> {
+        try {
+            const [telephones, metadata] = await db.query(`
+                SELECT
+                    BIN_TO_UUID(telephone_id) AS telephone_id,
+                    telephone,
+                    BIN_TO_UUID(user_id) AS user_id
+                    FROM Telephones
+                WHERE telephone = ?;
+        `, {
+            replacements: [telephone],
+        });
+
+            if (telephones && telephones.length > 0) {
+                return telephones[0] as Telephone;
+        } else {
+            return null;
+        }
+        } catch (error) {
+            console.error('Error in findByTelephone:', error);
+            throw error;
+        }
+      }
+
     static async create(createTelephone: Telephone): Promise<Telephone | null> {
         const { telephone, user_id } = createTelephone;
         const [newTelephone, metadata] = await db.query(
@@ -28,10 +52,10 @@ class TelephoneModel {
     }
 
     static async update(updateTelephone: Telephone, id: string): Promise<Telephone | null> {
-        const { telephone, user_id } = updateTelephone;
-        await db.query('UPDATE Telephones SET telephone = ?, user_id = UUID_TO_BIN(?) WHERE telephone_id = UUID_TO_BIN(?)',
+        const { telephone} = updateTelephone;
+        await db.query('UPDATE Telephones SET telephone = ? WHERE telephone_id = UUID_TO_BIN(?)',
             {
-                replacements: [telephone, user_id, id],
+                replacements: [telephone, id],
             });
         const updatedTelephone = await TelephoneModel.findById(id);
         const updatedTelephoneAsTelephone = updatedTelephone as unknown as Telephone;

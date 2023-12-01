@@ -13,7 +13,6 @@ const userSchema = zod.object ({
     invalid_type_error: 'Nataionality must be a string',
     required_error: 'Nationality is required'
   }),
-  user_status: zod.boolean(),
 
   date_of_last_report_id: zod.string().regex(
     /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i

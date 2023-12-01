@@ -67,10 +67,38 @@ class AdminUserModel {
       return (Admin_User as Admin_UserT[])[0] || null;
   }
 
-    static async findAdminUserById(id: string | undefined ): Promise<Admin_UserT | null> {
-        const [Admin_User, metadata] = await db.query(`SELECT BIN_TO_UUID(admin_user_id) AS admin_user_id, admin_name, admin_surname, email, admin_password FROM Admin_User WHERE admin_user_id = UUID_TO_BIN("${id}")`);
-        return (Admin_User as Admin_UserT[]).at(0) || null;
+  static async findAdminUserById(id: string | undefined): Promise<Admin_UserT | null> {
+    const query = `
+      SELECT
+        BIN_TO_UUID(u.admin_user_id) AS admin_user_id,
+        u.admin_name,
+        u.admin_surname,
+        u.email,
+        u.admin_password,
+        r.roles_name
+      FROM
+        Admin_User u
+        LEFT JOIN Admin_user_Roles aur ON u.admin_user_id = aur.admin_user_id
+        LEFT JOIN Roles r ON aur.roles_id = r.roles_id
+      WHERE
+        u.admin_user_id = UUID_TO_BIN("${id}")
+    `;
+  
+    try {
+      const [result, metadata] = await db.query(query);
+  
+      if (result && result.length > 0) {
+        
+  
+        return result as unknown as Admin_UserT;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error al obtener el usuario administrador por ID:', error);
+      return null;
     }
+  }
 
     static async findRolesByUserId(userId: string | undefined): Promise<rolesTypes[] | null> {
       try {

@@ -59,6 +59,25 @@ class RolesModel {
         }
     }
 
+    static async findUsersByRoleName(roles_name: string): Promise<rolesTypes[] | null> {
+    try {
+        
+        const roleIdResult = await db.query(
+            'SELECT BIN_TO_UUID(roles_id) as roles_id FROM Roles WHERE roles_name = ?',
+            {
+                replacements: [roles_name],
+                type: QueryTypes.SELECT,
+            }
+        );
+
+        return roleIdResult as unknown as rolesTypes[];
+    } catch (error) {
+        console.error('Error al obtener usuarios por rol:', error);
+        return null;
+    }
+}
+
+
     static async createRoles(Roles: rolesTypes): Promise<rolesTypes | null> {
         try {
             const { roles_name } = Roles;

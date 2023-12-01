@@ -21,11 +21,11 @@ class ReferenceCenterModel {
       }
     );
 
-    const [referenceCenterId] = await db.query('SELECT BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Reference_centers ORDER BY reference_center_id DESC LIMIT 1;');
+    const referenceCenterId = await db.query('SELECT BIN_TO_UUID(reference_center_id) AS reference_center_id FROM Reference_centers ORDER BY reference_center_id DESC LIMIT 1;');
 
     if (typeof referenceCenterId !== 'object') {return null;}
       
-    return referenceCenterId;
+    return referenceCenterId[0];
   }
 
   static async update(center: ReferenceCenter, id: string): Promise<ReferenceCenter | null> {

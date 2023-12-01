@@ -3,7 +3,7 @@ import AppointmentModel from '../models/appointmentsModel';
 
 const getAppointments = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { month, year } = req.query;
+        const { month, year, } = req.query;
         const searchCriteria: any = {};
         
         if (month) {
@@ -14,7 +14,7 @@ const getAppointments = async (req: Request, res: Response): Promise<Response> =
             searchCriteria.appointment_year = year;
         }
 
-        const appointments = await AppointmentModel.findAll({ where: searchCriteria });
+        const appointments = await AppointmentModel.findAll();
 
         if (!appointments || appointments.length === 0) {
             return res.status(404).json({ message: 'Appointments not found' });

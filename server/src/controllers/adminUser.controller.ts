@@ -5,6 +5,7 @@ import AdminRolesModel from '../models/adminUserRolesModel';
 import Admin_UserT from '../types/AdminUserTypes';
 import { comparePassword, hashPassword } from '../../utils/bcrypt';
 import { validateAdminUser } from '../schemas/adminUser';
+import RolesModel from '../models/roleModel';
 
 
 export class AdminUserController {
@@ -29,10 +30,19 @@ export class AdminUserController {
             return res.status(201).json(createdAdminUser);
         }
 
+        
+        let userRole = await RolesModel.findUsersByRoleName("voluntario")
+
+        if (!userRole) {
+          console.error('Maping result:', createdAdminUser);
+          return res.status(201).json(createdAdminUser);
+      }
+        let roleId = userRole[0]?.roles_id
+
         const id = createdAdminUser.admin_user_id;
         console.log(id)
-     
-        const adminUserRole = await AdminRolesModel.createAdminRole({ admin_user_id: id, roles_id });
+        
+        const adminUserRole = await AdminRolesModel.createAdminRole({ admin_user_id: id, roles_id: roleId });
 
         return res.json(createdAdminUser);
 

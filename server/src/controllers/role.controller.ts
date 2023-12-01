@@ -49,6 +49,23 @@ const getRoleUsers = async (req: Request, res: Response): Promise<Response | any
     }
 }
 
+const findUsersByRole = async (req: Request, res: Response): Promise<void> => {
+    const { roles_name } = req.body;
+  
+    try {
+        const users = await RolesModel.findUsersByRoleName(roles_name);
+
+    if (users !== null) {
+        res.status(200).json(users);
+    } else {
+        res.status(404).json({ error: 'No se encontraron usuarios para el rol proporcionado' });
+        }
+    } catch (error) {
+        console.error('Error en el controlador findUsersByRoleName:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  };
+
 const createRole = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { roles_name } = req.body;
@@ -108,5 +125,5 @@ const deleteRoleById = async (req: Request, res: Response): Promise<Response> =>
 };
 
 
-export { getRoles, getRolebyId, createRole, updateRole, deleteRoleById, getRoleUsers };
+export { getRoles, getRolebyId, createRole, updateRole, deleteRoleById, getRoleUsers, findUsersByRole };
     

@@ -26,11 +26,11 @@ class DateOfLastReportModel {
       }
     );
     
-    const [dateOfLastReportId] = await db.query('SELECT BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id FROM Dates_of_last_report ORDER BY date_of_last_report_id DESC LIMIT 1;');
+    const dateOfLastReportId = await db.query('SELECT BIN_TO_UUID(date_of_last_report_id) AS date_of_last_report_id FROM Dates_of_last_report ORDER BY date_of_last_report_id DESC LIMIT 1;');
 
       if (typeof  dateOfLastReportId !== 'object') {return null;}
         
-      return  dateOfLastReportId;
+      return  dateOfLastReportId[0];
 
   }
 

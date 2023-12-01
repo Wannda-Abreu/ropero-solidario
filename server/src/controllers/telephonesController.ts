@@ -30,6 +30,26 @@ const getTelephone = async (req: Request, res: Response): Promise<Response> => {
     }
 }
 
+const findByTelephone =  async (req: Request, res: Response): Promise<Response>  =>{
+    try {
+    const { telephone } = req.body; // Suponiendo que el número de teléfono está en los parámetros de la solicitud
+
+    const userByTelephone = await TelephoneModel.findByTelephone(telephone);
+
+    if (userByTelephone) {
+
+        return res.status(200).json( userByTelephone );
+    } else {
+        
+        return res.status(200).json(userByTelephone);
+    }
+    } catch (error) {
+
+        console.error('Error in findByTelephone controller:', error);
+        return res.status(500).json({ error: 'Error interno del servidor' });
+    }
+}
+
 const createTelephone = async (req: Request, res: Response): Promise<Response> => {
     try {
         const { telephone, user_id } = req.body;
@@ -49,7 +69,7 @@ const createTelephone = async (req: Request, res: Response): Promise<Response> =
 
 const updateTelephone = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { telephone, user_id } = req.body;
+        const { telephone} = req.body;
         if (!telephone) {
             return res.status(400).json({ message: 'Invalid data. Both telephone and user_id are required.' });
         }
@@ -76,4 +96,4 @@ const deleteTelephoneById = async (req: Request, res: Response): Promise<Respons
     }
 }
 
-export { getTelephones, getTelephone, createTelephone, updateTelephone, deleteTelephoneById }
+export { getTelephones, getTelephone, createTelephone, updateTelephone, deleteTelephoneById, findByTelephone }

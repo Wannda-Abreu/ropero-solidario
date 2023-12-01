@@ -29,9 +29,12 @@ const getAppointmentTime = async (req: Request, res: Response): Promise<Response
   }
 };
 
+
+
+
 const createAppointmentTime = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const {available_times, is_active } = req.body;
+    const {available_times, is_active, } = req.body;
 
     if (!available_times|| !is_active) {
       return res.status(400).json({ message: 'Invalid Request data. All fields are required.' });
