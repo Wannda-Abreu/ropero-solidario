@@ -4,9 +4,9 @@ import {
     createAppointment,
     updateAppointment,
     deleteAppointmentById,
-  } from '../controllers/appointmentsController'; // Cambiado el nombre del controlador
+  } from '../controllers/appointmentsController'; 
   
-  import {GetAppointmentsByDateRange} from '../controllers/appointmentFilter';
+  import GetAppointmentsByDateRange from '../controllers/appointmentFilter';
 
   
   import { Router } from 'express';
@@ -23,7 +23,6 @@ import {
   
   
   appointmentRouter.get('/filter/:startYear/:startMonth/:startDay/:endYear/:endMonth/:endDay', GetAppointmentsByDateRange);
-
   
   export default appointmentRouter;
   

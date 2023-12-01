@@ -1,3 +1,11 @@
+.appointment-section{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 3rem;
+    margin-left: 10%;
+    margin-right: 10%;
+}
 .appointment-button{
     display: flex;
     justify-content: center;
@@ -20,13 +28,34 @@
     border-bottom: 1px solid #dc291e;
 }
 .filter-button{
+    width: 10rem;
     background-color: #dc291e;
     color: white;
     border: #ffffff;
 }
-.dashboard-container{
-    display: flex;
-    align-items: center;
-    width: 50vw;
-    margin: 5rem;
-}
+@media (max-width: 768px) {
+    .date-instructions{
+        justify-content: center;
+        margin:0;
+        text-align: center;
+    }
+    .appointment-section{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+    
+    }
+    .date-filter{
+        width: 75%;
+    }
+    .appointment-input{
+        width: 5rem;
+        border:none;
+        background-color: rgb(241, 243, 246);
+        border-bottom: 1px solid #dc291e;
+    }
+    }
+  
