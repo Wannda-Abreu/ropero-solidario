@@ -1,21 +1,21 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import Root from "./root";
-import LoginForm from "../pages/adminViews/login/Login.tsx";
-import MyCalendar from "../pages/userViews/Calendar/calendar.tsx";
-import UserFormPage from "../pages/userViews/userForm/userForm.tsx";
-import NewUser from "../../../../ropero-solidario/client/src/pages/userViews/newUser/newUser";
-import AppoinmentConfirmation from "../../../../ropero-solidario/client/src/pages/userViews/AppoinmentConfirmation/ApponinmentConfirmation.tsx";
-import Home from "../../../../ropero-solidario/client/src/pages/userViews/home/home.tsx";
-import Dashboard from "../../../../ropero-solidario/client/src/pages/adminViews/Dashboard/dashboard.tsx";
-import AdminUserForm from "../../../../ropero-solidario/client/src/pages/adminViews/adminUserForm/adminUserForm.tsx";
-import AppointmentsPage from "../../../../ropero-solidario/client/src/pages/adminViews/appointments/appointments.tsx";
-import RegisterForm from "../pages/adminViews/register/register.tsx";
-import AdminSettings from "../pages/adminViews/adminSettings/adminSettings.tsx";
-import SettingsPage from "../pages/adminViews/settings/settings.tsx";
-import AdminCalendar from "../pages/adminViews/adminCalendar/adminCalendar.tsx"
+import LoginForm from "@/pages/adminViews/login/Login";
+import MyCalendar from "@/pages/userViews/Calendar/calendar";
+import UserFormPage from "@/pages/userViews/userForm/userForm";
+import NewUser from "@/pages/userViews/newUser/newUser";
+import AppoinmentConfirmation from "@/pages/userViews/AppoinmentConfirmation/ApponinmentConfirmation";
+import VerifyAppointmentPage from "@/pages/userViews/VerifyAppointment/verifyAppointment";
+import Home from "@/pages/userViews/home/home";
+import Dashboard from "@/pages/adminViews/Dashboard/dashboard";
+import AdminUserForm from "@/pages/adminViews/adminUserForm/adminUserForm";
+import AppointmentsPage from "@/pages/adminViews/appointments/appointments";
+import RegisterForm from "@/pages/adminViews/register/register";
+import AdminSettings from "@/pages/adminViews/adminSettings/adminSettings";
+import SettingsPage from "@/pages/adminViews/settings/settings";
+import AdminCalendar from "@/pages/adminViews/adminCalendar/adminCalendar";
 
-
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Root />,
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/userform",
-        element: <UserFormPage  buttonLink="/calendar" />,
+        element: <UserFormPage />,
       },
       {
         path: "/calendar",
@@ -35,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/newuser",
         element: <NewUser />,
+      },
+      {
+        path: "/verify",
+        element: <VerifyAppointmentPage />,
       },
       {
         path: "/datealert",
@@ -54,12 +58,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/adminuserform",
-        element: <AdminUserForm buttonLink="/admincalendar" />,
+        element: <AdminUserForm />,
       },
       {
         path: "/admincalendar",
         element: <AdminCalendar />,
-    },
+      },
       {
         path: "/appointments",
         element: <AppointmentsPage/>,
@@ -76,9 +80,7 @@ const router = createBrowserRouter([
       
     ],
   },
-], {
-  basename: import.meta.env.BASE_URL,
-});
+]);
 
 
 export default router;

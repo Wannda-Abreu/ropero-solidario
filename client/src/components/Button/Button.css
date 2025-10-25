@@ -1,12 +1,49 @@
 .button-component{
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     background-color: #dc291e;
-    color: white;
+    color: #ffffff;
     border: none;
-    height: 2.2rem;
-    border-radius: 1vw;
+    min-height: 2.5rem;
+    border-radius: 0.75rem;
     font-size: 1rem;
-    padding: .8rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    gap: 0.35rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.15s ease;
+    text-decoration: none;
+}
+
+.button-component:hover,
+.button-component:focus-visible{
+    background-color: #b51f16;
+    box-shadow: 0 10px 20px rgba(220, 41, 30, 0.25);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.button-component:disabled{
+    cursor: not-allowed;
+    opacity: 0.65;
+    box-shadow: none;
+    transform: none;
+}
+
+.button-component--secondary{
+    background-color: transparent;
+    color: #dc291e;
+    border: 1px solid rgba(220, 41, 30, 0.6);
+    box-shadow: none;
+}
+
+.button-component--secondary:hover,
+.button-component--secondary:focus-visible{
+    background-color: rgba(220, 41, 30, 0.08);
+    color: #dc291e;
+    border-color: #dc291e;
+    box-shadow: none;
+    transform: translateY(-1px);
 }

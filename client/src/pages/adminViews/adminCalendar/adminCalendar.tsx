@@ -1,5 +1,5 @@
-import AdminSelectedSlotHours from "../../../components/calendarHours/selectedHours";
-import MyCalendar from "../../userViews/Calendar/calendar";
+import AdminSelectedSlotHours from "@/components/calendarHours/selectedHours";
+import MyCalendar from "@/pages/userViews/Calendar/calendar";
 
 
 const AdminCalendar: React.FC = () =>{

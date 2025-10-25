@@ -2,13 +2,15 @@ import { Calendar, momentLocalizer, DateLocalizer, View, NavigateAction, DateHea
 import { useState} from 'react';
 import moment from 'moment';
 import React from 'react';
-import prevIcon from '../../../assets/Icons/prevIcon.png';
-import nextIcon from '../../../assets/Icons/nextIcon.png';
-import  AdminSelectedSlotHours, { AdminSelectedSlotHoursProps } from '../../../components/calendarHours/selectedHours';
+import prevIcon from "@/assets/Icons/prevIcon.png";
+import nextIcon from "@/assets/Icons/nextIcon.png";
+import AdminSelectedSlotHours, {
+  AdminSelectedSlotHoursProps,
+} from "@/components/calendarHours/selectedHours";
 
 import './calendar.css';
 import { Link } from 'react-router-dom';
-import Button from '../../../components/Button/Button';
+import Button from "@/components/Button/Button";
 
 const localizer: DateLocalizer = momentLocalizer(moment);
 
@@ -105,7 +107,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ SelectedSlotHoursComponent }) =
           selectedDate={selectedDate}
           handleHourButtonClick={handleHourButtonClick}
         />
-        {/*cammbiar ruta al crear la alerta de cnfirmacion cita*/}
+
         <div className='admin-calendar-btn mt-5'>
         <Link to="/dashboard">
         <Button text="Reservar cita" />
@@ -157,11 +159,23 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ SelectedSlotHoursComponent }) =
             dateHeader: ({ date }: DateHeaderProps) => {
               const dayOfMonth = moment(date).format('D');
               const isInCurrentMonth = isCurrentMonth(date);
+              const isSelected =
+                selectedEvent && moment(date).isSame(selectedEvent, 'day');
 
-              const dayClasses = `custom-date-header ${isInCurrentMonth ? 'current-month-day' : 'other-month-day'}`;  
+              const dayClasses = [
+                'custom-date-header',
+                isInCurrentMonth ? 'current-month-day' : 'other-month-day',
+              ];
+
+              if (isSelected) {
+                dayClasses.push('selected-day');
+              }
               
               return (
-                <div className={dayClasses} onClick={() => handleSelectEvent({ start: date, end: date })}>
+                <div
+                  className={dayClasses.join(' ')}
+                  onClick={() => handleSelectEvent({ start: date, end: date })}
+                >
                   {dayOfMonth}
                 </div>
               );

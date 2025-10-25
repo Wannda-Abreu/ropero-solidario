@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from "react-router-dom";
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Navbar/Navbar";
-import Sidebar from "../components/AdminSidebar/AdminsideBar";
-import CarouselComponent from "../components/carousel/Carousel";
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Navbar/Navbar";
+import Sidebar from "@/components/AdminSidebar/AdminsideBar";
+import CarouselComponent from "@/components/carousel/Carousel";
 
 function Root() {
   const location = useLocation();

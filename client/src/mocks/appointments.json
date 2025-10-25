@@ -1,0 +1,30 @@
+[
+  {
+    "id": "appointment-1",
+    "appointmentCode": "RS8A21",
+    "name": "Maria Lopez",
+    "appointmentDate": "2025-11-12",
+    "appointmentTime": "10:30",
+    "phoneNumber": "600123456",
+    "postalCode": "28010",
+    "householdSize": 4,
+    "minorsCount": 2,
+    "requestDate": "2025-11-05",
+    "notes": "Primera visita al programa.",
+    "createdAt": "2025-11-01T09:00:00.000Z"
+  },
+  {
+    "id": "appointment-2",
+    "appointmentCode": "RS3B72",
+    "name": "Jose Perez",
+    "appointmentDate": "2025-11-13",
+    "appointmentTime": "12:00",
+    "phoneNumber": "633987654",
+    "postalCode": "08015",
+    "householdSize": 3,
+    "minorsCount": 1,
+    "requestDate": "2025-11-06",
+    "notes": "Revision mensual.",
+    "createdAt": "2025-11-02T10:30:00.000Z"
+  }
+]

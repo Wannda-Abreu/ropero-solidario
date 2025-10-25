@@ -1,24 +1,43 @@
 import React from "react";
 
-interface InputFieldProps {
-    label: string;
-    type: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+interface InputFieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+  error?: string;
 }
-
-
 
 const InputField: React.FC<InputFieldProps> = ({
-    label, type, value, onChange
+  label,
+  error,
+  id,
+  className,
+  ...inputProps
 }) => {
-    return( 
-        <div className="inputField">
-            <label>{label}</label>
-            
-            <input type= {type} value={value} onChange= {onChange} />
-        </div>
-    )
-}
+  const inputId =
+    id ||
+    `input-${label.toLowerCase().replace(/\s+/g, "-")}-${Math.random()
+      .toString(36)
+      .slice(2, 8)}`;
+  const errorId = error ? `${inputId}-error` : undefined;
+
+  return (
+    <div className={`inputField${error ? " inputField--error" : ""}`}>
+      <label htmlFor={inputId}>{label}</label>
+
+      <input
+        id={inputId}
+        className={className}
+        aria-invalid={Boolean(error)}
+        aria-describedby={errorId}
+        {...inputProps}
+      />
+      {error && (
+        <span className="inputField__error" id={errorId} role="alert">
+          {error}
+        </span>
+      )}
+    </div>
+  );
+};
 
 export default InputField;

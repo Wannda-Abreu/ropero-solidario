@@ -1,0 +1,129 @@
+.appointment-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.appointment-header > h3 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 700;
+  color: #1f2933;
+}
+
+.appointment-header > p {
+  margin: 0.35rem 0 0;
+  color: #52606d;
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+}
+
+.appointment-alert {
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.85rem;
+  background-color: rgba(220, 41, 30, 0.1);
+  color: #8a2017;
+  border: 1px solid rgba(220, 41, 30, 0.25);
+}
+
+.appointment-empty {
+  margin: 0;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.appointment-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
+}
+
+.appointment-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: #1f2933;
+}
+
+.appointment-card__info strong {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.appointment-card__info span {
+  color: #52606d;
+  font-size: 0.95rem;
+}
+
+.appointment-card__notes-text {
+  font-style: italic;
+}
+
+.appointment-card__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.appointment-card__edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.appointment-card__edit-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.appointment-card__edit-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: #344054;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.appointment-card__edit-grid input,
+.appointment-card__edit-grid textarea {
+  border-radius: 0.75rem;
+  border: 1px solid #d0d5dd;
+  background-color: #f9fafb;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.appointment-card__edit-grid input:focus,
+.appointment-card__edit-grid textarea:focus {
+  border-color: #dc291e;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 41, 30, 0.15);
+}
+
+.appointment-card__notes textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.appointment-card__error {
+  color: #dc291e;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+  .appointment-card__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
